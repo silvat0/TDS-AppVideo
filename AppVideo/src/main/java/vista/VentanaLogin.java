@@ -13,6 +13,8 @@ import javax.swing.JPasswordField;
 import java.awt.Insets;
 import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
@@ -56,6 +58,21 @@ public class VentanaLogin {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		try {
+			UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InstantiationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		frame.getContentPane().setForeground(UIManager.getColor("CheckBox.select"));
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
