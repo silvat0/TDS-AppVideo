@@ -1,4 +1,4 @@
-package modelo;
+package umu.tds.modelo;
 
 public class Usuario {
 	//Atributos
@@ -30,4 +30,6 @@ public class Usuario {
 	private void setPremium() {
 		premium = !premium;
 	}
+	
+	
 }
