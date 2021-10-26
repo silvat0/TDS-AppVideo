@@ -5,14 +5,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class Video {
-	private String url;
+	private String url;  
 	private String titulo;
 	private HashSet<Etiqueta> etiqs;
 	
 	private Video(String titulo) {
 		this.titulo = titulo;
 		this.etiqs = new HashSet<>();
-		
 	}
 	
 	//Gets
