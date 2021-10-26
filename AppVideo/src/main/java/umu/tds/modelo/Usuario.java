@@ -1,6 +1,9 @@
 package umu.tds.modelo;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 public class Usuario {
 	//Atributos
@@ -11,6 +14,7 @@ public class Usuario {
 	private String apellidos;
 	private String usuario;
 	private boolean premium;
+	private List<ListaVideo> listavideos;
 	
 	//Constructor
 	private Usuario(String nombre, String email, LocalDate fechaNac, String contraseña, String apellidos, String usuario) {
@@ -20,7 +24,9 @@ public class Usuario {
 		this.fechaNac = fechaNac;
 		this.contraseña = contraseña;
 		this.usuario = usuario;
+		
 		this.premium = false;
+		this.listavideos = new LinkedList<>();
 	}
 
 	//Getters
@@ -52,9 +58,16 @@ public class Usuario {
 		return usuario;
 	}
 
+	public List<ListaVideo> getListavideos() {
+		return Collections.unmodifiableList(listavideos);
+	}
+
 	//Metodos
+	//1º metodo --> Cambiar el valor de premium del usuario
 	public void setPremium() {
 		premium = !premium;
 	}
+	
+	//2º metodo --> Crear una lista de videos 
 
 }
