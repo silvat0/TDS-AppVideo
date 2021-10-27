@@ -69,5 +69,9 @@ public class Usuario {
 	}
 	
 	//2º metodo --> Crear una lista de videos 
-
+	public boolean crearLista(String nombre) {
+		
+		ListaVideo lv = new ListaVideo(nombre);
+		return listavideos.add(lv);
+	}
 }

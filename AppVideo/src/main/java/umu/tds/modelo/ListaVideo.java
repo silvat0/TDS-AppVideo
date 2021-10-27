@@ -10,7 +10,7 @@ public class ListaVideo {
 	private List<Video> videos;
 	
 	//Constructor
-	private ListaVideo(String nombre) {
+	public ListaVideo(String nombre) {
 		this.nombre = nombre;
 		
 		this.videos = new LinkedList<>();
