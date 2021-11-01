@@ -5,13 +5,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class CatalogoClientes {
+public class CatalogoUsuario {
 	
 	//Atributos 
 	private Map<String, Usuario> usuarios;
 	
 	//Construcctor
-	private CatalogoClientes() {
+	private CatalogoUsuario() {
 		this.usuarios = new HashMap<>();
 	}
 	
