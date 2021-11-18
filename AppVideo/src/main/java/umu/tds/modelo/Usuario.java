@@ -17,7 +17,7 @@ public class Usuario {
 	private List<ListaVideo> listavideos;
 	
 	//Constructor
-	private Usuario(String nombre, String email, LocalDate fechaNac, String contraseña, String apellidos, String usuario) {
+	public Usuario(String nombre, String email, LocalDate fechaNac, String contraseña, String apellidos, String usuario) {
 		this.nombre = nombre;
 		this.email = email;
 		this.apellidos = apellidos;
@@ -28,7 +28,7 @@ public class Usuario {
 		this.premium = false;
 		this.listavideos = new LinkedList<>();
 	}
-
+	
 	//Getters
 	public String getNombre() {
 		return nombre;

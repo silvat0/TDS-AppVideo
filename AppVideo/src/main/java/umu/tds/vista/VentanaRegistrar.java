@@ -22,6 +22,7 @@ import java.awt.Font;
 
 public class VentanaRegistrar {
 
+
 	private JFrame frame;
 	private JTextField textNombre;
 	private JTextField textApellidos;
