@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
@@ -12,6 +13,9 @@ import java.awt.GridBagConstraints;
 import javax.swing.JPasswordField;
 import java.awt.Insets;
 import javax.swing.border.TitledBorder;
+
+import umu.tds.controlador.ControladorAPP;
+
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -21,7 +25,10 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
-public class VentanaLogin {
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class VentanaLogin{
 
 	private JFrame frame;
 	private JTextField textField;
@@ -29,6 +36,7 @@ public class VentanaLogin {
 	private JLabel lblNewLabel;
 	private JButton btnNewButton;
 	private JButton btnNewButton_1;
+	private ControladorAPP controlador = ControladorAPP.getInstancia();
 
 	/**
 	 * Launch the application.
@@ -110,6 +118,24 @@ public class VentanaLogin {
 		panelCentro.add(passwordField, gbc_passwordField);
 		
 		btnNewButton_1 = new JButton("Iniciar sesión");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String user = textField.getText();
+				char[] pass = passwordField.getPassword();
+				
+				boolean isLogin = controlador.login(user, pass.toString());
+				
+				if (isLogin) 
+					;
+				else {
+					
+					Object[] opciones = {"Ok", "Registrarse"};
+					JOptionPane.showOptionDialog(frame, "Usuario o contraseña erroneos", "Error Login", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, opciones, opciones[0]);
+				}
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.gridwidth = 2;
 		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
@@ -125,11 +151,23 @@ public class VentanaLogin {
 		gbc_lblNewLabel.gridy = 3;
 		panelCentro.add(lblNewLabel, gbc_lblNewLabel);
 		
+		
 		btnNewButton = new JButton("Registrarse");
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 1;
 		gbc_btnNewButton.gridy = 3;
 		panelCentro.add(btnNewButton, gbc_btnNewButton);
+	}
+	
+	private void crearRegistro() {
+		VentanaRegistrar vR = new VentanaRegistrar();
+		
 	}
 
 }
