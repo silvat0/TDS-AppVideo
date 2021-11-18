@@ -7,6 +7,14 @@ import java.util.Map;
 
 public class CatalogoUsuario {
 	
+	public static CatalogoUsuario getInstancia() {
+		if (unicaInstancia == null) 
+			unicaInstancia = new CatalogoUsuario();
+		return unicaInstancia;
+	}
+	
+	private static CatalogoUsuario unicaInstancia = null;
+	
 	//Atributos 
 	private Map<String, Usuario> usuarios;
 	
