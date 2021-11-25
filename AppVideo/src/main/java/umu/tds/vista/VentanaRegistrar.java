@@ -23,7 +23,11 @@ import java.awt.Font;
 public class VentanaRegistrar {
 
 
-	private JFrame frame;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JFrame frame;
 	private JTextField textNombre;
 	private JTextField textApellidos;
 	private JTextField textEmail;
@@ -63,7 +67,7 @@ public class VentanaRegistrar {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Registro");
 		frame.setBackground(new Color(173, 216, 230));
 		frame.setBounds(100, 100, 811, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

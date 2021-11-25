@@ -12,12 +12,15 @@ import javax.swing.JTextField;
 import java.awt.GridBagConstraints;
 import javax.swing.JPasswordField;
 import java.awt.Insets;
+import java.awt.Window;
+
 import javax.swing.border.TitledBorder;
 
 import umu.tds.controlador.ControladorAPP;
 
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.WindowConstants;
 
 import java.awt.Color;
 import javax.swing.JButton;
@@ -28,8 +31,12 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class VentanaLogin{
+public class VentanaLogin {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -65,7 +72,7 @@ public class VentanaLogin{
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Login");
 		try {
 			UIManager.setLookAndFeel("com.formdev.flatlaf.FlatLightLaf");
 		} catch (ClassNotFoundException e) {
@@ -156,6 +163,7 @@ public class VentanaLogin{
 		btnNewButton.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
+				crearRegistro();
 				
 			}
 		});
@@ -166,7 +174,21 @@ public class VentanaLogin{
 	}
 	
 	private void crearRegistro() {
-		VentanaRegistrar vR = new VentanaRegistrar();
+		
+		this.frame.setVisible(false);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaRegistrar windo = new VentanaRegistrar();
+					windo.frame.setVisible(true);
+					windo.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});	
+		this.frame.setVisible(true);
 		
 	}
 
