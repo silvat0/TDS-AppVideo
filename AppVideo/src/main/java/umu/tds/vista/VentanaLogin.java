@@ -9,6 +9,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
 import java.awt.GridBagConstraints;
 import javax.swing.JPasswordField;
 import java.awt.Insets;
@@ -176,7 +178,7 @@ public class VentanaLogin {
 	private void crearRegistro() {
 		
 		this.frame.setVisible(false);
-		EventQueue.invokeLater(new Runnable() {
+		SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					VentanaRegistrar windo = new VentanaRegistrar();
