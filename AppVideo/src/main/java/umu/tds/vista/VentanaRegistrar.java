@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
+//import javax.swing.WindowConstants;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
@@ -19,6 +21,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaRegistrar {
 
@@ -26,7 +30,7 @@ public class VentanaRegistrar {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	//private static final long serialVersionUID = 1L;
 	JFrame frame;
 	private JTextField textNombre;
 	private JTextField textApellidos;
@@ -177,6 +181,10 @@ public class VentanaRegistrar {
 		panel.add(contraseña2, gbc_contraseña2);
 		
 		BotonRegistrar = new JButton("Resgistrar");
+		BotonRegistrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		GridBagConstraints gbc_BotonRegistrar = new GridBagConstraints();
 		gbc_BotonRegistrar.insets = new Insets(0, 0, 5, 5);
 		gbc_BotonRegistrar.anchor = GridBagConstraints.WEST;
@@ -185,6 +193,11 @@ public class VentanaRegistrar {
 		panel.add(BotonRegistrar, gbc_BotonRegistrar);
 		
 		BotonCancelar = new JButton("Cancelar");
+		BotonCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				minimizar();
+			}
+		});
 		GridBagConstraints gbc_BotonCancelar = new GridBagConstraints();
 		gbc_BotonCancelar.insets = new Insets(0, 0, 5, 0);
 		gbc_BotonCancelar.anchor = GridBagConstraints.EAST;
@@ -200,6 +213,10 @@ public class VentanaRegistrar {
 		gbc_camposObligatorios.gridx = 0;
 		gbc_camposObligatorios.gridy = 11;
 		panel.add(camposObligatorios, gbc_camposObligatorios);
+	}
+	
+	private void minimizar() {
+		this.frame.dispose();
 	}
 
 }
