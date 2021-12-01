@@ -44,8 +44,8 @@ public class VentanaLogin {
 	private JTextField textField;
 	private JPasswordField passwordField;
 	private JLabel lblNewLabel;
-	private JButton btnNewButton;
-	private JButton btnNewButton_1;
+	private JButton botonRegistrar;
+	private JButton botonIniciarSesion;
 	private ControladorAPP controlador = ControladorAPP.getInstancia();
 
 	/**
@@ -127,32 +127,20 @@ public class VentanaLogin {
 		gbc_passwordField.gridy = 1;
 		panelCentro.add(passwordField, gbc_passwordField);
 		
-		btnNewButton_1 = new JButton("Iniciar sesión");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		botonIniciarSesion = new JButton("Iniciar sesión");
+		botonIniciarSesion.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String user = textField.getText();
-				char[] pass = passwordField.getPassword();
-				
-				boolean isLogin = controlador.login(user, pass.toString());
-				
-				if (isLogin) 
-					;
-				else {
-					
-					Object[] opciones = {"Ok", "Registrarse"};
-					JOptionPane.showOptionDialog(frame, "Usuario o contraseña erroneos", "Error Login", JOptionPane.OK_OPTION, JOptionPane.ERROR_MESSAGE, null, opciones, opciones[0]);
-				}
-				
+				hacerLogin();
 			}
 		});
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.gridwidth = 2;
-		gbc_btnNewButton_1.fill = GridBagConstraints.BOTH;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 0;
-		gbc_btnNewButton_1.gridy = 2;
-		panelCentro.add(btnNewButton_1, gbc_btnNewButton_1);
+		GridBagConstraints gbc_botonIniciarSesion = new GridBagConstraints();
+		gbc_botonIniciarSesion.gridwidth = 2;
+		gbc_botonIniciarSesion.fill = GridBagConstraints.BOTH;
+		gbc_botonIniciarSesion.insets = new Insets(0, 0, 5, 5);
+		gbc_botonIniciarSesion.gridx = 0;
+		gbc_botonIniciarSesion.gridy = 2;
+		panelCentro.add(botonIniciarSesion, gbc_botonIniciarSesion);
 		
 		lblNewLabel = new JLabel("¿Aun no te has registrado?");
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
@@ -162,47 +150,53 @@ public class VentanaLogin {
 		panelCentro.add(lblNewLabel, gbc_lblNewLabel);
 		
 		
-		btnNewButton = new JButton("Registrarse");
-		btnNewButton.addActionListener(new ActionListener() {
+		botonRegistrar = new JButton("Registrarse");
+		botonRegistrar.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
 				crearRegistro();
 				
 			}
 		});
-		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.gridx = 1;
-		gbc_btnNewButton.gridy = 3;
-		panelCentro.add(btnNewButton, gbc_btnNewButton);
+		GridBagConstraints gbc_botonRegistrar = new GridBagConstraints();
+		gbc_botonRegistrar.gridx = 1;
+		gbc_botonRegistrar.gridy = 3;
+		panelCentro.add(botonRegistrar, gbc_botonRegistrar);
 	}
 	
 	private void crearRegistro() {
 		
+		VentanaRegistrar.main(null);
+	}
+	
+	private void hacerLogin() {
 		
-		//!Modificar esto
-		this.frame.setVisible(false);
+		String user = textField.getText();
+		char[] pass = passwordField.getPassword();
+		
+		boolean isLogin = controlador.login(user, pass.toString());
+		
+		if (isLogin)
+			//Iniciar ventana principal.
+			this.frame.dispose();
+			
+		Object[] opciones = {"Ok", "Registrarse"};
+		
+		//Mostramos 
+		int opt = JOptionPane.showOptionDialog(frame, 
+				"Usuario o contraseña erroneos", 
+				"Error Login", JOptionPane.OK_OPTION, 
+				JOptionPane.ERROR_MESSAGE, null, opciones, opciones[0]);
+		switch (opt) {
+		case 0:	//Presiona ok.
+			break;
+		case 1: //Presiona registrarse.
+			crearRegistro();
+			break;
 
-		try {
-			SwingUtilities.invokeAndWait(new Runnable() {
-				public void run() {
-					try {
-						VentanaRegistrar windo = new VentanaRegistrar();
-						windo.frame.setVisible(true);
-						windo.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-						
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
-		this.frame.setVisible(true);
+		default:
+			break;
+		}		
 	}
 
 }
