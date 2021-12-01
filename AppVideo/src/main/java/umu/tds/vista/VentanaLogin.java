@@ -31,6 +31,7 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.awt.event.ActionEvent;
 
 public class VentanaLogin {
@@ -177,21 +178,31 @@ public class VentanaLogin {
 	
 	private void crearRegistro() {
 		
-		this.frame.setVisible(false);
-		SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaRegistrar windo = new VentanaRegistrar();
-					windo.frame.setVisible(true);
-					windo.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});	
-		this.frame.setVisible(true);
 		
+		//!Modificar esto
+		this.frame.setVisible(false);
+
+		try {
+			SwingUtilities.invokeAndWait(new Runnable() {
+				public void run() {
+					try {
+						VentanaRegistrar windo = new VentanaRegistrar();
+						windo.frame.setVisible(true);
+						windo.frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+						
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}	
+		this.frame.setVisible(true);
 	}
 
 }
