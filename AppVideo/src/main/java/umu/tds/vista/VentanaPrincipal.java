@@ -13,7 +13,6 @@ import java.awt.Insets;
 import java.awt.Font;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JFormattedTextField;
-import com.jgoodies.forms.factories.DefaultComponentFactory;
 import javax.swing.JTextField;
 
 public class VentanaPrincipal {
@@ -54,7 +53,7 @@ public class VentanaPrincipal {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
-		gbl_panel.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel.columnWidths = new int[]{30, 0, 0, 0, 30};
 		gbl_panel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_panel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0};
 		panel.setLayout(gbl_panel);
@@ -79,7 +78,7 @@ public class VentanaPrincipal {
 		
 		JLabel nicknameValue = new JLabel("null");
 		GridBagConstraints gbc_nicknameValue = new GridBagConstraints();
-		gbc_nicknameValue.fill = GridBagConstraints.HORIZONTAL;
+		gbc_nicknameValue.anchor = GridBagConstraints.WEST;
 		gbc_nicknameValue.insets = new Insets(0, 0, 5, 5);
 		gbc_nicknameValue.gridx = 3;
 		gbc_nicknameValue.gridy = 3;
@@ -93,30 +92,30 @@ public class VentanaPrincipal {
 		gbc_lblNewLabel_3.gridy = 4;
 		panel.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		JFormattedTextField frmtdtxtfldXxxx = new JFormattedTextField();
+		JLabel frmtdtxtfldXxxx = new JLabel();
 		frmtdtxtfldXxxx.setText("xxxx");
 		GridBagConstraints gbc_frmtdtxtfldXxxx = new GridBagConstraints();
+		gbc_frmtdtxtfldXxxx.anchor = GridBagConstraints.WEST;
 		gbc_frmtdtxtfldXxxx.insets = new Insets(0, 0, 5, 5);
-		gbc_frmtdtxtfldXxxx.fill = GridBagConstraints.HORIZONTAL;
 		gbc_frmtdtxtfldXxxx.gridx = 3;
 		gbc_frmtdtxtfldXxxx.gridy = 4;
 		panel.add(frmtdtxtfldXxxx, gbc_frmtdtxtfldXxxx);
 		
-		JLabel lblNewLabel_2 = new JLabel("Fecha de nacimiento:");
+		JLabel lblNewLabel_4 = new JLabel("Fecha de nacimiento:");
+		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+		gbc_lblNewLabel_4.gridwidth = 2;
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_4.gridx = 1;
+		gbc_lblNewLabel_4.gridy = 5;
+		panel.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		
+		JLabel lblNewLabel_2 = new JLabel("xxxx");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
-		gbc_lblNewLabel_2.gridwidth = 2;
+		gbc_lblNewLabel_2.anchor = GridBagConstraints.WEST;
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 0, 5);
-		gbc_lblNewLabel_2.gridx = 1;
+		gbc_lblNewLabel_2.gridx = 3;
 		gbc_lblNewLabel_2.gridy = 5;
 		panel.add(lblNewLabel_2, gbc_lblNewLabel_2);
-		
-		JDateChooser dateChooser = new JDateChooser();
-		GridBagConstraints gbc_dateChooser = new GridBagConstraints();
-		gbc_dateChooser.insets = new Insets(0, 0, 0, 5);
-		gbc_dateChooser.fill = GridBagConstraints.BOTH;
-		gbc_dateChooser.gridx = 3;
-		gbc_dateChooser.gridy = 5;
-		panel.add(dateChooser, gbc_dateChooser);
 	}
 
 }
