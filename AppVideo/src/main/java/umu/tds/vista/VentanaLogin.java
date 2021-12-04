@@ -174,29 +174,41 @@ public class VentanaLogin {
 		String user = textField.getText();
 		char[] pass = passwordField.getPassword();
 		
-		boolean isLogin = controlador.login(user, pass.toString());
+		boolean isLogin = controlador.login(user, new String(pass));
 		
-		if (isLogin)
+		if (isLogin) {
 			//Iniciar ventana principal.
+			crearPrincipal();
 			this.frame.dispose();
+		}
+		else {
+			Object[] opciones = {"Ok", "Registrarse"};
 			
-		Object[] opciones = {"Ok", "Registrarse"};
-		
-		//Mostramos 
-		int opt = JOptionPane.showOptionDialog(frame, 
-				"Usuario o contraseña erroneos", 
-				"Error Login", JOptionPane.OK_OPTION, 
-				JOptionPane.ERROR_MESSAGE, null, opciones, opciones[0]);
-		switch (opt) {
-		case 0:	//Presiona ok.
-			break;
-		case 1: //Presiona registrarse.
-			crearRegistro();
-			break;
+			//Mostramos 
+			int opt = JOptionPane.showOptionDialog(frame, 
+					"Usuario o contraseña erroneos", 
+					"Error Login", JOptionPane.OK_OPTION, 
+					JOptionPane.ERROR_MESSAGE, null, opciones, opciones[0]);
+			switch (opt) {
+			case 0:	//Presiona ok.
+				break;
+			case 1: //Presiona registrarse.
+				crearRegistro();
+				break;
 
-		default:
-			break;
-		}		
+			default:
+				break;
+			}
+			
+		}
+			
+
+		
+
+	}
+	
+	private void crearPrincipal() {
+		VentanaPrincipal.main(null);
 	}
 
 }

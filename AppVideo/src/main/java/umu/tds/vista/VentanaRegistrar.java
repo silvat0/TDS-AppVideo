@@ -241,7 +241,7 @@ public class VentanaRegistrar {
 		String user = textUsuario.getText();
 		LocalDate fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
 		
-		Usuario u = controlador.registro(user, contraseña.toString(), email, fecha, nombre, apellidos);
+		Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
 		//Mostramos
 		if (u!=null) {
 			JOptionPane.showMessageDialog(frame, 
