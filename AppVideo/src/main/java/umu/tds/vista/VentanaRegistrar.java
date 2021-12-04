@@ -17,11 +17,21 @@ import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
 import com.toedter.calendar.JDateChooser;
+
+import umu.tds.controlador.ControladorAPP;
+import umu.tds.modelo.Usuario;
+
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class VentanaRegistrar {
@@ -39,10 +49,11 @@ public class VentanaRegistrar {
 	private JDateChooser fechaNac;
 	private JTextField textUsuario;
 	private JPasswordField Contraseña1;
-	private JPasswordField contraseña2;
+	private JPasswordField Contraseña2;
 	private JButton BotonRegistrar;
 	private JButton BotonCancelar;
 	private JLabel camposObligatorios;
+	private ControladorAPP controlador = ControladorAPP.getInstancia();
 
 	/**
 	 * Launch the application.
@@ -168,21 +179,22 @@ public class VentanaRegistrar {
 		gbc_Contraseña1.gridy = 6;
 		panel.add(Contraseña1, gbc_Contraseña1);
 		
-		contraseña2 = new JPasswordField();
-		contraseña2.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Repetir contrase\u00F1a*", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		contraseña2.setBackground(new Color(173, 216, 230));
-		contraseña2.setColumns(20);
-		GridBagConstraints gbc_contraseña2 = new GridBagConstraints();
-		gbc_contraseña2.gridwidth = 2;
-		gbc_contraseña2.insets = new Insets(0, 0, 5, 0);
-		gbc_contraseña2.anchor = GridBagConstraints.WEST;
-		gbc_contraseña2.gridx = 0;
-		gbc_contraseña2.gridy = 7;
-		panel.add(contraseña2, gbc_contraseña2);
+		Contraseña2 = new JPasswordField();
+		Contraseña2.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Repetir contrase\u00F1a*", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		Contraseña2.setBackground(new Color(173, 216, 230));
+		Contraseña2.setColumns(20);
+		GridBagConstraints gbc_Contraseña2 = new GridBagConstraints();
+		gbc_Contraseña2.gridwidth = 2;
+		gbc_Contraseña2.insets = new Insets(0, 0, 5, 0);
+		gbc_Contraseña2.anchor = GridBagConstraints.WEST;
+		gbc_Contraseña2.gridx = 0;
+		gbc_Contraseña2.gridy = 7;
+		panel.add(Contraseña2, gbc_Contraseña2);
 		
 		BotonRegistrar = new JButton("Resgistrar");
 		BotonRegistrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				hacerRegistro();
 			}
 		});
 		GridBagConstraints gbc_BotonRegistrar = new GridBagConstraints();
@@ -217,6 +229,34 @@ public class VentanaRegistrar {
 	
 	private void minimizar() {
 		this.frame.dispose();
+	}
+	
+	private void hacerRegistro() {
+		//Cogo los campos
+		String nombre = textNombre.getText();
+		String email = textEmail.getText();
+		char[] contraseña = Contraseña1.getPassword();
+		char[] repContraseña = Contraseña2.getPassword();
+		String apellidos = textApellidos.getText();
+		String user = textUsuario.getText();
+		LocalDate fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
+		
+		Usuario u = controlador.registro(user, contraseña.toString(), email, fecha, nombre, apellidos);
+		//Mostramos
+		if (u!=null) {
+			JOptionPane.showMessageDialog(frame, 
+					"Registro satisfactorio.\n Bienvenido "+u.getNombre(), 
+					"Informacion del registro.", 
+					JOptionPane.INFORMATION_MESSAGE, 
+					null);		
+		}
+		else {
+			JOptionPane.showMessageDialog(frame, 
+					"Registro erroneo", 
+					"Informacion del registro.", 
+					JOptionPane.ERROR_MESSAGE);	
+		}
+		
 	}
 
 }

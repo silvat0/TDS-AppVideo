@@ -49,8 +49,10 @@ public class CatalogoUsuario {
 	}
 	
 	//4º metodo --> añadir un cliente al catalogo
-	public void addUsuario(Usuario user) {
-		usuarios.put(user.getUsuario(), user);
+	public boolean addUsuario(Usuario user) {
+		if (usuarios.put(user.getUsuario(), user) == null)
+			return true;
+		return false;
 	}
 	
 	//5º metodo --> eliminar a un cliente del catalago
