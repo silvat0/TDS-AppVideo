@@ -240,14 +240,11 @@ public class VentanaRegistrar {
 		String apellidos = textApellidos.getText();
 		String user = textUsuario.getText();
 		LocalDate fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
+
+		String cont = new String(contraseña);
+		String repCont = new String(repContraseña);
 		
-		System.out.println(contraseña.toString() + repContraseña.toString());
-		
-		//TODO Aqui deberia de dar bien cuando pones la misma contraseña pero da registro erroneo.
-		//la codificacion al printearla no da lo mismo (? no se que esta pasadno
-		
-		
-		if (contraseña.toString().equals(repContraseña.toString())) {
+		if ((cont.equals(repCont)) && campos(nombre, fecha, user, repContraseña, contraseña)) {
 			Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
 			//Mostramos
 			if (u!=null) {
@@ -267,8 +264,12 @@ public class VentanaRegistrar {
 		}
 			
 		
-		
-		
+	}
+	
+	private boolean campos(String nombre, LocalDate fecha, String user, char[] repcontraseña, char[] contraseña) {
+		if (nombre!=null && fecha!=null && user!=null && contraseña!=null && repcontraseña!=null) 
+			return true;
+		return false;
 	}
 
 }
