@@ -241,14 +241,20 @@ public class VentanaRegistrar {
 		String user = textUsuario.getText();
 		LocalDate fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
 		
-		Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
-		//Mostramos
-		if (u!=null) {
-			JOptionPane.showMessageDialog(frame, 
-					"Registro satisfactorio.\n Bienvenido "+u.getNombre(), 
-					"Informacion del registro.", 
-					JOptionPane.INFORMATION_MESSAGE, 
-					null);		
+		System.out.println(contraseña.toString() + repContraseña.toString());
+		
+		
+		if (contraseña.toString().equals(repContraseña.toString())) {
+			Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
+			//Mostramos
+			if (u!=null) {
+				JOptionPane.showMessageDialog(frame, 
+						"Registro satisfactorio.\n Bienvenido "+u.getNombre(), 
+						"Informacion del registro.", 
+						JOptionPane.INFORMATION_MESSAGE, 
+						null);		
+			}
+			
 		}
 		else {
 			JOptionPane.showMessageDialog(frame, 
@@ -256,6 +262,9 @@ public class VentanaRegistrar {
 					"Informacion del registro.", 
 					JOptionPane.ERROR_MESSAGE);	
 		}
+			
+		
+		
 		
 	}
 
