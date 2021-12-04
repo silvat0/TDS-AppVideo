@@ -243,6 +243,9 @@ public class VentanaRegistrar {
 		
 		System.out.println(contraseña.toString() + repContraseña.toString());
 		
+		//TODO Aqui deberia de dar bien cuando pones la misma contraseña pero da registro erroneo.
+		//la codificacion al printearla no da lo mismo (? no se que esta pasadno
+		
 		
 		if (contraseña.toString().equals(repContraseña.toString())) {
 			Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
