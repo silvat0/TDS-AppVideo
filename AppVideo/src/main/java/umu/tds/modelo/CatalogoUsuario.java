@@ -59,4 +59,8 @@ public class CatalogoUsuario {
 	public void removeUsuario(Usuario user) {
 		usuarios.remove(user.getUsuario());
 	}
+	
+	public boolean existeUsuario(String user) {
+		return usuarios.containsKey(user);
+	}
 }

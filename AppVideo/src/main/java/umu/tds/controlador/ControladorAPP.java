@@ -1,7 +1,6 @@
 package umu.tds.controlador;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.stream.Stream;
 
 import umu.tds.modelo.CatalogoUsuario;
@@ -42,6 +41,11 @@ public class ControladorAPP {
 	}
 	
 	//Para el registro
+	public boolean existeUsuario(String user) {
+		
+		return cu.existeUsuario(user);
+	}
+	
 	public Usuario registro(String user, String pass, String email, LocalDate birth, String nombre, String ape){
 		
 		if (Stream.of(user,pass,birth,nombre).allMatch(x -> x==null || x.equals(""))) 
