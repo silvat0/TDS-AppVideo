@@ -244,7 +244,7 @@ public class VentanaRegistrar {
 		String cont = new String(contraseña);
 		String repCont = new String(repContraseña);
 		
-		if ((cont.equals(repCont)) && campos(nombre, fecha, user, repContraseña, contraseña)) {
+		if ((cont.equals(repCont)) && campos(nombre, user, cont, repCont)) {
 			Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
 			//Mostramos
 			if (u!=null) {
@@ -256,20 +256,20 @@ public class VentanaRegistrar {
 			}
 			
 		}
-		else {
-			JOptionPane.showMessageDialog(frame, 
-					"Registro erroneo", 
-					"Informacion del registro.", 
-					JOptionPane.ERROR_MESSAGE);	
-		}
+			else {
+				JOptionPane.showMessageDialog(frame, 
+						"Registro erroneo", 
+						"Informacion del registro.", 
+						JOptionPane.ERROR_MESSAGE);	
+			}
+				
 			
+		}
 		
-	}
+		private boolean campos(String nombre, String user, String repcontraseña, String contraseña) {
+			if (nombre!="" && user!="" && repcontraseña!="" && contraseña!="") 
+				return true;
+			return false;
+		}
 	
-	private boolean campos(String nombre, LocalDate fecha, String user, char[] repcontraseña, char[] contraseña) {
-		if (nombre!=null && fecha!=null && user!=null && contraseña!=null && repcontraseña!=null) 
-			return true;
-		return false;
 	}
-
-}
