@@ -20,10 +20,14 @@ import javax.swing.border.BevelBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
+import javax.swing.border.TitledBorder;
+import javax.swing.border.EtchedBorder;
+import java.awt.Color;
 
 public class VentanaPrincipal {
 
 	private JFrame frame;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -110,10 +114,10 @@ public class VentanaPrincipal {
 		JPanel panel_centro = new JPanel();
 		frame.getContentPane().add(panel_centro, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_centro = new GridBagLayout();
-		gbl_panel_centro.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_centro.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
-		gbl_panel_centro.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_centro.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_centro.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_centro.rowHeights = new int[]{1, 0, 0, 0, 0, 0, 0, 0};
+		gbl_panel_centro.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_centro.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel_centro.setLayout(gbl_panel_centro);
 		
 		JButton btnNewButton_4 = new JButton("Explorar");
@@ -124,39 +128,64 @@ public class VentanaPrincipal {
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
 		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_4.gridx = 1;
-		gbc_btnNewButton_4.gridy = 3;
+		gbc_btnNewButton_4.gridy = 1;
 		panel_centro.add(btnNewButton_4, gbc_btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Mis listas");
 		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_5.gridx = 2;
-		gbc_btnNewButton_5.gridy = 3;
+		gbc_btnNewButton_5.gridy = 1;
 		panel_centro.add(btnNewButton_5, gbc_btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Recientes");
 		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
 		gbc_btnNewButton_6.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_6.gridx = 3;
-		gbc_btnNewButton_6.gridy = 3;
+		gbc_btnNewButton_6.gridy = 1;
 		panel_centro.add(btnNewButton_6, gbc_btnNewButton_6);
 		
 		JButton btnNewButton_7 = new JButton("Nueva lista");
 		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
 		gbc_btnNewButton_7.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_7.gridx = 4;
-		gbc_btnNewButton_7.gridy = 3;
+		gbc_btnNewButton_7.gridy = 1;
 		panel_centro.add(btnNewButton_7, gbc_btnNewButton_7);
 		
+		JPanel panel_card = new JPanel();
+		GridBagConstraints gbc_panel_card = new GridBagConstraints();
+		gbc_panel_card.gridheight = 4;
+		gbc_panel_card.gridwidth = 17;
+		gbc_panel_card.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_card.fill = GridBagConstraints.BOTH;
+		gbc_panel_card.gridx = 1;
+		gbc_panel_card.gridy = 2;
+		panel_centro.add(panel_card, gbc_panel_card);
+		panel_card.setLayout(new CardLayout(0, 0));
+		
+		JPanel panel_Explorar = new JPanel();
+		panel_card.add(panel_Explorar, "name_189746144326300");
+		
 		JPanel panel_1 = new JPanel();
-		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
-		gbc_panel_1.insets = new Insets(0, 0, 5, 0);
-		gbc_panel_1.gridwidth = 10;
-		gbc_panel_1.fill = GridBagConstraints.BOTH;
-		gbc_panel_1.gridx = 1;
-		gbc_panel_1.gridy = 4;
-		panel_centro.add(panel_1, gbc_panel_1);
-		panel_1.setLayout(new CardLayout(0, 0));
+		panel_Explorar.add(panel_1);
+		
+		textField = new JTextField();
+		textField.setOpaque(false);
+		textField.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Buscar:", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_1.add(textField);
+		textField.setColumns(50);
+		
+		JButton btnNewButton_8 = new JButton("Buscar");
+		panel_1.add(btnNewButton_8);
+		
+		JPanel panel_Listas = new JPanel();
+		panel_card.add(panel_Listas, "name_189750465124100");
+		
+		JPanel panel_Recientes = new JPanel();
+		panel_card.add(panel_Recientes, "name_189752391118400");
+		
+		JPanel panel_NewLista = new JPanel();
+		panel_card.add(panel_NewLista, "name_189754081105800");
 	}
 
 }
