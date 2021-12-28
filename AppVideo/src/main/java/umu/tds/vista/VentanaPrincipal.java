@@ -186,6 +186,9 @@ public class VentanaPrincipal {
 		
 		JPanel panel_NewLista = new JPanel();
 		panel_card.add(panel_NewLista, "name_189754081105800");
+		
+		JButton btnNewButton_9 = new JButton("New button");
+		panel_card.add(btnNewButton_9, "name_192537121817400");
 	}
 
 }
