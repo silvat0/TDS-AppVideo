@@ -239,37 +239,61 @@ public class VentanaRegistrar {
 		char[] repContraseña = Contraseña2.getPassword();
 		String apellidos = textApellidos.getText();
 		String user = textUsuario.getText();
-		LocalDate fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
+		String errores = new String("");
+		LocalDate fecha = null;
+		if (fechaNac.getCalendar()!= null) {
+			fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
+			if (fecha.isAfter(LocalDate.now())) {
+				errores = errores + "fecha de nacimiento";
+			}
+				
+		}
+			
 
 		String cont = new String(contraseña);
 		String repCont = new String(repContraseña);
 		
-		if ((cont.equals(repCont)) && campos(nombre, user, cont, repCont)) {
+		
+		
+		if (nombre.equals("")) {
+			errores = errores + "nombre";
+		}
+			
+		if (user.equals("")) {
+			errores = errores + "usuario";
+		}
+			errores = errores + "usuario";
+		
+		if (cont.equals("")) {
+			errores = errores + "contraseña";
+		}
+			
+		
+		if (repCont.equals("")) {
+			errores = errores + "repeticion de contraseña";
+		}
+			
+
+		if (!errores.equals("")) {
+
+			JOptionPane.showMessageDialog(frame, 
+					errores, 
+					"Informacion del registro.", 
+					JOptionPane.ERROR_MESSAGE);	
+		}
+		else {
 			Usuario u = controlador.registro(user, new String(contraseña), email, fecha, nombre, apellidos);
 			//Mostramos
-			if (u!=null) {
 				JOptionPane.showMessageDialog(frame, 
 						"Registro satisfactorio.\n Bienvenido "+u.getNombre(), 
 						"Informacion del registro.", 
 						JOptionPane.INFORMATION_MESSAGE, 
-						null);		
-			}
-			
-		}
-			else {
-				JOptionPane.showMessageDialog(frame, 
-						"Registro erroneo", 
-						"Informacion del registro.", 
-						JOptionPane.ERROR_MESSAGE);	
-			}
+						null);	
 				
-			
 		}
 		
-		private boolean campos(String nombre, String user, String repcontraseña, String contraseña) {
-			if (nombre!="" && user!="" && repcontraseña!="" && contraseña!="") 
-				return true;
-			return false;
-		}
-	
+		System.out.println(errores);
+			
 	}
+	
+}
