@@ -39,11 +39,13 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JEditorPane;
+import javax.swing.JTable;
 
 public class VentanaPrueba {
 
 	private JFrame frame;
 	private JTextField buscador;
+	private JTable table;
 
 
 	/**
@@ -186,27 +188,41 @@ public class VentanaPrueba {
 		JPanel panel_explorar = new JPanel();
 		panel_Card.add(panel_explorar, "panelExplorar");
 		GridBagLayout gbl_panel_explorar = new GridBagLayout();
-		gbl_panel_explorar.columnWidths = new int[]{-556, 0, 0};
-		gbl_panel_explorar.rowHeights = new int[]{0, 0};
-		gbl_panel_explorar.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_explorar.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_explorar.columnWidths = new int[]{-556, 0, 10, 0};
+		gbl_panel_explorar.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panel_explorar.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_explorar.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel_explorar.setLayout(gbl_panel_explorar);
 		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 1;
+		panel_explorar.add(scrollPane_1, gbc_scrollPane_1);
+		
+		table = new JTable();
+		scrollPane_1.setViewportView(table);
+		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setPreferredSize(new Dimension(0, 0));
+		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.anchor = GridBagConstraints.EAST;
-		gbc_scrollPane.fill = GridBagConstraints.VERTICAL;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane.gridx = 1;
-		gbc_scrollPane.gridy = 0;
+		gbc_scrollPane.gridy = 1;
 		panel_explorar.add(scrollPane, gbc_scrollPane);
 		
 		JList list = new JList();
+		list.setMinimumSize(new Dimension(20, 20));
 		list.setValueIsAdjusting(true);
 		scrollPane.setViewportView(list);
 		list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		list.setPreferredSize(new Dimension(100, 100));
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Etiquetas:", "Infantil", "Miedo", "Amor", "sdfadf", "ad", "fa", "fa", "f", "af", "a", "fa", "f", "asf", "asc", "a", "f", "asf", "asf", "as", "f"};
+			String[] values = new String[] {"Etiquetas:", "Infantil", "Miedo", "Amor"};
 			public int getSize() {
 				return values.length;
 			}
