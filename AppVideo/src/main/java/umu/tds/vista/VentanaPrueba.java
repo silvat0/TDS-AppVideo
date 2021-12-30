@@ -23,11 +23,28 @@ import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import javax.swing.JToggleButton;
+import javax.swing.JCheckBox;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import java.awt.Component;
+import javax.swing.JScrollPane;
+import java.awt.Dimension;
+import javax.swing.ScrollPaneConstants;
+import java.awt.Point;
+import java.awt.Cursor;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.MatteBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.JEditorPane;
 
 public class VentanaPrueba {
 
 	private JFrame frame;
-	private JTextField textField;
+	private JTextField buscador;
+
 
 	/**
 	 * Launch the application.
@@ -56,15 +73,16 @@ public class VentanaPrueba {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 657, 474);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
 			UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme");
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		frame = new JFrame();
+		frame.setBounds(100, 100, 657, 474);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		
 		JPanel panel_1 = new JPanel();
 		frame.getContentPane().add(panel_1, BorderLayout.CENTER);
@@ -84,40 +102,35 @@ public class VentanaPrueba {
 		gbc_panel_4.gridy = 1;
 		panel_1.add(panel_4, gbc_panel_4);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{60, 0, 0, 0, 60, 0};
+		gbl_panel_4.columnWidths = new int[]{60, 0, 0, 60, 0};
 		gbl_panel_4.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
-		textField = new JTextField();
-		GridBagConstraints gbc_textField = new GridBagConstraints();
-		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField.insets = new Insets(0, 0, 5, 5);
-		gbc_textField.gridx = 1;
-		gbc_textField.gridy = 0;
-		panel_4.add(textField, gbc_textField);
-		textField.setColumns(10);
-		
-		JButton btnNewButton_8 = new JButton("New button");
-		btnNewButton_8.addActionListener(new ActionListener() {
+		JButton btnLupa = new JButton("");
+		btnLupa.setIcon(new ImageIcon(VentanaPrueba.class.getResource("/umu/tds/res/lupa (1).png")));
+		btnLupa.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
-		JComboBox comboBox = new JComboBox();
-		GridBagConstraints gbc_comboBox = new GridBagConstraints();
-		gbc_comboBox.anchor = GridBagConstraints.WEST;
-		gbc_comboBox.insets = new Insets(0, 0, 5, 5);
-		gbc_comboBox.gridx = 2;
-		gbc_comboBox.gridy = 0;
-		panel_4.add(comboBox, gbc_comboBox);
-		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
-		gbc_btnNewButton_8.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_8.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_8.gridx = 3;
-		gbc_btnNewButton_8.gridy = 0;
-		panel_4.add(btnNewButton_8, gbc_btnNewButton_8);
+		buscador = new JTextField();
+		GridBagConstraints gbc_buscador = new GridBagConstraints();
+		gbc_buscador.insets = new Insets(0, 0, 5, 5);
+		gbc_buscador.fill = GridBagConstraints.HORIZONTAL;
+		gbc_buscador.gridx = 1;
+		gbc_buscador.gridy = 0;
+		panel_4.add(buscador, gbc_buscador);
+		buscador.setColumns(10);
+		
+	
+		GridBagConstraints gbc_btnLupa = new GridBagConstraints();
+		gbc_btnLupa.fill = GridBagConstraints.HORIZONTAL;
+		gbc_btnLupa.insets = new Insets(0, 0, 5, 5);
+		gbc_btnLupa.gridx = 2;
+		gbc_btnLupa.gridy = 0;
+		panel_4.add(btnLupa, gbc_btnLupa);
 		
 		JPanel panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
@@ -161,29 +174,67 @@ public class VentanaPrueba {
 		gbc_btnNewButton_7.gridy = 0;
 		panel_3.add(btnNewButton_7, gbc_btnNewButton_7);
 		
-		JPanel panel_5 = new JPanel();
-		GridBagConstraints gbc_panel_5 = new GridBagConstraints();
-		gbc_panel_5.insets = new Insets(0, 0, 5, 5);
-		gbc_panel_5.fill = GridBagConstraints.BOTH;
-		gbc_panel_5.gridx = 1;
-		gbc_panel_5.gridy = 4;
-		panel_1.add(panel_5, gbc_panel_5);
-		panel_5.setLayout(new CardLayout(0, 0));
+		JPanel panel_Card = new JPanel();
+		GridBagConstraints gbc_panel_Card = new GridBagConstraints();
+		gbc_panel_Card.insets = new Insets(0, 0, 5, 5);
+		gbc_panel_Card.fill = GridBagConstraints.BOTH;
+		gbc_panel_Card.gridx = 1;
+		gbc_panel_Card.gridy = 4;
+		panel_1.add(panel_Card, gbc_panel_Card);
+		panel_Card.setLayout(new CardLayout(0, 0));
 		
-		JLayeredPane layerExplorar = new JLayeredPane();
-		panel_5.add(layerExplorar, "name_3972460051100");
+		JPanel panel_explorar = new JPanel();
+		panel_Card.add(panel_explorar, "panelExplorar");
+		GridBagLayout gbl_panel_explorar = new GridBagLayout();
+		gbl_panel_explorar.columnWidths = new int[]{-556, 0, 0};
+		gbl_panel_explorar.rowHeights = new int[]{0, 0};
+		gbl_panel_explorar.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_explorar.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		panel_explorar.setLayout(gbl_panel_explorar);
 		
-		JLayeredPane layerMisListas = new JLayeredPane();
-		panel_5.add(layerMisListas, "name_3978642883400");
+		JScrollPane scrollPane = new JScrollPane();
+		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
+		gbc_scrollPane.anchor = GridBagConstraints.EAST;
+		gbc_scrollPane.fill = GridBagConstraints.VERTICAL;
+		gbc_scrollPane.gridx = 1;
+		gbc_scrollPane.gridy = 0;
+		panel_explorar.add(scrollPane, gbc_scrollPane);
 		
-		JLayeredPane layerNuevaLista = new JLayeredPane();
-		panel_5.add(layerNuevaLista, "name_3982275151600");
+		JList list = new JList();
+		list.setValueIsAdjusting(true);
+		scrollPane.setViewportView(list);
+		list.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		list.setPreferredSize(new Dimension(100, 100));
+		list.setModel(new AbstractListModel() {
+			String[] values = new String[] {"Etiquetas:", "Infantil", "Miedo", "Amor", "sdfadf", "ad", "fa", "fa", "f", "af", "a", "fa", "f", "asf", "asc", "a", "f", "asf", "asf", "as", "f"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
 		
-		JLayeredPane layerRecientes = new JLayeredPane();
-		panel_5.add(layerRecientes, "name_4004733500900");
+		buscador.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				CardLayout cl = (CardLayout) (panel_Card.getLayout());
+				cl.show(panel_Card, "panelExplorar");
+			}
+		});
+	
+		JPanel panel_misListas = new JPanel();
+		panel_Card.add(panel_misListas, "panelMyLists");
 		
-		JLayeredPane layerMasVistos = new JLayeredPane();
-		panel_5.add(layerMasVistos, "name_5422929274000");
+		JPanel panel_nuevaLista = new JPanel();
+		panel_Card.add(panel_nuevaLista, "panelnewList");
+		
+		JPanel panel_recientes = new JPanel();
+		panel_Card.add(panel_recientes, "panelRecents");
+		
+		JPanel panel_masVistos = new JPanel();
+		panel_Card.add(panel_masVistos, "panelViews");
+		
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
@@ -251,5 +302,4 @@ public class VentanaPrueba {
 		gbc_btnNewButton_1.gridy = 0;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 	}
-
 }
