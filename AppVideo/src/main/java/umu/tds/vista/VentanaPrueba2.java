@@ -32,6 +32,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
 import java.awt.Component;
@@ -48,6 +49,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
 
 import java.awt.SystemColor;
@@ -64,10 +66,12 @@ public class VentanaPrueba2 {
 	private JTable table;
 
 
+
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -305,9 +309,9 @@ public class VentanaPrueba2 {
 		gbc_panel_2.gridy = 2;
 		panel.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 10, 0, 10, 0, 20, 0, 5, 0};
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 20, 0, 5, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -329,6 +333,8 @@ public class VentanaPrueba2 {
 		gbc_lblNewLabel.gridy = 0;
 		panel_2.add(lblNewLabel, gbc_lblNewLabel);
 		
+		//table.setValueAt(videoWeb.getSmallThumb("https://www.youtube.com/watch?v=OSRGIuWk3cA"), 0, 0);
+		
 		JLabel lblNewLabel_1 = new JLabel("Bienvenido:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
 		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
@@ -348,29 +354,36 @@ public class VentanaPrueba2 {
 		panel_2.add(usernameLBL, gbc_usernameLBL);
 		usernameLBL.setText(ControladorAPP.getInstancia().getUsuario().getNombre());
 		
-		
-		JButton btnNewButton_5 = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
-		gbc_btnNewButton_5.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_5.gridx = 5;
-		gbc_btnNewButton_5.gridy = 0;
-		panel_2.add(btnNewButton_5, gbc_btnNewButton_5);
-		
-		JButton btnNewButton_4 = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
-		gbc_btnNewButton_4.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_4.gridx = 7;
-		gbc_btnNewButton_4.gridy = 0;
-		panel_2.add(btnNewButton_4, gbc_btnNewButton_4);
-		
-		JButton btnNewButton_2 = new JButton("New button");
+		JButton btnNewButton_2 = new JButton("Logout");
+		btnNewButton_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int res = JOptionPane.showConfirmDialog(frame, 
+														"¿Estas seguro de que quieres cerrar sesion?", 
+														"Logout",
+														JOptionPane.YES_NO_OPTION); 
+				if(res == JOptionPane.YES_OPTION) {
+					VentanaLogin.main(null);
+					frame.dispose();
+				}
+						
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_2.gridx = 9;
+		gbc_btnNewButton_2.gridx = 5;
 		gbc_btnNewButton_2.gridy = 0;
 		panel_2.add(btnNewButton_2, gbc_btnNewButton_2);
 		
-		JButton btnNewButton_1 = new JButton("New button");
+		JButton btnNewButton_1 = new JButton("Premium");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+			}
+		});
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
@@ -378,7 +391,7 @@ public class VentanaPrueba2 {
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_1.gridx = 11;
+		gbc_btnNewButton_1.gridx = 7;
 		gbc_btnNewButton_1.gridy = 0;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 	}

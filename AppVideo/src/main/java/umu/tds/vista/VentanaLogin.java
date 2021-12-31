@@ -22,6 +22,7 @@ import javax.swing.border.TitledBorder;
 
 import org.apache.commons.io.IOUtils;
 
+import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
 
 import javax.swing.UIManager;
@@ -51,6 +52,7 @@ public class VentanaLogin {
 	/**
 	 * 
 	 */
+	public static VideoWeb videoWeb;
 	private static final long serialVersionUID = 1L;
 	private JFrame frame;
 	private JTextField textField;
@@ -68,6 +70,7 @@ public class VentanaLogin {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					videoWeb = new VideoWeb();
 					VentanaLogin window = new VentanaLogin();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
