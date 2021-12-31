@@ -1,8 +1,13 @@
 package umu.tds.dao;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 
@@ -28,6 +33,7 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 	private static final String USERNAME = "username";
 	private static final String PASSWORD = "password";
 	private static final String FECHA_NACIMIENTO = "fechaNacimiento";
+	private static final String IS_PREMIUM = "premium";
 
 	private ServicioPersistencia servPersistencia;
 	private SimpleDateFormat dateFormat;
@@ -45,9 +51,19 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 		String login = servPersistencia.recuperarPropiedadEntidad(eUsuario, USERNAME);
 		String password = servPersistencia.recuperarPropiedadEntidad(eUsuario, PASSWORD);
 		String fechaNacimiento = servPersistencia.recuperarPropiedadEntidad(eUsuario, FECHA_NACIMIENTO);
+		String premium = servPersistencia.recuperarPropiedadEntidad(eUsuario, IS_PREMIUM);
+		
+		//Parseamos la fecha: excep -> epoch
+		Date d;
+		try {
+			d = dateFormat.parse(fechaNacimiento);
+		} catch (ParseException e) {
+			d = Date.from(Instant.EPOCH);
+		}
 
-		Usuario usuario = new Usuario(nombre, apellidos, email, login, password, fechaNacimiento);
+		Usuario usuario = new Usuario(nombre, email, d, password, apellidos, login);
 		usuario.setId(eUsuario.getId());
+		usuario.setPremium(Boolean.parseBoolean(premium));
 
 		return usuario;
 	}
@@ -56,10 +72,14 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 		Entidad eUsuario = new Entidad();
 		eUsuario.setNombre(USUARIO);
 
-		eUsuario.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(new Propiedad(NOMBRE, usuario.getNombre()),
+		eUsuario.setPropiedades(new ArrayList<Propiedad>
+		(Arrays.asList(new Propiedad(NOMBRE, usuario.getNombre()),
 				new Propiedad(APELLIDOS, usuario.getApellidos()), new Propiedad(EMAIL, usuario.getEmail()),
 				new Propiedad(USERNAME, usuario.getUsername()), new Propiedad(PASSWORD, usuario.getContraseña()),
-				new Propiedad(FECHA_NACIMIENTO, usuario.getFechaNac()))));
+				new Propiedad(FECHA_NACIMIENTO, dateFormat.format(usuario.getFechaNac())),
+				new Propiedad(IS_PREMIUM, usuario.isPremium()+"")
+						
+						)));
 		return eUsuario;
 	}
 
@@ -96,6 +116,9 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 			} else if (prop.getNombre().equals(FECHA_NACIMIENTO)) {
 				prop.setValor(dateFormat.format(usuario.getFechaNac()));
 			}
+			else if (prop.getNombre().equals(IS_PREMIUM)) {
+				prop.setValor(usuario.isPremium()+"");
+			}
 			servPersistencia.modificarPropiedad(prop);
 		}
 	}
@@ -110,7 +133,8 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 		List<Entidad> entidades = servPersistencia.recuperarEntidades(USUARIO);
 
 		return entidades.stream()
-								.map(e -> get(e.getId())).collect(toList());
+						.map(e -> get(e.getId()))
+						.collect(toList());
 	}
 
 }

@@ -1,8 +1,11 @@
 package umu.tds.controlador;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.stream.Stream;
 
+import umu.tds.dao.FactoriaDAO;
+import umu.tds.dao.UsuarioDAO;
 import umu.tds.modelo.CatalogoUsuario;
 import umu.tds.modelo.Usuario;
 
@@ -13,10 +16,17 @@ public class ControladorAPP {
 	
 	//Atributos
 	private CatalogoUsuario cu;
+	private FactoriaDAO factoria;
 	
 	//Constructor
 	private ControladorAPP() {
 		cu = CatalogoUsuario.getInstancia();
+		try {
+			factoria = FactoriaDAO.getInstancia();
+		} catch (ReflectiveOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -46,19 +56,23 @@ public class ControladorAPP {
 		return cu.existeUsuario(user);
 	}
 	
-	public Usuario registro(String user, String pass, String email, LocalDate birth, String nombre, String ape){
+	public Usuario registro(String user, String pass, String email, Date birth, String nombre, String ape){
 		
-		if (Stream.of(user,pass,birth,nombre).allMatch(x -> x==null || x.equals(""))) 
+		//Obligatorios.
+		if (Stream.of(user,pass,nombre,birth).allMatch(x -> x==null)) 
 		{
 			return null;
 		}
 		
-		LocalDate ld = LocalDate.now();
-		Usuario u = new Usuario(nombre, email, ld, pass, ape, user);
+		Usuario u = new Usuario(nombre, email, birth, pass, ape, user);
 	    if (!cu.addUsuario(u))
 			return null;
+	    UsuarioDAO uD;
+	    uD = factoria.getUsuarioDAO();
+		uD.create(u);
 		return u;
 	}
+	
 	
 	
 }
