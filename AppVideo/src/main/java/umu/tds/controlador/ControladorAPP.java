@@ -16,6 +16,7 @@ public class ControladorAPP {
 	
 	//Atributos
 	private CatalogoUsuario cu;
+	private Usuario user;
 	private FactoriaDAO factoria;
 	
 	//Constructor
@@ -47,6 +48,7 @@ public class ControladorAPP {
 		
 		if (!u.getContraseña().equals(password)) return false;
 		
+		this.user=u;
 		return true;
 	}
 	
@@ -73,6 +75,10 @@ public class ControladorAPP {
 		return u;
 	}
 	
+	public Usuario getUsuario() {
+		
+		return user;
+	}
 	
 	
 }

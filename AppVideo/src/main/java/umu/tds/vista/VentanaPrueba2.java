@@ -47,11 +47,15 @@ import javax.swing.border.LineBorder;
 import javax.swing.JEditorPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+
+import umu.tds.controlador.ControladorAPP;
+
 import java.awt.SystemColor;
 import javax.swing.JPopupMenu;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
+import java.awt.Font;
 
 public class VentanaPrueba2 {
 
@@ -94,7 +98,7 @@ public class VentanaPrueba2 {
 			e1.printStackTrace();
 		}
 		frame = new JFrame();
-		frame.setBounds(100, 100, 727, 571);
+		frame.setBounds(100, 100, 968, 571);
 		ImageIcon img = new ImageIcon(VentanaLogin.class.getResource("/umu/tds/res/logoicon.png"));
 		frame.setIconImage(img.getImage());
 		frame.setTitle("AppVideo");
@@ -301,9 +305,9 @@ public class VentanaPrueba2 {
 		gbc_panel_2.gridy = 2;
 		panel.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 10, 0, 10, 0, 20, 0, 5, 0};
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 10, 0, 10, 0, 20, 0, 5, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -320,28 +324,49 @@ public class VentanaPrueba2 {
         ImageIcon imageIcon = new ImageIcon(dimg);
 		lblNewLabel.setIcon(imageIcon);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
+		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_2.add(lblNewLabel, gbc_lblNewLabel);
 		
+		JLabel lblNewLabel_1 = new JLabel("Bienvenido:");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_lblNewLabel_1 = new GridBagConstraints();
+		gbc_lblNewLabel_1.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_1.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_1.gridx = 2;
+		gbc_lblNewLabel_1.gridy = 0;
+		panel_2.add(lblNewLabel_1, gbc_lblNewLabel_1);
+		
+		JLabel usernameLBL = new JLabel("user");
+		usernameLBL.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_usernameLBL = new GridBagConstraints();
+		gbc_usernameLBL.anchor = GridBagConstraints.WEST;
+		gbc_usernameLBL.insets = new Insets(0, 0, 0, 5);
+		gbc_usernameLBL.gridx = 3;
+		gbc_usernameLBL.gridy = 0;
+		panel_2.add(usernameLBL, gbc_usernameLBL);
+		usernameLBL.setText(ControladorAPP.getInstancia().getUsuario().getNombre());
+		
+		
 		JButton btnNewButton_5 = new JButton("New button");
 		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 		gbc_btnNewButton_5.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_5.gridx = 2;
+		gbc_btnNewButton_5.gridx = 5;
 		gbc_btnNewButton_5.gridy = 0;
 		panel_2.add(btnNewButton_5, gbc_btnNewButton_5);
 		
 		JButton btnNewButton_4 = new JButton("New button");
 		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
 		gbc_btnNewButton_4.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_4.gridx = 4;
+		gbc_btnNewButton_4.gridx = 7;
 		gbc_btnNewButton_4.gridy = 0;
 		panel_2.add(btnNewButton_4, gbc_btnNewButton_4);
 		
 		JButton btnNewButton_2 = new JButton("New button");
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_2.gridx = 6;
+		gbc_btnNewButton_2.gridx = 9;
 		gbc_btnNewButton_2.gridy = 0;
 		panel_2.add(btnNewButton_2, gbc_btnNewButton_2);
 		
@@ -353,7 +378,7 @@ public class VentanaPrueba2 {
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_1.gridx = 8;
+		gbc_btnNewButton_1.gridx = 11;
 		gbc_btnNewButton_1.gridy = 0;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 	}
