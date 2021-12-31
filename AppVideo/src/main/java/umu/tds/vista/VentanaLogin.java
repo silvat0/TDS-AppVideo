@@ -232,7 +232,7 @@ public class VentanaLogin {
 	}
 	
 	private void crearPrincipal() {
-		VentanaPrincipal.main(null);
+		VentanaPrueba2.main(null);
 	}
 
 }
