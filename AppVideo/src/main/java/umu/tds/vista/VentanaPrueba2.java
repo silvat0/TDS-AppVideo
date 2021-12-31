@@ -35,6 +35,8 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractListModel;
+import javax.swing.Icon;
+
 import java.awt.Component;
 import javax.swing.JScrollPane;
 import java.awt.Dimension;
@@ -64,6 +66,7 @@ public class VentanaPrueba2 {
 	private JFrame frame;
 	private JTextField buscador;
 	private JTable table;
+	public static VideoWeb videoWeb;
 
 
 
@@ -75,6 +78,7 @@ public class VentanaPrueba2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					videoWeb = new VideoWeb();
 					VentanaPrueba2 window = new VentanaPrueba2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -250,22 +254,37 @@ public class VentanaPrueba2 {
 		gbc_scrollPane_1.gridy = 1;
 		panel_explorar.add(scrollPane_1, gbc_scrollPane_1);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-				{"e", null, null, null, null, null},
-				{null, "e", null, null, null, null},
-				{null, null, "e", null, null, null},
-				{null, null, "e", null, null, null},
-				{null, null, null, "e", null, null},
-				{null, null, null, "e", "e", null},
-				{null, null, null, null, null, "e"},
-				{null, null, null, null, null, null},
-			},
-			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column"
+		
+		
+	    String[] columns = {"", "", "", ""};
+	    //data for JTable in a 2D table
+	    ImageIcon thum = videoWeb.getThumb("https://www.youtube.com/watch?v=0243Z0YXPpY");
+	    Object[][] data = {
+	      {thum, thum, thum,thum},
+	      {2, "Jean", "Arizona", new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")) },
+	      {4, "Emily", "Florida", new ImageIcon() }
+	    };
+		
+	    DefaultTableModel model = new DefaultTableModel(data, columns);
+		JTable table = new JTable() {
+			@Override
+			public Class<?> getColumnClass(int column) {
+				// TODO Auto-generated method stub
+				return Icon.class;
 			}
-		));
+
+			
+		};
+		table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+		table.setFillsViewportHeight(true);
+		table.setModel(model);
+		table.setRowHeight(100);
+		table.setValueAt(videoWeb.getThumb("https://www.youtube.com/watch?v=0243Z0YXPpY"), 0, 3);
+		table.setTableHeader(null);
+		
+
+
+
 		scrollPane_1.setViewportView(table);
 		
 		buscador.addFocusListener(new FocusAdapter() {
@@ -333,7 +352,6 @@ public class VentanaPrueba2 {
 		gbc_lblNewLabel.gridy = 0;
 		panel_2.add(lblNewLabel, gbc_lblNewLabel);
 		
-		//table.setValueAt(videoWeb.getSmallThumb("https://www.youtube.com/watch?v=OSRGIuWk3cA"), 0, 0);
 		
 		JLabel lblNewLabel_1 = new JLabel("Bienvenido:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
