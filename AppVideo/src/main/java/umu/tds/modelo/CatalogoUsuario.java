@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import umu.tds.dao.FactoriaDAO;
-
 public class CatalogoUsuario {
 	
 	public static CatalogoUsuario getInstancia() {
@@ -23,12 +21,6 @@ public class CatalogoUsuario {
 	//Construcctor
 	private CatalogoUsuario() {
 		this.usuarios = new HashMap<>();
-		try {
-			FactoriaDAO.getInstancia().getUsuarioDAO().getAll().stream().forEach(u -> usuarios.put(u.getUsername(), u));
-		} catch (ReflectiveOperationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		};
 	}
 	
 	//Metodos
@@ -58,14 +50,14 @@ public class CatalogoUsuario {
 	
 	//4º metodo --> añadir un cliente al catalogo
 	public boolean addUsuario(Usuario user) {
-		if (usuarios.put(user.getUsername(), user) == null)
+		if (usuarios.put(user.getUsuario(), user) == null)
 			return true;
 		return false;
 	}
 	
 	//5º metodo --> eliminar a un cliente del catalago
 	public void removeUsuario(Usuario user) {
-		usuarios.remove(user.getUsername());
+		usuarios.remove(user.getUsuario());
 	}
 	
 	public boolean existeUsuario(String user) {
