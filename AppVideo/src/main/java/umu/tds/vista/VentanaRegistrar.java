@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
 //import javax.swing.WindowConstants;
+import javax.swing.UIManager;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -29,6 +30,8 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -82,6 +85,14 @@ public class VentanaRegistrar {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		try {
+			UIManager.setLookAndFeel("com.formdev.flatlaf.intellijthemes.materialthemeuilite.FlatGitHubDarkIJTheme");
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+				
 		frame = new JFrame("Registro");
 		frame.setBackground(new Color(173, 216, 230));
 		frame.setBounds(100, 100, 811, 600);
@@ -239,46 +250,45 @@ public class VentanaRegistrar {
 		char[] repContraseña = Contraseña2.getPassword();
 		String apellidos = textApellidos.getText();
 		String user = textUsuario.getText();
-		String errores = new String("");
-		LocalDate fecha = null;
+		String camposVacios = "";
+		String errores = "";
+		Date fecha = null;
 		if (fechaNac.getCalendar()!= null) {
-			fecha = LocalDate.ofInstant(fechaNac.getCalendar().toInstant(), ZoneId.systemDefault());
-			if (fecha.isAfter(LocalDate.now())) {
-				errores = errores + "fecha de nacimiento";
-			}
-				
-		}
 			
+			fecha = fechaNac.getDate();
+			if (fecha.after(Date.from(Instant.now()))) {
+				errores = errores + "Fecha de nacimiento: es futura\n";
+			}
+		}else camposVacios = camposVacios + "fecha de nacimiento, ";
 
 		String cont = new String(contraseña);
 		String repCont = new String(repContraseña);
 		
-		
-		
 		if (nombre.equals("")) {
-			errores = errores + "nombre";
+			camposVacios = camposVacios + "nombre, ";
 		}
-			
+		
 		if (user.equals("")) {
-			errores = errores + "usuario";
+			camposVacios = camposVacios + "usuario, ";
 		}
-			errores = errores + "usuario";
+		else if (controlador.existeUsuario(user)) {
+			errores = errores + "Nombre de usuario: Ya existe un usuario \""+user+"\"\n";
+		}
 		
 		if (cont.equals("")) {
-			errores = errores + "contraseña";
+			camposVacios = camposVacios + "contraseña, ";
+		}else if (repCont.equals("")){
+			camposVacios = camposVacios + "repeticion de contraseña, ";
+		}else if (!repCont.equals(cont)){
+			errores = errores + "Contraseña: las contraseñas no coinciden\n";
 		}
-			
 		
-		if (repCont.equals("")) {
-			errores = errores + "repeticion de contraseña";
-		}
-			
-
-		if (!errores.equals("")) {
-
-			JOptionPane.showMessageDialog(frame, 
-					errores, 
-					"Informacion del registro.", 
+		
+		if (!camposVacios.equals("")) {
+			camposVacios = camposVacios.substring(0, camposVacios.length()-2);
+			JOptionPane.showMessageDialog(frame,
+					errores+"Campos a completar: "+camposVacios, 
+					"Error en el registro.", 
 					JOptionPane.ERROR_MESSAGE);	
 		}
 		else {
@@ -292,7 +302,7 @@ public class VentanaRegistrar {
 				
 		}
 		
-		System.out.println(errores);
+		System.out.println(camposVacios);
 			
 	}
 	
