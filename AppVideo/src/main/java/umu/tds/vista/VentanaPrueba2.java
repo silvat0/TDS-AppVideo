@@ -48,6 +48,10 @@ import javax.swing.JEditorPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.awt.SystemColor;
+import javax.swing.JPopupMenu;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.border.EmptyBorder;
 
 public class VentanaPrueba2 {
 
@@ -91,6 +95,9 @@ public class VentanaPrueba2 {
 		}
 		frame = new JFrame();
 		frame.setBounds(100, 100, 727, 571);
+		ImageIcon img = new ImageIcon(VentanaLogin.class.getResource("/umu/tds/res/logoicon.png"));
+		frame.setIconImage(img.getImage());
+		frame.setTitle("AppVideo");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -284,7 +291,8 @@ public class VentanaPrueba2 {
 		panel.setLayout(gbl_panel);
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(new Color(112, 128, 144));
+		panel_2.setBackground(new Color(51, 51, 51));
+		panel_2.setBorder(new LineBorder(new Color(0, 0, 0)));
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
 		gbc_panel_2.anchor = GridBagConstraints.SOUTH;
 		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
@@ -300,10 +308,10 @@ public class VentanaPrueba2 {
 		panel_2.setLayout(gbl_panel_2);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBackground(SystemColor.desktop);
+		lblNewLabel.setBackground(new Color(0, 0, 0));
 		BufferedImage image = null;
 		try {
-			image = ImageIO.read(VentanaLogin.class.getResource("/umu/tds/res/LOGO.png"));
+			image = ImageIO.read(VentanaLogin.class.getResource("/umu/tds/res/logonegro.jpg"));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -312,7 +320,6 @@ public class VentanaPrueba2 {
         ImageIcon imageIcon = new ImageIcon(dimg);
 		lblNewLabel.setIcon(imageIcon);
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.insets = new Insets(5, 5, 5, 5);
 		gbc_lblNewLabel.gridx = 0;
 		gbc_lblNewLabel.gridy = 0;
 		panel_2.add(lblNewLabel, gbc_lblNewLabel);
@@ -349,5 +356,22 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_1.gridx = 8;
 		gbc_btnNewButton_1.gridy = 0;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
+	}
+	private static void addPopup(Component component, final JPopupMenu popup) {
+		component.addMouseListener(new MouseAdapter() {
+			public void mousePressed(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			public void mouseReleased(MouseEvent e) {
+				if (e.isPopupTrigger()) {
+					showMenu(e);
+				}
+			}
+			private void showMenu(MouseEvent e) {
+				popup.show(e.getComponent(), e.getX(), e.getY());
+			}
+		});
 	}
 }
