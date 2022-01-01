@@ -59,7 +59,8 @@ public class VentanaPremium {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 770, 460);
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 522, 333);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
@@ -118,9 +119,9 @@ public class VentanaPremium {
 		JPanel panel_2 = new JPanel();
 		frame.getContentPane().add(panel_2, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[] {0, 0, 0, 0, 0, 0, 0, 30, 0, 30, 0};
+		gbl_panel_2.columnWidths = new int[] {0, 0, 0, 0, 0, 15, 30};
 		gbl_panel_2.rowHeights = new int[] {15, 0, 15, 15, 0, 0, 0, 30, 0, 30, 0, 0, 30, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{0.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -141,7 +142,6 @@ public class VentanaPremium {
 			}
 		});
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
-		gbc_chckbxNewCheckBox.anchor = GridBagConstraints.WEST;
 		gbc_chckbxNewCheckBox.insets = new Insets(0, 0, 5, 5);
 		gbc_chckbxNewCheckBox.gridx = 3;
 		gbc_chckbxNewCheckBox.gridy = 2;
@@ -149,7 +149,7 @@ public class VentanaPremium {
 		
 		JButton btnNewButton = new JButton("Generar pdf con \"Mis Listas\"");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
-		gbc_btnNewButton.anchor = GridBagConstraints.WEST;
+		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton.gridx = 3;
 		gbc_btnNewButton.gridy = 4;
@@ -157,7 +157,7 @@ public class VentanaPremium {
 		
 		JButton btnNewButton_1 = new JButton("Generar lista Top 10");
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.anchor = GridBagConstraints.WEST;
+		gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_1.gridx = 3;
 		gbc_btnNewButton_1.gridy = 5;
