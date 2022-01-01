@@ -61,6 +61,7 @@ public class VentanaLogin {
 	private JButton botonIniciarSesion;
 	private ControladorAPP controlador = ControladorAPP.getInstancia();
 	private JLabel lblNewLabel_1;
+	
 
 	/**
 	 * Launch the application.
