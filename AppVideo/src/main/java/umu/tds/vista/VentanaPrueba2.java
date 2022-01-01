@@ -370,7 +370,7 @@ public class VentanaPrueba2 {
 		gbc_usernameLBL.gridx = 3;
 		gbc_usernameLBL.gridy = 0;
 		panel_2.add(usernameLBL, gbc_usernameLBL);
-		usernameLBL.setText(ControladorAPP.getInstancia().getUsuario().getNombre());
+		usernameLBL.setText(ControladorAPP.getInstancia().getUsuario().getUsername());
 		
 		JButton btnNewButton_2 = new JButton("Logout");
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
@@ -398,7 +398,7 @@ public class VentanaPrueba2 {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				
+				VentanaPremium.main(null);
 				
 			}
 		});
