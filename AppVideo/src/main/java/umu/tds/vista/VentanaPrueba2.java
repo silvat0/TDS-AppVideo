@@ -175,7 +175,7 @@ public class VentanaPrueba2 {
 		gbl_panel_3.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_3.setLayout(gbl_panel_3);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Mis Listas");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton.gridx = 0;
