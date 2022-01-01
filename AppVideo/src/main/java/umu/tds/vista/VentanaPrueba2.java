@@ -60,6 +60,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
+import pulsador.Luz;
 
 public class VentanaPrueba2 {
 
@@ -78,7 +79,7 @@ public class VentanaPrueba2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					videoWeb = new VideoWeb();
+					//videoWeb = new VideoWeb();
 					VentanaPrueba2 window = new VentanaPrueba2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -331,10 +332,10 @@ public class VentanaPrueba2 {
 		gbc_panel_2.gridy = 2;
 		panel.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 20, 0, 5, 0};
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 20, 0, 5, 0, 5, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_2.rowWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
 		JLabel lblNewLabel = new JLabel("");
@@ -415,6 +416,13 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_1.gridx = 7;
 		gbc_btnNewButton_1.gridy = 0;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
+		
+		Luz luz = new Luz();
+		GridBagConstraints gbc_luz = new GridBagConstraints();
+		gbc_luz.insets = new Insets(0, 0, 0, 5);
+		gbc_luz.gridx = 9;
+		gbc_luz.gridy = 0;
+		panel_2.add(luz, gbc_luz);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
