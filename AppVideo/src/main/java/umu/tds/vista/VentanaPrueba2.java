@@ -243,6 +243,8 @@ public class VentanaPrueba2 {
 			}
 		});
 		
+		
+		
 		JScrollPane scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
 		gbc_scrollPane_1.anchor = GridBagConstraints.NORTH;
@@ -258,28 +260,29 @@ public class VentanaPrueba2 {
 		
 	    String[] columns = {"", "", "", ""};
 	    //data for JTable in a 2D table
-	    ImageIcon thum = videoWeb.getThumb("https://www.youtube.com/watch?v=0243Z0YXPpY");
-	    Object[][] data = {
-	      {thum, thum, thum,thum},
-	      {2, "Jean", "Arizona", new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")) },
-	      {4, "Emily", "Florida", new ImageIcon() }
-	    };
-		
-	    DefaultTableModel model = new DefaultTableModel(data, columns);
+	    //ImageIcon thum = videoWeb.getThumb("https://www.youtube.com/watch?v=0243Z0YXPpY");
+//	    Object[][] data = {
+//	      {thum, thum, thum,thum},
+//	      {2, "Jean", "Arizona", new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")) },
+//	      {4, "Emily", "Florida", new ImageIcon() }
+//	    };
+//		
+	    //DefaultTableModel model = new DefaultTableModel(data, columns);
 		JTable table = new JTable() {
-			@Override
-			public Class<?> getColumnClass(int column) {
-				// TODO Auto-generated method stub
-				return Icon.class;
-			}
+//			@Override
+//			public Class<?> getColumnClass(int column) {
+//				// TODO Auto-generated method stub
+//				return Icon.class;
+//			}
 
 			
 		};
+		
+		
 		table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
 		table.setFillsViewportHeight(true);
-		table.setModel(model);
+		//table.setModel(model);
 		table.setRowHeight(100);
-		table.setValueAt(videoWeb.getThumb("https://www.youtube.com/watch?v=0243Z0YXPpY"), 0, 3);
 		table.setTableHeader(null);
 		
 
