@@ -7,7 +7,7 @@ public class Etiqueta {
 	private String nombre;
 	
 	//Constructor
-	private Etiqueta(String nombre) {
+	public Etiqueta(String nombre) {
 		this.nombre = nombre;
 	}
 

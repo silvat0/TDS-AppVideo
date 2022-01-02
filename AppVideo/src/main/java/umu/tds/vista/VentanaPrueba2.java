@@ -44,13 +44,18 @@ import javax.swing.ScrollPaneConstants;
 import java.awt.Point;
 import java.awt.Cursor;
 import javax.swing.border.SoftBevelBorder;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.JEditorPane;
+import javax.swing.JFileChooser;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import componente.ComponenteBuscadorVideos;
+import componente.IBuscadorVideos;
 import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
 
@@ -61,6 +66,8 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import pulsador.Luz;
+import pulsador.IEncendidoListener;
+import java.util.EventObject;
 
 public class VentanaPrueba2 {
 
@@ -418,6 +425,15 @@ public class VentanaPrueba2 {
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 		
 		Luz luz = new Luz();
+		luz.addEncendidoListener(new IEncendidoListener() {
+			public void enteradoCambioEncendido(EventObject arg0) {
+				JFileChooser fc = new JFileChooser();
+				fc.setFileFilter(new FileNameExtensionFilter("XML FILES", "xml"));
+				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
+					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
+				};
+			}
+		});
 		GridBagConstraints gbc_luz = new GridBagConstraints();
 		gbc_luz.insets = new Insets(0, 0, 0, 5);
 		gbc_luz.gridx = 9;

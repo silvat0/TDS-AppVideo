@@ -1,29 +1,44 @@
 package umu.tds.controlador;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.EventObject;
 import java.util.stream.Stream;
+import  java.util.stream.Collector;
+import java.util.stream.Collectors;
 
+import componente.ComponenteBuscadorVideos;
+import componente.VideosEvent;
+import componente.VideosListener;
 import umu.tds.dao.FactoriaDAO;
 import umu.tds.dao.UsuarioDAO;
 import umu.tds.modelo.CatalogoUsuario;
+import umu.tds.modelo.CatalogoVideos;
+import umu.tds.modelo.Etiqueta;
 import umu.tds.modelo.Usuario;
+import umu.tds.modelo.Video;
 
-public class ControladorAPP {
+
+public class ControladorAPP implements VideosListener {
 	
 	//Implementacion singleton
 	private static ControladorAPP unicaInstancia = null;
 	
 	//Atributos
 	private CatalogoUsuario cu;
+	private CatalogoVideos cv;
 	private Usuario user;
 	private FactoriaDAO factoria;
+	private ComponenteBuscadorVideos cargador;
 	
 	//Constructor
 	private ControladorAPP() {
 		cu = CatalogoUsuario.getInstancia();
 		try {
 			factoria = FactoriaDAO.getInstancia();
+			cargador = new ComponenteBuscadorVideos();
+			cargador.addArchivoListener(this);
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,7 +95,25 @@ public class ControladorAPP {
 		return user;
 	}
 	
-	
-	
+	public void cargar(File xml) {
+		cargador.buscarVideos(xml);
+	}
+
+	private Video parsedVideoToModel(componente.Video compVid) {
+		
+		return new Video(compVid.getTitulo(), 
+				compVid.getURL(),
+				compVid.getEtiqueta()
+					.stream()
+					.map(Etiqueta::new)
+					.collect(Collectors.toList()));
+	}
+
+	@Override
+	public void nuevosVideos(VideosEvent arg0) {
+		
+		arg0.getVideos().getVideo().
+						forEach(t -> cv.addVideo(parsedVideoToModel(t)));		
+	}
 	
 }
