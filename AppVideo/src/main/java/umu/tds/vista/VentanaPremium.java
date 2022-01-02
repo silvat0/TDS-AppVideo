@@ -125,19 +125,29 @@ public class VentanaPremium {
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
+		
+		 Boolean isPremium = ControladorAPP.getInstancia().getUsuario().isPremium();
+		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Premium");
-		if(ControladorAPP.getInstancia().getUsuario().isPremium()) {
+		if(isPremium) {
 			chckbxNewCheckBox.setSelected(true);
+			premiumLBL.setText(", actualmente dispones de Premium");
+		}
+		else {
+			chckbxNewCheckBox.setSelected(false);
+			premiumLBL.setText(", actualmente no dispones de Premium");
 		}
 		
 		chckbxNewCheckBox.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(ControladorAPP.getInstancia().getUsuario().isPremium()) {
+					 premiumLBL.setText(", actualmente no dispones de Premium");
 					ControladorAPP.getInstancia().getUsuario().setPremium(false);
 				}
 				else {
 					ControladorAPP.getInstancia().getUsuario().setPremium(true);
+					premiumLBL.setText(", actualmente dispones de Premium");
 				}
 			}
 		});
@@ -171,13 +181,7 @@ public class VentanaPremium {
 		}
         Image dimg = image.getScaledInstance(100, 50, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
-		Boolean isPremium = ControladorAPP.getInstancia().getUsuario().isPremium();
-        if(isPremium) {
-            premiumLBL.setText(", actualmente dispones de Premium");
-        }
-        else {
-            premiumLBL.setText(", actualmente no dispones de Premium");
-        }
+       
 		
 		
 		
