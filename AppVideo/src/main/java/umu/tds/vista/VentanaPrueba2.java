@@ -321,6 +321,7 @@ public class VentanaPrueba2 {
 		});
 		
 		JPanel panel_5 = new JPanel();
+		panel_5.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_misListas.add(panel_5, BorderLayout.WEST);
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
 		gbl_panel_5.columnWidths = new int[]{46, 0};
@@ -368,6 +369,7 @@ public class VentanaPrueba2 {
 		});
 		
 		JPanel panel_7 = new JPanel();
+		panel_7.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_nuevaLista.add(panel_7, BorderLayout.WEST);
 		GridBagLayout gbl_panel_7 = new GridBagLayout();
 		gbl_panel_7.columnWidths = new int[]{0, 0, 0};
