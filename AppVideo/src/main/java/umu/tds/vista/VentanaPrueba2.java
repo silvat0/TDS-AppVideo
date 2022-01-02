@@ -76,6 +76,9 @@ public class VentanaPrueba2 {
 	private JTable table;
 	public static VideoWeb videoWeb;
 	private JTable table_1;
+	private JTextField textField;
+	private JTable table_2;
+	private JTable table_3;
 
 
 
@@ -193,26 +196,21 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton.gridy = 0;
 		panel_3.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton btnNewButton_3 = new JButton("New button");
+		JButton btnNewButton_3 = new JButton("Nueva Lista");
+		
 		GridBagConstraints gbc_btnNewButton_3 = new GridBagConstraints();
 		gbc_btnNewButton_3.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_3.gridx = 2;
 		gbc_btnNewButton_3.gridy = 0;
 		panel_3.add(btnNewButton_3, gbc_btnNewButton_3);
 		
-		JButton btnNewButton_6 = new JButton("New button");
+		JButton btnNewButton_6 = new JButton("Recientes");
+		
 		GridBagConstraints gbc_btnNewButton_6 = new GridBagConstraints();
 		gbc_btnNewButton_6.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_6.gridx = 4;
 		gbc_btnNewButton_6.gridy = 0;
 		panel_3.add(btnNewButton_6, gbc_btnNewButton_6);
-		
-		JButton btnNewButton_7 = new JButton("New button");
-		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
-		gbc_btnNewButton_7.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_7.gridx = 6;
-		gbc_btnNewButton_7.gridy = 0;
-		panel_3.add(btnNewButton_7, gbc_btnNewButton_7);
 		
 		JPanel panel_Card = new JPanel();
 		GridBagConstraints gbc_panel_Card = new GridBagConstraints();
@@ -360,12 +358,138 @@ public class VentanaPrueba2 {
 		
 		JPanel panel_nuevaLista = new JPanel();
 		panel_Card.add(panel_nuevaLista, "panelnewList");
+		panel_nuevaLista.setLayout(new BorderLayout(0, 0));
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout c3 = (CardLayout) (panel_Card.getLayout());
+				c3.show(panel_Card, "panelnewList");
+			}
+		});
+		
+		JPanel panel_7 = new JPanel();
+		panel_nuevaLista.add(panel_7, BorderLayout.WEST);
+		GridBagLayout gbl_panel_7 = new GridBagLayout();
+		gbl_panel_7.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_7.rowHeights = new int[]{0, 0, 0, 0, 0, 6, 0, 0, 0};
+		gbl_panel_7.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_7.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		panel_7.setLayout(gbl_panel_7);
+		
+		JLabel lblNewLabel_3 = new JLabel("Introducir nombre de la lista:");
+		GridBagConstraints gbc_lblNewLabel_3 = new GridBagConstraints();
+		gbc_lblNewLabel_3.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_3.gridwidth = 2;
+		gbc_lblNewLabel_3.insets = new Insets(0, 0, 5, 0);
+		gbc_lblNewLabel_3.gridx = 0;
+		gbc_lblNewLabel_3.gridy = 0;
+		panel_7.add(lblNewLabel_3, gbc_lblNewLabel_3);
+		
+		textField = new JTextField();
+		GridBagConstraints gbc_textField = new GridBagConstraints();
+		gbc_textField.insets = new Insets(0, 0, 5, 5);
+		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textField.gridx = 0;
+		gbc_textField.gridy = 1;
+		panel_7.add(textField, gbc_textField);
+		textField.setColumns(10);
+		
+		JButton btnNewButton_4 = new JButton("Buscar");
+		GridBagConstraints gbc_btnNewButton_4 = new GridBagConstraints();
+		gbc_btnNewButton_4.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton_4.gridx = 1;
+		gbc_btnNewButton_4.gridy = 1;
+		panel_7.add(btnNewButton_4, gbc_btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("Eliminar");
+		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
+		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton_5.gridwidth = 2;
+		gbc_btnNewButton_5.gridx = 0;
+		gbc_btnNewButton_5.gridy = 2;
+		panel_7.add(btnNewButton_5, gbc_btnNewButton_5);
+		
+		table_2 = new JTable();
+		GridBagConstraints gbc_table_2 = new GridBagConstraints();
+		gbc_table_2.insets = new Insets(0, 0, 5, 0);
+		gbc_table_2.gridwidth = 2;
+		gbc_table_2.fill = GridBagConstraints.BOTH;
+		gbc_table_2.gridx = 0;
+		gbc_table_2.gridy = 3;
+		panel_7.add(table_2, gbc_table_2);
+		
+		JButton btnNewButton_8 = new JButton("Añadir");
+		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
+		gbc_btnNewButton_8.anchor = GridBagConstraints.WEST;
+		gbc_btnNewButton_8.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_8.gridx = 0;
+		gbc_btnNewButton_8.gridy = 5;
+		panel_7.add(btnNewButton_8, gbc_btnNewButton_8);
+		
+		JButton btnNewButton_9 = new JButton("Quitar");
+		GridBagConstraints gbc_btnNewButton_9 = new GridBagConstraints();
+		gbc_btnNewButton_9.anchor = GridBagConstraints.EAST;
+		gbc_btnNewButton_9.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton_9.gridx = 1;
+		gbc_btnNewButton_9.gridy = 5;
+		panel_7.add(btnNewButton_9, gbc_btnNewButton_9);
+		
+		JButton btnNewButton_10 = new JButton("Aceptar");
+		btnNewButton_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_10 = new GridBagConstraints();
+		gbc_btnNewButton_10.gridwidth = 2;
+		gbc_btnNewButton_10.gridx = 0;
+		gbc_btnNewButton_10.gridy = 7;
+		panel_7.add(btnNewButton_10, gbc_btnNewButton_10);
+		
+		JPanel panel_8 = new JPanel();
+		panel_nuevaLista.add(panel_8, BorderLayout.CENTER);
 		
 		JPanel panel_recientes = new JPanel();
 		panel_Card.add(panel_recientes, "panelRecents");
+		GridBagLayout gbl_panel_recientes = new GridBagLayout();
+		gbl_panel_recientes.columnWidths = new int[]{0, 0, 0};
+		gbl_panel_recientes.rowHeights = new int[]{0, 0, 0, 0};
+		gbl_panel_recientes.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_recientes.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		panel_recientes.setLayout(gbl_panel_recientes);
+		btnNewButton_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				CardLayout c4 = (CardLayout) (panel_Card.getLayout());
+				c4.show(panel_Card, "panelRecents");
+			}
+		});
 		
-		JPanel panel_masVistos = new JPanel();
-		panel_Card.add(panel_masVistos, "panelViews");
+		JLabel lblNewLabel_4 = new JLabel("Videos vistos recientemente por");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		GridBagConstraints gbc_lblNewLabel_4 = new GridBagConstraints();
+		gbc_lblNewLabel_4.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_4.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_4.gridx = 0;
+		gbc_lblNewLabel_4.gridy = 0;
+		panel_recientes.add(lblNewLabel_4, gbc_lblNewLabel_4);
+		
+		JLabel nombreLBL = new JLabel("");
+		nombreLBL.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_nombreLBL = new GridBagConstraints();
+		gbc_nombreLBL.insets = new Insets(0, 0, 5, 0);
+		gbc_nombreLBL.gridx = 1;
+		gbc_nombreLBL.gridy = 0;
+		panel_recientes.add(nombreLBL, gbc_nombreLBL);
+		nombreLBL.setText(ControladorAPP.getInstancia().getUsuario().getUsername());
+		
+		table_3 = new JTable();
+		GridBagConstraints gbc_table_3 = new GridBagConstraints();
+		gbc_table_3.gridwidth = 2;
+		gbc_table_3.insets = new Insets(0, 0, 0, 5);
+		gbc_table_3.fill = GridBagConstraints.BOTH;
+		gbc_table_3.gridx = 0;
+		gbc_table_3.gridy = 2;
+		panel_recientes.add(table_3, gbc_table_3);
 		
 		
 		JPanel panel = new JPanel();
