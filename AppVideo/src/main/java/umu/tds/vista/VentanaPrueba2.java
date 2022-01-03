@@ -58,6 +58,7 @@ import componente.ComponenteBuscadorVideos;
 import componente.IBuscadorVideos;
 import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
+import umu.tds.modelo.ListaVideo;
 
 import java.awt.SystemColor;
 import javax.swing.JPopupMenu;
@@ -118,7 +119,7 @@ public class VentanaPrueba2 {
 			e1.printStackTrace();
 		}
 		frame = new JFrame();
-		frame.setBounds(100, 100, 968, 571);
+		frame.setBounds(100, 100, 1042, 685);
 		ImageIcon img = new ImageIcon(VentanaLogin.class.getResource("/umu/tds/res/logoicon.png"));
 		frame.setIconImage(img.getImage());
 		frame.setTitle("AppVideo");
@@ -225,11 +226,6 @@ public class VentanaPrueba2 {
 		
 		JPanel panel_explorar = new JPanel();
 		panel_Card.add(panel_explorar, "panelExplorar");
-		GridBagLayout gbl_panel_explorar = new GridBagLayout();
-		gbl_panel_explorar.rowHeights = new int[]{2, 0, 67};
-		gbl_panel_explorar.columnWeights = new double[]{1.0, 1.0, 0.0};
-		gbl_panel_explorar.rowWeights = new double[]{0.0, 0.0, 1.0};
-		panel_explorar.setLayout(gbl_panel_explorar);
 		btnLupa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -237,21 +233,60 @@ public class VentanaPrueba2 {
 				c1.show(panel_Card, "panelExplorar");
 			}
 		});
+		panel_explorar.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panel_9 = new JPanel();
+		panel_explorar.add(panel_9, BorderLayout.CENTER);
+		GridBagLayout gbl_panel_9 = new GridBagLayout();
+		gbl_panel_9.columnWidths = new int[]{258, 0};
+		gbl_panel_9.rowHeights = new int[]{130, 0};
+		gbl_panel_9.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_9.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_9.setLayout(gbl_panel_9);
+		
+		JScrollPane scrollPane_1 = new JScrollPane();
+		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
+		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_1.gridx = 0;
+		gbc_scrollPane_1.gridy = 0;
+		panel_9.add(scrollPane_1, gbc_scrollPane_1);
+		
+		
+		
+		JPanel panel_10 = new JPanel();
+		panel_10.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_explorar.add(panel_10, BorderLayout.EAST);
+		GridBagLayout gbl_panel_10 = new GridBagLayout();
+		gbl_panel_10.columnWidths = new int[]{5, 101, 5, 0};
+		gbl_panel_10.rowHeights = new int[]{0, 130, 5, 0, 0, 0, 0};
+		gbl_panel_10.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_10.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		panel_10.setLayout(gbl_panel_10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Etiquetas disponibles:");
+		GridBagConstraints gbc_lblNewLabel_5 = new GridBagConstraints();
+		gbc_lblNewLabel_5.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_5.gridx = 1;
+		gbc_lblNewLabel_5.gridy = 0;
+		panel_10.add(lblNewLabel_5, gbc_lblNewLabel_5);
 		
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setMinimumSize(new Dimension(100, 100));
+		scrollPane.setPreferredSize(new Dimension(110, 200));
+		scrollPane.setMaximumSize(new Dimension(150, 150));
 		GridBagConstraints gbc_scrollPane = new GridBagConstraints();
-		gbc_scrollPane.insets = new Insets(0, 0, 5, 0);
-		gbc_scrollPane.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane.gridx = 2;
+		gbc_scrollPane.fill = GridBagConstraints.VERTICAL;
+		gbc_scrollPane.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane.anchor = GridBagConstraints.WEST;
+		gbc_scrollPane.gridx = 1;
 		gbc_scrollPane.gridy = 1;
-		panel_explorar.add(scrollPane, gbc_scrollPane);
+		panel_10.add(scrollPane, gbc_scrollPane);
+		scrollPane.setMinimumSize(new Dimension(100, 100));
 		
-		JList list = new JList();
-		scrollPane.setViewportView(list);
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"oleeeeeeeeeeee", "olesd", "sf", "asd", "c", "", "cdsa", "c", "a"};
+		JList list_etiquetas = new JList();
+		scrollPane.setViewportView(list_etiquetas);
+		list_etiquetas.setModel(new AbstractListModel() {
+			String[] values = new String[] {"oleeeeeeeeeeee", "olesdsdasdasdasdadadadasdadasdasdadasda", "sf", "asd", "c", "", "cdsa", "c", "a"};
 			public int getSize() {
 				return values.length;
 			}
@@ -260,52 +295,38 @@ public class VentanaPrueba2 {
 			}
 		});
 		
+		JLabel lblNewLabel_6 = new JLabel("Etiquedas usadas:");
+		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
+		gbc_lblNewLabel_6.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_6.insets = new Insets(0, 0, 5, 5);
+		gbc_lblNewLabel_6.gridx = 1;
+		gbc_lblNewLabel_6.gridy = 3;
+		panel_10.add(lblNewLabel_6, gbc_lblNewLabel_6);
 		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setPreferredSize(new Dimension(110, 150));
+		GridBagConstraints gbc_scrollPane_2 = new GridBagConstraints();
+		gbc_scrollPane_2.insets = new Insets(0, 0, 5, 5);
+		gbc_scrollPane_2.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_2.gridx = 1;
+		gbc_scrollPane_2.gridy = 4;
+		panel_10.add(scrollPane_2, gbc_scrollPane_2);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.anchor = GridBagConstraints.NORTH;
-		gbc_scrollPane_1.gridheight = 2;
-		gbc_scrollPane_1.gridwidth = 2;
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
-		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 1;
-		panel_explorar.add(scrollPane_1, gbc_scrollPane_1);
+		JList list_1 = new JList();
+		list_1.setModel(new AbstractListModel() {
+			String[] values = new String[] {"avs", "df", "ad", "f", "asf", "ad", "f", "a", "df", "af"};
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		scrollPane_2.setViewportView(list_1);
 		
 		
 		
 	    String[] columns = {"", "", "", ""};
-	    //data for JTable in a 2D table
-	    //ImageIcon thum = videoWeb.getThumb("https://www.youtube.com/watch?v=0243Z0YXPpY");
-//	    Object[][] data = {
-//	      {thum, thum, thum,thum},
-//	      {2, "Jean", "Arizona", new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")) },
-//	      {4, "Emily", "Florida", new ImageIcon() }
-//	    };
-//		
-	    //DefaultTableModel model = new DefaultTableModel(data, columns);
-		JTable table = new JTable() {
-//			@Override
-//			public Class<?> getColumnClass(int column) {
-//				// TODO Auto-generated method stub
-//				return Icon.class;
-//			}
-
-			
-		};
-		
-		
-		table.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-		table.setFillsViewportHeight(true);
-		//table.setModel(model);
-		table.setRowHeight(100);
-		table.setTableHeader(null);
-		
-
-
-
-		scrollPane_1.setViewportView(table);
 		
 		
 	
@@ -569,6 +590,7 @@ public class VentanaPrueba2 {
 				if(res == JOptionPane.YES_OPTION) {
 					VentanaLogin.main(null);
 					frame.dispose();
+					
 				}
 						
 				
@@ -607,6 +629,8 @@ public class VentanaPrueba2 {
 				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
 					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
 					PruebasGrid.main(null);
+					JList list = new ListaVideos(ControladorAPP.getInstancia().getVideos());
+					scrollPane_1.setViewportView(list);
 				};
 			}
 		});
