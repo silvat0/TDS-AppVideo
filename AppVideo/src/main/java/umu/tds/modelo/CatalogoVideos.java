@@ -1,6 +1,9 @@
 package umu.tds.modelo;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class CatalogoVideos {
 	
@@ -17,6 +20,10 @@ public class CatalogoVideos {
 		if (unicaInstancia == null) 
 			unicaInstancia = new CatalogoVideos();
 		return unicaInstancia;
+	}
+	
+	public Collection<Video> getVideos(){
+		return Collections.unmodifiableCollection(videos.values());
 	}
 		
 	//Atributos

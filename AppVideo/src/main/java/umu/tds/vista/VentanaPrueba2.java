@@ -90,7 +90,7 @@ public class VentanaPrueba2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					//videoWeb = new VideoWeb();
+					videoWeb = new VideoWeb();
 					VentanaPrueba2 window = new VentanaPrueba2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -606,6 +606,7 @@ public class VentanaPrueba2 {
 				fc.setFileFilter(new FileNameExtensionFilter("XML FILES", "xml"));
 				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
 					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
+					PruebasGrid.main(null);
 				};
 			}
 		});

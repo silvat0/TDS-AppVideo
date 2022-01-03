@@ -2,8 +2,11 @@ package umu.tds.controlador;
 
 import java.io.File;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.EventObject;
+import java.util.List;
 import java.util.stream.Stream;
 import  java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -39,6 +42,7 @@ public class ControladorAPP implements VideosListener {
 			factoria = FactoriaDAO.getInstancia();
 			cargador = new ComponenteBuscadorVideos();
 			cargador.addArchivoListener(this);
+			cv = new CatalogoVideos();
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -111,9 +115,16 @@ public class ControladorAPP implements VideosListener {
 
 	@Override
 	public void nuevosVideos(VideosEvent arg0) {
+		List<componente.Video> lv = arg0.getVideos().getVideo();
+		for (componente.Video v : lv) {
+			cv.addVideo(parsedVideoToModel(v));
+		}
 		
-		arg0.getVideos().getVideo().
-						forEach(t -> cv.addVideo(parsedVideoToModel(t)));		
+						//forEach(t -> cv.addVideo(parsedVideoToModel(t)));		
+	}
+	
+	public List<Video> getVideos(){
+		return new ArrayList<Video>(cv.getVideos());
 	}
 	
 }
