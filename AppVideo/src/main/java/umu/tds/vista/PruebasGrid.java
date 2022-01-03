@@ -52,6 +52,7 @@ public class PruebasGrid {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 617, 445);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -69,10 +70,7 @@ public class PruebasGrid {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		
-		JList list = new JList(new Vector(ControladorAPP.getInstancia().getVideos()));
-		list.setCellRenderer(new VideoListCellRenderer());
-		list.setVisibleRowCount(0);
-		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		JList list = new ListaVideos(ControladorAPP.getInstancia().getVideos());
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		gbc_list.fill = GridBagConstraints.BOTH;
