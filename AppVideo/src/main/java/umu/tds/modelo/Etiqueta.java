@@ -4,10 +4,12 @@ import java.util.Objects;
 
 public class Etiqueta {
 	//Atributos
+	private int id; //persistencia
 	private String nombre;
 	
 	//Constructor
 	public Etiqueta(String nombre) {
+		setId(0);
 		this.nombre = nombre;
 	}
 
@@ -33,6 +35,14 @@ public class Etiqueta {
 		Etiqueta other = (Etiqueta) obj;
 		
 		return Objects.equals(nombre, other.nombre);
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

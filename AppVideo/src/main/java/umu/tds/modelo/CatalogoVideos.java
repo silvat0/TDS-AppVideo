@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+import umu.tds.dao.FactoriaDAO;
+
 public class CatalogoVideos {
 	
 	// Singleton
@@ -14,6 +16,14 @@ public class CatalogoVideos {
 	
 	public CatalogoVideos() {
 		videos = new HashMap<>();
+		try {
+			FactoriaDAO.getInstancia().getVideoDAO().getAll()
+			.stream()
+			.forEach(v -> videos.put(v.getUrl(), v));
+		} catch (ReflectiveOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public static CatalogoVideos getInstancia() {
@@ -28,6 +38,7 @@ public class CatalogoVideos {
 		
 	//Atributos
 	public void addVideo(Video v) {
+		
 		videos.put(v.getUrl(), v);
 	}
 	

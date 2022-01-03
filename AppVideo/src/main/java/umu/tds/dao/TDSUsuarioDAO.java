@@ -124,8 +124,8 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 	}
 
 	public Usuario get(int id) {
+		
 		Entidad eUsuario = servPersistencia.recuperarEntidad(id);
-
 		return entidadToUsuario(eUsuario);
 	}
 

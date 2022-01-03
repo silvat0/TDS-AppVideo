@@ -105,22 +105,26 @@ public class ControladorAPP implements VideosListener {
 
 	private Video parsedVideoToModel(componente.Video compVid) {
 		
-		return new Video(compVid.getTitulo(), 
-				compVid.getURL(),
-				compVid.getEtiqueta()
-					.stream()
-					.map(Etiqueta::new)
-					.collect(Collectors.toList()));
+		List<Etiqueta> le = new ArrayList<>();
+		compVid.getEtiqueta().stream()
+		.forEach(e -> {
+			Etiqueta etq = new Etiqueta(e);
+			le.add(etq);
+		});
+		
+		return new Video(compVid.getTitulo(), compVid.getURL(), le);
 	}
 
 	@Override
 	public void nuevosVideos(VideosEvent arg0) {
+		
 		List<componente.Video> lv = arg0.getVideos().getVideo();
 		for (componente.Video v : lv) {
-			cv.addVideo(parsedVideoToModel(v));
+			Video videoModelo = parsedVideoToModel(v);
+			videoModelo.getEtiquetas().stream().forEach(e ->factoria.getEtiquetaDAO().create(e));
+			factoria.getVideoDAO().create(videoModelo);
+			cv.addVideo(videoModelo);
 		}
-		
-						//forEach(t -> cv.addVideo(parsedVideoToModel(t)));		
 	}
 	
 	public List<Video> getVideos(){
