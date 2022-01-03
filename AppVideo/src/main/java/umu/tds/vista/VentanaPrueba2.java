@@ -80,6 +80,8 @@ public class VentanaPrueba2 {
 	private JTextField textField;
 	private JTable table_2;
 	private JTable table_3;
+	private JScrollPane scrollVideosExplorar;
+	private JList listaVideosExplorar;
 
 
 
@@ -153,12 +155,10 @@ public class VentanaPrueba2 {
 		JButton btnLupa = new JButton("");
 		
 		btnLupa.setIcon(new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")));
-		btnLupa.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+
 		
 		buscador = new JTextField();
+
 		GridBagConstraints gbc_buscador = new GridBagConstraints();
 		gbc_buscador.insets = new Insets(0, 0, 5, 5);
 		gbc_buscador.fill = GridBagConstraints.HORIZONTAL;
@@ -226,9 +226,11 @@ public class VentanaPrueba2 {
 		
 		JPanel panel_explorar = new JPanel();
 		panel_Card.add(panel_explorar, "panelExplorar");
+		//Cuando le das a la lupa se cargan videos y se muestra.
 		btnLupa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				mostrarListaExplorar();
 				CardLayout c1 = (CardLayout) (panel_Card.getLayout());
 				c1.show(panel_Card, "panelExplorar");
 			}
@@ -244,12 +246,12 @@ public class VentanaPrueba2 {
 		gbl_panel_9.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_9.setLayout(gbl_panel_9);
 		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 0;
-		panel_9.add(scrollPane_1, gbc_scrollPane_1);
+		scrollVideosExplorar = new JScrollPane();
+		GridBagConstraints gbc_scrollVideosExplorar = new GridBagConstraints();
+		gbc_scrollVideosExplorar.fill = GridBagConstraints.BOTH;
+		gbc_scrollVideosExplorar.gridx = 0;
+		gbc_scrollVideosExplorar.gridy = 0;
+		panel_9.add(scrollVideosExplorar, gbc_scrollVideosExplorar);
 		
 		
 		
@@ -388,7 +390,14 @@ public class VentanaPrueba2 {
 				c3.show(panel_Card, "panelnewList");
 			}
 		});
-		
+		//Cuando vas a escribir algo te sale el panel explorar solo
+		buscador.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				CardLayout c1 = (CardLayout) (panel_Card.getLayout());
+				c1.show(panel_Card, "panelExplorar");
+			}
+		});
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
 		panel_nuevaLista.add(panel_7, BorderLayout.WEST);
@@ -629,8 +638,7 @@ public class VentanaPrueba2 {
 				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
 					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
 					PruebasGrid.main(null);
-					JList list = new ListaVideos(ControladorAPP.getInstancia().getVideos());
-					scrollPane_1.setViewportView(list);
+
 				};
 			}
 		});
@@ -656,5 +664,10 @@ public class VentanaPrueba2 {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+	
+	private void mostrarListaExplorar() {
+		listaVideosExplorar = new ListaVideos(ControladorAPP.getInstancia().getVideos());
+		scrollVideosExplorar.setViewportView(listaVideosExplorar);
 	}
 }
