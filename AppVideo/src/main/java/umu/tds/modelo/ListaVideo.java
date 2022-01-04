@@ -48,4 +48,10 @@ public class ListaVideo {
 		this.id = id;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return nombre;
+	}
+	
 }
