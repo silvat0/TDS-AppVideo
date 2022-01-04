@@ -1,6 +1,7 @@
 package umu.tds.controlador;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,12 +21,16 @@ import umu.tds.dao.UsuarioDAO;
 import umu.tds.modelo.CatalogoUsuario;
 import umu.tds.modelo.CatalogoVideos;
 import umu.tds.modelo.Etiqueta;
+import umu.tds.modelo.Filtro;
+import umu.tds.modelo.IFiltro;
 import umu.tds.modelo.ListaVideo;
 import umu.tds.modelo.Usuario;
 import umu.tds.modelo.Video;
 
 
 public class ControladorAPP implements VideosListener {
+	
+	private final static String NOMBRE_PAQUETE = "umu.tds.modelo";
 	
 	//Implementacion singleton
 	private static ControladorAPP unicaInstancia = null;
@@ -157,7 +162,7 @@ public class ControladorAPP implements VideosListener {
 		lv.addVideo(v);
 		factoria.getListaVideoDAO().update(lv);
 	}
-	
+
 	public void eliminarVideoLV(int idxV, ListaVideo lv) {
 		
 		lv.removeVideo(idxV);
@@ -171,4 +176,19 @@ public class ControladorAPP implements VideosListener {
 	public Optional<ListaVideo> getLista(String nombre) {
 		return getAllListaVideo().stream().filter(l -> l.getNombre().equals(nombre)).findFirst();
 	}
+	
+	public void setFiltro(Filtro filtro) {
+		try {
+			IFiltro filtroBusq = (IFiltro) Class.forName(NOMBRE_PAQUETE+filtro.name()).getDeclaredConstructor().newInstance();
+			user.setFiltroActivo(filtroBusq);
+			factoria.getUsuarioDAO().update(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public List<Video> buscar(String titulo, Etiqueta...etiquetas){
+		return cv.buscar(user.getFiltroActivo(), titulo);
+	}
+	
 }

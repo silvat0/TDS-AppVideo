@@ -57,4 +57,24 @@ public class CatalogoVideos {
 		
 		
 	}
+	
+	private boolean estaAlgunaEtiqueta(Video v, Etiqueta...etiquetas) {
+		for(Etiqueta e : etiquetas) {
+			if (v.tieneEtiqueta(e))
+				return true;
+		}
+		return false;
+	}
+	
+	public List<Video> buscar(IFiltro filtro, String titulo, Etiqueta...etiquetas){
+		
+		return videos.values().stream()
+			.filter(v -> 
+				v.getTitulo().startsWith(titulo)
+				&& filtro.isVideoOk(v)
+				&& estaAlgunaEtiqueta(v, etiquetas)
+			)
+			.collect(Collectors.toList());
+		
+	}
 }

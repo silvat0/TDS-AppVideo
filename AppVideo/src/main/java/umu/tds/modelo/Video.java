@@ -49,4 +49,8 @@ public class Video {
 		this.id = id;
 	}
 	
+	public boolean tieneEtiqueta(Etiqueta e) {
+		return etiqs.contains(e);
+	}
+	
 }

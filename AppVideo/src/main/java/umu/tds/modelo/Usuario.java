@@ -17,14 +17,15 @@ public class Usuario {
 	private String username;
 	private boolean premium;
 	private List<ListaVideo> listasVideos;
+	private IFiltro filtroActivo;
 	
 	//Constructor
 	public Usuario(String nombre, String email, Date fechaNac, String contraseña, String apellidos, String usuario) {
-		this(nombre, apellidos, email, usuario, fechaNac, contraseña, false, new LinkedList<>());
+		this(nombre, apellidos, email, usuario, fechaNac, contraseña, false, new LinkedList<>(), new NoFiltro());
 	}
 	
 	public Usuario(String nombre, String apellidos, String email, 
-			String username, Date fechaNac, String contraseña, boolean premium, List<ListaVideo> listasVideos) {
+			String username, Date fechaNac, String contraseña, boolean premium, List<ListaVideo> listasVideos, IFiltro filtro) {
 		
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -34,6 +35,7 @@ public class Usuario {
 		this.contraseña = contraseña;
 		this.premium = premium;
 		this.listasVideos = listasVideos;
+		this.filtroActivo = filtro;
 	}
 	
 	//Getters
@@ -94,5 +96,12 @@ public class Usuario {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
+	public IFiltro getFiltroActivo() {
+		return filtroActivo;
+	}
+
+	public void setFiltroActivo(IFiltro filtroActivo) {
+		this.filtroActivo = filtroActivo;
+	}
 }
