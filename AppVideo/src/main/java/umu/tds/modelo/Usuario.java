@@ -16,19 +16,24 @@ public class Usuario {
 	private String apellidos;
 	private String username;
 	private boolean premium;
-	private List<ListaVideo> listavideos;
+	private List<ListaVideo> listasVideos;
 	
 	//Constructor
 	public Usuario(String nombre, String email, Date fechaNac, String contraseña, String apellidos, String usuario) {
+		this(nombre, apellidos, email, usuario, fechaNac, contraseña, false, new LinkedList<>());
+	}
+	
+	public Usuario(String nombre, String apellidos, String email, 
+			String username, Date fechaNac, String contraseña, boolean premium, List<ListaVideo> listasVideos) {
+		
 		this.nombre = nombre;
-		this.email = email;
 		this.apellidos = apellidos;
+		this.email=email;
+		this.username = username;
 		this.fechaNac = fechaNac;
 		this.contraseña = contraseña;
-		this.username = usuario;
-		
-		this.premium = false;
-		this.listavideos = new LinkedList<>();
+		this.premium = premium;
+		this.listasVideos = listasVideos;
 	}
 	
 	//Getters
@@ -60,8 +65,12 @@ public class Usuario {
 		return username;
 	}
 
-	public List<ListaVideo> getListavideos() {
-		return Collections.unmodifiableList(listavideos);
+	public List<ListaVideo> getListasVideos() {
+		return Collections.unmodifiableList(listasVideos);
+	}
+	
+	public boolean eliminarListaVideos(ListaVideo lv) {
+		return listasVideos.removeIf(l -> l.equals(lv));
 	}
 
 	//Metodos
@@ -71,10 +80,11 @@ public class Usuario {
 	}
 	
 	//2º metodo --> Crear una lista de videos 
-	public boolean crearLista(String nombre) {
+	public ListaVideo crearLista(String nombre) {
 		
 		ListaVideo lv = new ListaVideo(nombre);
-		return listavideos.add(lv);
+		listasVideos.add(lv);
+		return lv;
 	}
 
 	public int getId() {

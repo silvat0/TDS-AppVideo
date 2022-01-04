@@ -19,6 +19,7 @@ import umu.tds.dao.UsuarioDAO;
 import umu.tds.modelo.CatalogoUsuario;
 import umu.tds.modelo.CatalogoVideos;
 import umu.tds.modelo.Etiqueta;
+import umu.tds.modelo.ListaVideo;
 import umu.tds.modelo.Usuario;
 import umu.tds.modelo.Video;
 
@@ -134,5 +135,36 @@ public class ControladorAPP implements VideosListener {
 	public List<Etiqueta> getEtiquetas() {
 		return cv.getEtiquetas();
 	}
+	
+	public void crearListaVideo(String nombre) {
+		ListaVideo v = user.crearLista(nombre);
+		factoria.getListaVideoDAO().create(v);
+		factoria.getUsuarioDAO().update(user);
+	}
+	
+	public boolean eliminarListaVideo(ListaVideo lv) {
+		
+		factoria.getListaVideoDAO().delete(lv);
+		boolean b =user.eliminarListaVideos(lv);
+		factoria.getUsuarioDAO().update(user);
+		return b;
+	}
+	
+	public void añadirVideoLV(ListaVideo lv, Video...v) {
+		
+		lv.addVideo(v);
+		factoria.getListaVideoDAO().update(lv);
+	}
+	
+	public void eliminarVideoLV(int idxV, ListaVideo lv) {
+		
+		lv.removeVideo(idxV);
+		factoria.getListaVideoDAO().update(lv);
+	}
+	
+	public List<ListaVideo> getAllListaVideo(){
+		return user.getListasVideos();
+	}
+	
 	
 }

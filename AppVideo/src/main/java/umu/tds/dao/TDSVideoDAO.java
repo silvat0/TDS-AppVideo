@@ -42,13 +42,10 @@ public class TDSVideoDAO implements VideoDAO {
 		 List<Etiqueta> etiquetas = new ArrayList<>();
 		 StringTokenizer strTok = new StringTokenizer(prop, SEP_ETIQ);
 		 while (strTok.hasMoreTokens()) {
-			 try {
-				etiquetas.add(adaptEtiquetas
-						 .get(Integer.valueOf((String)strTok.nextElement()))
-						 );
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			etiquetas.add(
+					adaptEtiquetas.
+					get(Integer.valueOf((String)strTok.nextElement()))
+					);
 		 }
 		 return etiquetas;	
 	}

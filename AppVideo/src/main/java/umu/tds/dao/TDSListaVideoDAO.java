@@ -14,7 +14,7 @@ import tds.driver.ServicioPersistencia;
 import umu.tds.modelo.ListaVideo;
 import umu.tds.modelo.Video;
 
-public class TDSListaVideo implements ListaVideoDAO {
+public class TDSListaVideoDAO implements ListaVideoDAO {
 	
 	private static final String LISTA_VIDEO = "ListaVideo";
 	private static final String NOMBRE = "nombre";
@@ -23,7 +23,7 @@ public class TDSListaVideo implements ListaVideoDAO {
 	
 	private ServicioPersistencia sp;
 	
-	public TDSListaVideo() {
+	public TDSListaVideoDAO() {
 		sp = FactoriaServicioPersistencia.getInstance().getServicioPersistencia();
 	}
 	
