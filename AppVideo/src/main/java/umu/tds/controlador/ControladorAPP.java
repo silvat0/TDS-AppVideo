@@ -131,4 +131,8 @@ public class ControladorAPP implements VideosListener {
 		return new ArrayList<Video>(cv.getVideos());
 	}
 	
+	public List<Etiqueta> getEtiquetas() {
+		return cv.getEtiquetas();
+	}
+	
 }

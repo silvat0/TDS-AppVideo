@@ -3,7 +3,9 @@ package umu.tds.modelo;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import umu.tds.dao.FactoriaDAO;
 
@@ -44,5 +46,15 @@ public class CatalogoVideos {
 	
 	public void getVideo(String url) {
 		videos.get(url);
+	}
+	
+	//Metodos
+	//Recoger etiquetas
+	public List<Etiqueta> getEtiquetas() {
+		return videos.values().stream()
+					 .flatMap(e -> e.getEtiquetas().stream())
+					 .collect(Collectors.toList());
+		
+		
 	}
 }

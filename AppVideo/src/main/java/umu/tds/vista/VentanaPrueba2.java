@@ -58,6 +58,7 @@ import componente.ComponenteBuscadorVideos;
 import componente.IBuscadorVideos;
 import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
+import umu.tds.modelo.Etiqueta;
 import umu.tds.modelo.ListaVideo;
 
 import java.awt.SystemColor;
@@ -69,6 +70,11 @@ import java.awt.Font;
 import pulsador.Luz;
 import pulsador.IEncendidoListener;
 import java.util.EventObject;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 
 public class VentanaPrueba2 {
 
@@ -82,6 +88,7 @@ public class VentanaPrueba2 {
 	private JTable table_3;
 	private JScrollPane scrollVideosExplorar;
 	private JList listaVideosExplorar;
+	private JList listaEtiqUsed ;
 
 
 
@@ -285,17 +292,12 @@ public class VentanaPrueba2 {
 		panel_10.add(scrollPane, gbc_scrollPane);
 		scrollPane.setMinimumSize(new Dimension(100, 100));
 		
-		JList list_etiquetas = new JList();
+		JList list_etiquetas = new JList(new Vector(ControladorAPP.getInstancia().getEtiquetas()));
+		
+		
 		scrollPane.setViewportView(list_etiquetas);
-		list_etiquetas.setModel(new AbstractListModel() {
-			String[] values = new String[] {"oleeeeeeeeeeee", "olesdsdasdasdasdadadadasdadasdasdadasda", "sf", "asd", "c", "", "cdsa", "c", "a"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+		
+		
 		
 		JLabel lblNewLabel_6 = new JLabel("Etiquedas usadas:");
 		GridBagConstraints gbc_lblNewLabel_6 = new GridBagConstraints();
@@ -314,17 +316,14 @@ public class VentanaPrueba2 {
 		gbc_scrollPane_2.gridy = 4;
 		panel_10.add(scrollPane_2, gbc_scrollPane_2);
 		
-		JList list_1 = new JList();
-		list_1.setModel(new AbstractListModel() {
-			String[] values = new String[] {"avs", "df", "ad", "f", "asf", "ad", "f", "a", "df", "af"};
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
+		listaEtiqUsed = new JList<>();
+		listaEtiqUsed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				listaEtiqUsed = new JList(new Vector<>(list_etiquetas.getSelectedValuesList()));
 			}
 		});
-		scrollPane_2.setViewportView(list_1);
+		scrollPane_2.setViewportView(listaEtiqUsed);
 		
 		
 		
