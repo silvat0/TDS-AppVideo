@@ -425,8 +425,7 @@ public class VentanaPrueba2 {
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 List<ListaVideo> lista = ControladorAPP.getInstancia().getAllListaVideo();
-				 if(!lista.contains(textField.getText())) {
+				 if(ControladorAPP.getInstancia().getLista(textField.getText()).orElse(null)) {
 					 int res = JOptionPane.showConfirmDialog(frame, 
 								"Vaya parece quee esta lista no existe, ¿Desea crearla?", 
 								"Crear Lista",
