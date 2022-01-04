@@ -65,4 +65,11 @@ public class ListaVideo {
 		ListaVideo other = (ListaVideo) obj;
 		return Objects.equals(nombre, other.nombre);
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return nombre;
+	}
+	
 }
