@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.EventObject;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Stream;
 import  java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -164,6 +165,10 @@ public class ControladorAPP implements VideosListener {
 	
 	public List<ListaVideo> getAllListaVideo(){
 		return user.getListasVideos();
+	}
+	
+	public Optional getLista(String nombre) {
+		return getAllListaVideo().stream().filter(l -> l.getNombre().equals(nombre)).findFirst();
 	}
 	
 	
