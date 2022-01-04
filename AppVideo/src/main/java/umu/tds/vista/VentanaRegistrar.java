@@ -99,7 +99,6 @@ public class VentanaRegistrar {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(173, 216, 230));
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
 		GridBagLayout gbl_panel = new GridBagLayout();
 		gbl_panel.rowHeights = new int[]{0, 0, 0, 0, 26, 0, 0, 0, 10, 0, 7, 0};
@@ -108,7 +107,6 @@ public class VentanaRegistrar {
 		panel.setLayout(gbl_panel);
 		
 		textNombre = new JTextField();
-		textNombre.setBackground(new Color(173, 216, 230));
 		textNombre.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Nombre*", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		GridBagConstraints gbc_textNombre = new GridBagConstraints();
 		gbc_textNombre.gridwidth = 2;
@@ -155,8 +153,7 @@ public class VentanaRegistrar {
 		panelFecha.add(fechaNac, gbc_fechaNac);
 		
 		textEmail = new JTextField();
-		textEmail.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Email", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		textEmail.setBackground(new Color(173, 216, 230));
+		textEmail.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Email", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		GridBagConstraints gbc_textEmail = new GridBagConstraints();
 		gbc_textEmail.gridwidth = 2;
 		gbc_textEmail.fill = GridBagConstraints.HORIZONTAL;
@@ -167,8 +164,7 @@ public class VentanaRegistrar {
 		textEmail.setColumns(35);
 		
 		textUsuario = new JTextField();
-		textUsuario.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Usuario*", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		textUsuario.setBackground(new Color(173, 216, 230));
+		textUsuario.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Usuario*", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLACK));
 		GridBagConstraints gbc_textUsuario = new GridBagConstraints();
 		gbc_textUsuario.gridwidth = 2;
 		gbc_textUsuario.insets = new Insets(0, 0, 5, 0);
@@ -181,7 +177,6 @@ public class VentanaRegistrar {
 		Contraseña1 = new JPasswordField();
 		Contraseña1.setColumns(20);
 		Contraseña1.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Contrase\u00F1a*", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		Contraseña1.setBackground(new Color(173, 216, 230));
 		GridBagConstraints gbc_Contraseña1 = new GridBagConstraints();
 		gbc_Contraseña1.gridwidth = 2;
 		gbc_Contraseña1.insets = new Insets(0, 0, 5, 0);
@@ -192,7 +187,6 @@ public class VentanaRegistrar {
 		
 		Contraseña2 = new JPasswordField();
 		Contraseña2.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Repetir contrase\u00F1a*", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		Contraseña2.setBackground(new Color(173, 216, 230));
 		Contraseña2.setColumns(20);
 		GridBagConstraints gbc_Contraseña2 = new GridBagConstraints();
 		gbc_Contraseña2.gridwidth = 2;
