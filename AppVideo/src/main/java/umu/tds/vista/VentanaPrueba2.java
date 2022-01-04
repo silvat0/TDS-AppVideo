@@ -92,6 +92,7 @@ public class VentanaPrueba2 {
 	private JTextField textField_1;
 	private JList listaListas;
 	private JScrollPane scrollPane_1;
+	private ListaVideo listaAModificar;
 
 
 
@@ -425,15 +426,19 @@ public class VentanaPrueba2 {
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 List<ListaVideo> lista = ControladorAPP.getInstancia().getAllListaVideo();
-				 if(!lista.contains(textField.getText())) {
+				 ListaVideo lista = ControladorAPP.getInstancia().getLista(textField.getText()).orElse(null);
+				 if(lista==null) {
 					 int res = JOptionPane.showConfirmDialog(frame, 
 								"Vaya parece quee esta lista no existe, ¿Desea crearla?", 
 								"Crear Lista",
 								JOptionPane.YES_NO_OPTION); 
 					 if(res == JOptionPane.YES_OPTION) {
-						 ControladorAPP.getInstancia().crearListaVideo(textField.getText());
+						 listaAModificar = ControladorAPP.getInstancia().crearListaVideo(textField.getText());
 					 }
+				 }
+				 else {
+					 listaAModificar=lista;
+					 
 				 }
 			}
 				

@@ -137,10 +137,11 @@ public class ControladorAPP implements VideosListener {
 		return cv.getEtiquetas();
 	}
 	
-	public void crearListaVideo(String nombre) {
+	public ListaVideo crearListaVideo(String nombre) {
 		ListaVideo v = user.crearLista(nombre);
 		factoria.getListaVideoDAO().create(v);
 		factoria.getUsuarioDAO().update(user);
+		return v;
 	}
 	
 	public boolean eliminarListaVideo(ListaVideo lv) {
