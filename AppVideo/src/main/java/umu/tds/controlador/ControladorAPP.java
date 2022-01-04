@@ -167,9 +167,7 @@ public class ControladorAPP implements VideosListener {
 		return user.getListasVideos();
 	}
 	
-	public Optional getLista(String nombre) {
+	public Optional<ListaVideo> getLista(String nombre) {
 		return getAllListaVideo().stream().filter(l -> l.getNombre().equals(nombre)).findFirst();
 	}
-	
-	
 }
