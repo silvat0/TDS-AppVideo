@@ -426,6 +426,7 @@ public class VentanaPrueba2 {
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				 ListaVideo lista = ControladorAPP.getInstancia().getLista(textField.getText()).orElse(null);
 				 if(lista==null) {
 					 int res = JOptionPane.showConfirmDialog(frame, 
