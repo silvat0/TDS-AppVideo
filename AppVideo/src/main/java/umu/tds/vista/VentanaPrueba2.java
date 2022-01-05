@@ -89,11 +89,14 @@ public class VentanaPrueba2 {
 	private JTable table_3;
 	private JScrollPane scrollVideosExplorar;
 	private JList listaVideosExplorar;
-	private JList listaEtiqUsed ;
+	private JList<Etiqueta> listaEtiqUsed ;
 	private JTextField textField_1;
-	private JList listaListas;
+	private JList<Video> listaListas;
 	private JScrollPane scrollPane_1;
 	private ListaVideo listaAModificar;
+	private JComboBox comboBox;
+	private JScrollPane scrollPane_3;
+	private JList<Video> listaNuevaLista;
 
 
 
@@ -242,7 +245,7 @@ public class VentanaPrueba2 {
 		btnLupa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				mostrarListaExplorar();
+				mostrarListaExplorar(buscador.getText());
 				CardLayout c1 = (CardLayout) (panel_Card.getLayout());
 				c1.show(panel_Card, "panelExplorar");
 			}
@@ -299,6 +302,14 @@ public class VentanaPrueba2 {
 		scrollPane.setMinimumSize(new Dimension(100, 100));
 		
 		JList list_etiquetas = new JList(new Vector(ControladorAPP.getInstancia().getEtiquetas()));
+		list_etiquetas.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent e) {
+				List<Etiqueta> listaEtiq = (List<Etiqueta>) list_etiquetas.getSelectedValuesList();
+				
+				listaEtiqUsed = new JList<Etiqueta>(new Vector(listaEtiq) );
+				
+			}
+		});
 		
 		
 		scrollPane.setViewportView(list_etiquetas);
@@ -323,20 +334,8 @@ public class VentanaPrueba2 {
 		panel_10.add(scrollPane_2, gbc_scrollPane_2);
 		
 		listaEtiqUsed = new JList<>();
-		listaEtiqUsed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				listaEtiqUsed = new JList(new Vector<>(list_etiquetas.getSelectedValuesList()));
-			}
-		});
 		scrollPane_2.setViewportView(listaEtiqUsed);
 		
-		
-		
-	    String[] columns = {"", "", "", ""};
-		
-		
-	
 		JPanel panel_misListas = new JPanel();
 		panel_Card.add(panel_misListas, "panelMyLists");
 		panel_misListas.setLayout(new BorderLayout(0, 0));
@@ -358,7 +357,7 @@ public class VentanaPrueba2 {
 		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel_5.setLayout(gbl_panel_5);
 		
-		JLabel lblNewLabel_2 = new JLabel("Seleccione una lista: ");
+		JLabel lblNewLabel_2 = new JLabel("Seleccione una lista: "); 
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
 		gbc_lblNewLabel_2.insets = new Insets(0, 0, 5, 0);
 		gbc_lblNewLabel_2.anchor = GridBagConstraints.NORTHWEST;
@@ -366,7 +365,7 @@ public class VentanaPrueba2 {
 		gbc_lblNewLabel_2.gridy = 0;
 		panel_5.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		JComboBox comboBox = new JComboBox(new Vector(ControladorAPP.getInstancia().getAllListaVideo()));
+		comboBox = new JComboBox(new Vector(ControladorAPP.getInstancia().getAllListaVideo()));
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
@@ -400,9 +399,9 @@ public class VentanaPrueba2 {
 		panel_nuevaLista.add(panel_7, BorderLayout.WEST);
 		GridBagLayout gbl_panel_7 = new GridBagLayout();
 		gbl_panel_7.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_7.rowHeights = new int[]{0, 0, 0, 0, 0, 6, 0, 0, 0};
-		gbl_panel_7.columnWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_7.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_7.rowHeights = new int[]{0, 0, 0, 0, 6, 0, 0};
+		gbl_panel_7.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_7.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_7.setLayout(gbl_panel_7);
 		
 		JLabel lblNewLabel_3 = new JLabel("Introducir nombre de la lista:");
@@ -436,12 +435,19 @@ public class VentanaPrueba2 {
 								JOptionPane.YES_NO_OPTION); 
 					 if(res == JOptionPane.YES_OPTION) {
 						 listaAModificar = ControladorAPP.getInstancia().crearListaVideo(textField.getText());
+						///comboBox= new ComboBox(new Vec)
+						 
 					 }
 				 }
 				 else {
 					 listaAModificar=lista;
+					 mostrarListaNuevaLista(listaAModificar);
+					 
 					 
 				 }
+				 
+				 frame.repaint();
+				 frame.revalidate();
 			}
 				
 		});
@@ -452,6 +458,23 @@ public class VentanaPrueba2 {
 		panel_7.add(btnNewButton_4, gbc_btnNewButton_4);
 		
 		JButton btnNewButton_5 = new JButton("Eliminar");
+		btnNewButton_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 int res = JOptionPane.showConfirmDialog(frame, 
+							"¿Seguro que quieres eliminar la lista?", 
+							"Eliminar Lista",
+							JOptionPane.YES_NO_OPTION); 
+				 if(res == JOptionPane.YES_OPTION) {
+					 if (listaAModificar!=null) {
+							ControladorAPP.getInstancia().eliminarListaVideo(listaAModificar); 
+							listaAModificar = null;
+							mostrarListaNuevaLista(listaAModificar);
+						}
+				 }
+				
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_5 = new GridBagConstraints();
 		gbc_btnNewButton_5.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_5.gridwidth = 2;
@@ -463,37 +486,60 @@ public class VentanaPrueba2 {
 		btnNewButton_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				List<Video> videosSelect = new LinkedList<>();
-				videosSelect = listaListas.getSelectedValuesList();
+				if (listaAModificar!=null) {
+					List<Video> videosSelect = new LinkedList<>();
+					videosSelect = listaListas.getSelectedValuesList();
+					ControladorAPP.getInstancia().añadirVideoLV(listaAModificar, videosSelect);
+					mostrarListaNuevaLista(listaAModificar);
+				}
 				
 				
 			}
 		});
+		
+		scrollPane_3 = new JScrollPane();
+		scrollPane_3.setPreferredSize(new Dimension(110, 200));
+		GridBagConstraints gbc_scrollPane_3 = new GridBagConstraints();
+		gbc_scrollPane_3.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_3.gridwidth = 2;
+		gbc_scrollPane_3.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollPane_3.gridx = 0;
+		gbc_scrollPane_3.gridy = 3;
+		panel_7.add(scrollPane_3, gbc_scrollPane_3);
+		
+		listaNuevaLista = new JList<Video>();
+		listaNuevaLista.setPreferredSize(new Dimension(100, 150));
+		scrollPane_3.setViewportView(listaNuevaLista);
 		GridBagConstraints gbc_btnNewButton_8 = new GridBagConstraints();
 		gbc_btnNewButton_8.anchor = GridBagConstraints.WEST;
 		gbc_btnNewButton_8.insets = new Insets(0, 0, 5, 5);
 		gbc_btnNewButton_8.gridx = 0;
-		gbc_btnNewButton_8.gridy = 5;
+		gbc_btnNewButton_8.gridy = 4;
 		panel_7.add(btnNewButton_8, gbc_btnNewButton_8);
 		
 		JButton btnNewButton_9 = new JButton("Quitar");
+		btnNewButton_9.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (listaAModificar!=null) {
+					/*List<Video> videosSelect = new LinkedList<>();
+					videosSelect = listaNuevaLista.getSelectedValuesList();
+					ControladorAPP.getInstancia().eliminarVideoLV(videosSelect, listaAModificar);
+					mostrarListaNuevaLista(listaAModificar);*/
+					
+					int[] idx;
+					idx = listaNuevaLista.getSelectedIndices();
+					ControladorAPP.getInstancia().eliminarVideoLV(idx, listaAModificar);
+					mostrarListaNuevaLista(listaAModificar);
+				}
+			}
+		});
 		GridBagConstraints gbc_btnNewButton_9 = new GridBagConstraints();
 		gbc_btnNewButton_9.anchor = GridBagConstraints.EAST;
 		gbc_btnNewButton_9.insets = new Insets(0, 0, 5, 0);
 		gbc_btnNewButton_9.gridx = 1;
-		gbc_btnNewButton_9.gridy = 5;
+		gbc_btnNewButton_9.gridy = 4;
 		panel_7.add(btnNewButton_9, gbc_btnNewButton_9);
-		
-		JButton btnNewButton_10 = new JButton("Aceptar");
-		btnNewButton_10.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		GridBagConstraints gbc_btnNewButton_10 = new GridBagConstraints();
-		gbc_btnNewButton_10.gridwidth = 2;
-		gbc_btnNewButton_10.gridx = 0;
-		gbc_btnNewButton_10.gridy = 7;
-		panel_7.add(btnNewButton_10, gbc_btnNewButton_10);
 		
 		JPanel panel_8 = new JPanel();
 		panel_nuevaLista.add(panel_8, BorderLayout.CENTER);
@@ -749,13 +795,23 @@ public class VentanaPrueba2 {
 		});
 	}
 	
-	private void mostrarListaExplorar() {
-		listaVideosExplorar = new ListaVideos(ControladorAPP.getInstancia().getVideos());
+	private void mostrarListaExplorar(String titulo) {
+		listaVideosExplorar = new ListaVideos(ControladorAPP.getInstancia().buscar(titulo, null)); 
 		scrollVideosExplorar.setViewportView(listaVideosExplorar);
 	}
 	
 	private void mostrarLista() {
 		listaListas = new ListaVideos(ControladorAPP.getInstancia().getVideos());
 		scrollPane_1.setViewportView(listaListas);
+	}
+	
+	private void mostrarListaNuevaLista(ListaVideo lista) { 
+		if(lista==null) {
+			scrollPane_3.setViewportView(null);
+			return;
+		}
+		listaNuevaLista = new ListaVideos(lista.getVideos());
+		listaNuevaLista.setLayoutOrientation(JList.VERTICAL);
+		scrollPane_3.setViewportView(listaNuevaLista);
 	}
 }

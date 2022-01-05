@@ -278,9 +278,11 @@ public class VentanaRegistrar {
 		}
 		
 		
-		if (!camposVacios.equals("")) {
-			camposVacios = camposVacios.substring(0, camposVacios.length()-2);
-			JOptionPane.showMessageDialog(frame,
+		if (!camposVacios.equals("") || !errores.isEmpty()) {
+			if(!camposVacios.isEmpty()) {
+				camposVacios = camposVacios.substring(0, camposVacios.length()-2);
+			}
+						JOptionPane.showMessageDialog(frame,
 					errores+"Campos a completar: "+camposVacios, 
 					"Error en el registro.", 
 					JOptionPane.ERROR_MESSAGE);	

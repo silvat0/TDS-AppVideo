@@ -150,7 +150,7 @@ public class ControladorAPP implements VideosListener {
 		return v;
 	}
 	
-	public boolean eliminarListaVideo(ListaVideo lv) {
+	public boolean eliminarListaVideo(ListaVideo lv) { 
 		
 		factoria.getListaVideoDAO().delete(lv);
 		boolean b =user.eliminarListaVideos(lv);
@@ -158,15 +158,27 @@ public class ControladorAPP implements VideosListener {
 		return b;
 	}
 	
-	public void añadirVideoLV(ListaVideo lv, Video...v) {
+	public void añadirVideoLV(ListaVideo lv, List<Video> v) {
 		
 		lv.addVideo(v);
 		factoria.getListaVideoDAO().update(lv);
 	}
 
-	public void eliminarVideoLV(int idxV, ListaVideo lv) {
+	public void eliminarVideoLV(List<Video> v, ListaVideo lv) {
 		
-		lv.removeVideo(idxV);
+		/*for(int i : idxV) {
+			lv.removeVideo(i);
+		}*/
+		lv.removeVideo(v);
+		factoria.getListaVideoDAO().update(lv);
+	}
+	
+	public void eliminarVideoLV(int[] idx, ListaVideo lv) {
+		
+		for(int i : idx) {
+			lv.removeVideo(i);
+		}
+		
 		factoria.getListaVideoDAO().update(lv);
 	}
 	

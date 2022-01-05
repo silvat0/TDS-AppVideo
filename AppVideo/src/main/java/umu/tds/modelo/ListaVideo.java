@@ -33,12 +33,16 @@ public class ListaVideo {
 	
 	//Metodos
 	//1º metodo --> añadir videos a la lista de videos
-	public boolean addVideo(Video...v) {
-		return Collections.addAll(videos, v);
+	public void addVideo(List<Video> v) {
+		videos.addAll(v);
 	}
 	
 	public boolean removeVideo(int idx) {
 		return videos.remove(idx) != null;
+	}
+	
+	public void removeVideo(List<Video> v) { 
+		videos.removeAll(v);
 	}
 
 	public int getId() {
