@@ -59,6 +59,7 @@ import componente.IBuscadorVideos;
 import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
 import umu.tds.modelo.Etiqueta;
+import umu.tds.modelo.Filtro;
 import umu.tds.modelo.ListaVideo;
 import umu.tds.modelo.Video;
 
@@ -602,9 +603,9 @@ public class VentanaPrueba2 {
 		gbc_panel_2.gridy = 2;
 		panel.add(panel_2, gbc_panel_2);
 		GridBagLayout gbl_panel_2 = new GridBagLayout();
-		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 20, 0, 5, 0, 5, 0};
+		gbl_panel_2.columnWidths = new int[]{0, 0, 0, 0, 0, 0, 0, 20, 0, 20, 0, 20, 0, 5, 0};
 		gbl_panel_2.rowHeights = new int[]{0, 0};
-		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_2.columnWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_panel_2.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
@@ -647,6 +648,10 @@ public class VentanaPrueba2 {
 		usernameLBL.setText(ControladorAPP.getInstancia().getUsuario().getUsername());
 		
 		JButton btnNewButton_2 = new JButton("Logout");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -663,9 +668,29 @@ public class VentanaPrueba2 {
 				
 			}
 		});
+		
+		JLabel lblNewLabel_7 = new JLabel("Filtros:");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.BOLD, 15));
+		GridBagConstraints gbc_lblNewLabel_7 = new GridBagConstraints();
+		gbc_lblNewLabel_7.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_7.anchor = GridBagConstraints.EAST;
+		gbc_lblNewLabel_7.gridx = 5;
+		gbc_lblNewLabel_7.gridy = 0;
+		panel_2.add(lblNewLabel_7, gbc_lblNewLabel_7);
+		
+		JComboBox<Filtro> comboFiltros = new JComboBox<Filtro>(new Vector<>(ControladorAPP.getInstancia().getFiltros()));
+		comboFiltros.setEnabled(ControladorAPP.getInstancia().getUsuario().isPremium());
+		comboFiltros.setEditable(false);
+		comboFiltros.setPreferredSize(new Dimension(50, 22));
+		GridBagConstraints gbc_comboFiltros = new GridBagConstraints();
+		gbc_comboFiltros.insets = new Insets(0, 0, 0, 5);
+		gbc_comboFiltros.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboFiltros.gridx = 6;
+		gbc_comboFiltros.gridy = 0;
+		panel_2.add(comboFiltros, gbc_comboFiltros);
 		GridBagConstraints gbc_btnNewButton_2 = new GridBagConstraints();
 		gbc_btnNewButton_2.insets = new Insets(0, 0, 0, 5);
-		gbc_btnNewButton_2.gridx = 5;
+		gbc_btnNewButton_2.gridx = 8;
 		gbc_btnNewButton_2.gridy = 0;
 		panel_2.add(btnNewButton_2, gbc_btnNewButton_2);
 		
@@ -684,7 +709,7 @@ public class VentanaPrueba2 {
 		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
 		gbc_btnNewButton_1.insets = new Insets(0, 0, 0, 5);
 		gbc_btnNewButton_1.anchor = GridBagConstraints.EAST;
-		gbc_btnNewButton_1.gridx = 7;
+		gbc_btnNewButton_1.gridx = 10;
 		gbc_btnNewButton_1.gridy = 0;
 		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
 		
@@ -702,7 +727,7 @@ public class VentanaPrueba2 {
 		});
 		GridBagConstraints gbc_luz = new GridBagConstraints();
 		gbc_luz.insets = new Insets(0, 0, 0, 5);
-		gbc_luz.gridx = 9;
+		gbc_luz.gridx = 12;
 		gbc_luz.gridy = 0;
 		panel_2.add(luz, gbc_luz);
 	}

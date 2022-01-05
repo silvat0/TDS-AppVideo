@@ -4,6 +4,7 @@ import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.EventObject;
@@ -175,6 +176,10 @@ public class ControladorAPP implements VideosListener {
 	
 	public Optional<ListaVideo> getLista(String nombre) {
 		return getAllListaVideo().stream().filter(l -> l.getNombre().equals(nombre)).findFirst();
+	}
+	
+	public List<Filtro> getFiltros() {
+		return Arrays.asList(Filtro.values());
 	}
 	
 	public void setFiltro(Filtro filtro) {
