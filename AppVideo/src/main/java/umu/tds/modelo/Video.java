@@ -12,14 +12,18 @@ public class Video {
 	private String url;  
 	private String titulo;
 	private List<Etiqueta> etiqs;
+	private int visitas;
 	
 
 	public Video(String titulo2, String url2, List<Etiqueta> etiquetas) {
+		this(titulo2, url2, etiquetas, 0);
+	}
+	public Video(String titulo, String url, List<Etiqueta> etiquetas, int visitas) {
 		setId(0);
-		titulo = titulo2;
-		url = url2;
-		etiqs = etiquetas;
-		
+		this.titulo = titulo;
+		this.url = url;
+		this.etiqs = etiquetas;
+		this.visitas = visitas;
 	}
 
 	//Gets
@@ -51,6 +55,13 @@ public class Video {
 	
 	public boolean tieneEtiqueta(Etiqueta e) {
 		return etiqs.contains(e);
+	}
+	public int getVisitas() {
+		return visitas;
+	}
+	
+	public void reproducir() {
+		visitas++;
 	}
 	
 }

@@ -24,6 +24,7 @@ public class TDSVideoDAO implements VideoDAO {
 	private static final String TITULO = "titulo";
 	private static final String ETIQUETAS = "etiquetas";
 	private static final String SEP_ETIQ = " ";
+	private static final String VISITAS = "visitas";
 	
 	private EtiquetaDAO adaptEtiquetas;
 	private ServicioPersistencia sp;
@@ -63,9 +64,10 @@ public class TDSVideoDAO implements VideoDAO {
 		String url = sp.recuperarPropiedadEntidad(eVideo, URL);
 		String titulo = sp.recuperarPropiedadEntidad(eVideo, TITULO);
 		String etiquetas = sp.recuperarPropiedadEntidad(eVideo, ETIQUETAS);
+		String visitas = sp.recuperarPropiedadEntidad(eVideo, VISITAS);
 		
 		
-		Video v = new Video(titulo, url, propToEtiquetas(etiquetas));
+		Video v = new Video(titulo, url, propToEtiquetas(etiquetas), Integer.valueOf(visitas));
 		v.setId(eVideo.getId());
 		return v;
 	}
@@ -79,7 +81,9 @@ public class TDSVideoDAO implements VideoDAO {
 		eVideo.setPropiedades(new ArrayList<Propiedad>(Arrays.asList(
 				new Propiedad(TITULO, video.getTitulo()),
 				new Propiedad(URL, video.getUrl()),
-				new Propiedad(ETIQUETAS, etiquetasToProp(video.getEtiquetas())))));
+				new Propiedad(ETIQUETAS, etiquetasToProp(video.getEtiquetas())),
+				new Propiedad(VISITAS, String.valueOf(video.getVisitas())
+						))));
 		
 		return eVideo;
 	}
@@ -115,6 +119,8 @@ public class TDSVideoDAO implements VideoDAO {
 				p.setValor(vide.getUrl());
 			} else if (p.getNombre().equals(ETIQUETAS)) {
 				p.setValor(etiquetasToProp(vide.getEtiquetas()));
+			} else if (p.getNombre().equals(VISITAS)) {
+				p.setValor(String.valueOf(vide.getVisitas()));
 			}
 			sp.modificarPropiedad(p);
 		});
@@ -135,8 +141,4 @@ public class TDSVideoDAO implements VideoDAO {
 				.map(e -> get(e.getId()))
 				.collect(Collectors.toList());
 	}
-	
-	
-
-
 }
