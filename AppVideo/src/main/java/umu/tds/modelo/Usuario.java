@@ -6,8 +6,11 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javafx.collections.transformation.SortedList;
+
 public class Usuario {
 	//Atributos
+	private static final int MAX_RECIENTES = 5;
 	private int id=0;
 	private String nombre;
 	private String email; 
@@ -17,15 +20,18 @@ public class Usuario {
 	private String username;
 	private boolean premium;
 	private List<ListaVideo> listasVideos;
+	private List<Video> recientes;
 	private IFiltro filtroActivo;
 	
 	//Constructor
+	//de un posible usuario nuevo
 	public Usuario(String nombre, String email, Date fechaNac, String contraseña, String apellidos, String usuario) {
-		this(nombre, apellidos, email, usuario, fechaNac, contraseña, false, new LinkedList<>(), new NoFiltro());
+		this(nombre, apellidos, email, usuario, fechaNac, contraseña, false, new LinkedList<>(), new NoFiltro(), new LinkedList<>());
 	}
-	
+	//para la persistencia
 	public Usuario(String nombre, String apellidos, String email, 
-			String username, Date fechaNac, String contraseña, boolean premium, List<ListaVideo> listasVideos, IFiltro filtro) {
+			String username, Date fechaNac, String contraseña, boolean premium, 
+			List<ListaVideo> listasVideos, IFiltro filtro, List<Video> recientes) {
 		
 		this.nombre = nombre;
 		this.apellidos = apellidos;
@@ -36,6 +42,7 @@ public class Usuario {
 		this.premium = premium;
 		this.listasVideos = listasVideos;
 		this.filtroActivo = filtro;
+		this.recientes = recientes;
 	}
 	
 	//Getters
@@ -103,5 +110,17 @@ public class Usuario {
 
 	public void setFiltroActivo(IFiltro filtroActivo) {
 		this.filtroActivo = filtroActivo;
+	}
+
+	public void reproduccion(Video v) {
+		recientes.add(0,v);
+		int tam = recientes.size(); 
+		if (tam==MAX_RECIENTES) {
+			recientes.remove(tam-1);
+		}
+	}
+
+	public List<Video> getRecientes(){
+		return Collections.unmodifiableList(recientes);
 	}
 }

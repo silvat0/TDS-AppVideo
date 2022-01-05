@@ -23,6 +23,7 @@ import umu.tds.modelo.IFiltro;
 import umu.tds.modelo.ListaVideo;
 import umu.tds.modelo.NoFiltro;
 import umu.tds.modelo.Usuario;
+import umu.tds.modelo.Video;
 import beans.Entidad;
 import beans.Propiedad;
 
@@ -45,16 +46,20 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 	private static final String LISTAS_VIDEO = "listasVideo";
 	private static final String SEP_LISTAS_VID = " ";
 	private static final String FILTRO = "filtro";
+	private static final String RECIENTES = "recientes";
+	private static final String SEP_RECIENTES = "";
 	
 	
 	private ServicioPersistencia servPersistencia;
 	private ListaVideoDAO adaptLV;
+	private VideoDAO adaptVideo;
 	private SimpleDateFormat dateFormat;
 
 	public TDSUsuarioDAO() {
 		servPersistencia = FactoriaServicioPersistencia.getInstance().getServicioPersistencia();
 		try {
 			adaptLV = FactoriaDAO.getInstancia().getListaVideoDAO();
+			adaptVideo = FactoriaDAO.getInstancia().getVideoDAO();
 		} catch (ReflectiveOperationException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,6 +85,25 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 		return lv;
 	}
 	
+	private String videosToString(List<Video> lista)  {
+		
+		StringJoiner sj = new StringJoiner(SEP_RECIENTES);
+		lista.stream().forEach(l -> sj.add(String.valueOf(l.getId())));
+		return sj.toString();
+	}
+	
+	
+	private List<Video> stringToVideos(String lista) {
+		List<Video> lv = new ArrayList<>();
+		StringTokenizer st = new StringTokenizer(lista, SEP_RECIENTES);
+		
+		while (st.hasMoreTokens()) {
+			lv.add(adaptVideo.get(Integer.valueOf((String) st.nextElement())));
+		}
+		
+		return lv;
+	}
+		
 	private IFiltro stringToFiltro(String filt) {
 		
 		IFiltro f;
@@ -108,6 +132,7 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 		String premium = servPersistencia.recuperarPropiedadEntidad(eUsuario, IS_PREMIUM);
 		String listaVideos = servPersistencia.recuperarPropiedadEntidad(eUsuario, LISTAS_VIDEO);
 		String filtro = servPersistencia.recuperarPropiedadEntidad(eUsuario, FILTRO);
+		String recientes = servPersistencia.recuperarPropiedadEntidad(eUsuario, RECIENTES);
 		
 		//Parseamos la fecha: excep -> epoch
 		Date d;
@@ -119,8 +144,9 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 		
 		boolean p = Boolean.parseBoolean(premium);
 		List<ListaVideo> lv = stringToListasVideo(listaVideos);
+		List<Video> videosRec = stringToVideos(recientes);
 
-		Usuario usuario = new Usuario(nombre, apellidos, email, login, d, password, p, lv, stringToFiltro(filtro));
+		Usuario usuario = new Usuario(nombre, apellidos, email, login, d, password, p, lv, stringToFiltro(filtro), videosRec);
 		usuario.setId(eUsuario.getId());
 
 		return usuario;
@@ -137,7 +163,8 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 				new Propiedad(FECHA_NACIMIENTO, dateFormat.format(usuario.getFechaNac())),
 				new Propiedad(IS_PREMIUM, usuario.isPremium()+""),
 				new Propiedad(LISTAS_VIDEO, listasVideoToString(usuario.getListasVideos())),
-				new Propiedad(FILTRO, filtroToString(usuario.getFiltroActivo()))
+				new Propiedad(FILTRO, filtroToString(usuario.getFiltroActivo())),
+				new Propiedad(RECIENTES, videosToString(usuario.getRecientes()))
 						
 						)));
 		return eUsuario;
@@ -181,6 +208,8 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 				prop.setValor(listasVideoToString(usuario.getListasVideos()));
 			} else if (prop.getNombre().equals(FILTRO)) {
 				prop.setValor(filtroToString(usuario.getFiltroActivo()));
+			} else if (prop.getNombre().equals(RECIENTES)) {
+				prop.setValor(videosToString(usuario.getRecientes()));
 			}
 			servPersistencia.modificarPropiedad(prop);
 		}
