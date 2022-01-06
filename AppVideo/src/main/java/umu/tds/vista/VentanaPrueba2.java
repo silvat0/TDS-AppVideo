@@ -78,6 +78,8 @@ import java.util.Vector;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.DefaultComboBoxModel;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class VentanaPrueba2 {
 
@@ -90,15 +92,17 @@ public class VentanaPrueba2 {
 	private ListaVideos listaVideosExplorar;
 	private JList<Etiqueta> listaEtiqUsed ;
 	private JTextField textField_1;
-	private JList<Video> listaListas;
+	private ListaVideos listaListas;
 	private JScrollPane scrollPane_1;
 	private ListaVideo listaAModificar;
-	private JComboBox comboBox;
+	private JComboBox<ListaVideo> comboBox;
 	private JScrollPane scrollPane_3;
 	private JList<Video> listaNuevaLista;
 	private JLabel contadorVideos;
 	private ListaVideos listaRecientes;
 	private JScrollPane scrollVideosRecientes;
+	private ListaVideos MiListaAct;
+	private JScrollPane scrollPaneMisListas;
 	
 	static boolean emergente=false;
 	private JPanel panelReproductorRecientes;
@@ -392,9 +396,9 @@ public class VentanaPrueba2 {
 		panel_misListas.add(panel_5, BorderLayout.WEST);
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
 		gbl_panel_5.columnWidths = new int[]{46, 0};
-		gbl_panel_5.rowHeights = new int[]{14, 0, 0, 0, 0};
-		gbl_panel_5.columnWeights = new double[]{1.0, Double.MIN_VALUE};
-		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+		gbl_panel_5.rowHeights = new int[]{14, 0, 0, 0};
+		gbl_panel_5.columnWeights = new double[]{0.0, Double.MIN_VALUE};
+		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_5.setLayout(gbl_panel_5);
 		
 		JLabel lblNewLabel_2 = new JLabel("Seleccione una lista: "); 
@@ -406,12 +410,28 @@ public class VentanaPrueba2 {
 		panel_5.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
 		comboBox = new JComboBox(new Vector(ControladorAPP.getInstancia().getAllListaVideo()));
+		comboBox.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				MiListaAct = (ListaVideos) comboBox.getSelectedItem();
+			}
+		});
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
 		gbc_comboBox.insets = new Insets(0, 0, 5, 0);
 		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
 		gbc_comboBox.gridx = 0;
 		gbc_comboBox.gridy = 1;
 		panel_5.add(comboBox, gbc_comboBox);
+		
+		scrollPaneMisListas = new JScrollPane();
+		scrollPaneMisListas.setPreferredSize(new Dimension(110, 150));
+		GridBagConstraints gbc_scrollPaneMisListas = new GridBagConstraints();
+		gbc_scrollPaneMisListas.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneMisListas.gridx = 0;
+		gbc_scrollPaneMisListas.gridy = 2;
+		panel_5.add(scrollPaneMisListas, gbc_scrollPaneMisListas);
+		
+		JList list = new JList();
+		scrollPaneMisListas.setViewportView(list);
 		
 		JPanel panel_6 = new JPanel();
 		panel_misListas.add(panel_6, BorderLayout.CENTER);
@@ -475,7 +495,9 @@ public class VentanaPrueba2 {
 								JOptionPane.YES_NO_OPTION); 
 					 if(res == JOptionPane.YES_OPTION) {
 						 listaAModificar = ControladorAPP.getInstancia().crearListaVideo(textField.getText());
-						///comboBox= new ComboBox(new Vec)
+						 //comboBox = new JComboBox(new Vector(ControladorAPP.getInstancia().getAllListaVideo()));
+						 
+						 comboBox.setModel(new DefaultComboBoxModel<ListaVideo>(new Vector<ListaVideo>(ControladorAPP.getInstancia().getAllListaVideo())));
 						 
 					 }
 				 }
@@ -510,6 +532,7 @@ public class VentanaPrueba2 {
 							ControladorAPP.getInstancia().eliminarListaVideo(listaAModificar); 
 							listaAModificar = null;
 							mostrarListaNuevaLista(listaAModificar);
+							comboBox.setModel(new DefaultComboBoxModel<ListaVideo>(new Vector<ListaVideo>(ControladorAPP.getInstancia().getAllListaVideo())));
 						}
 				 }
 				
@@ -599,26 +622,30 @@ public class VentanaPrueba2 {
 		panel_8.add(textField_1, gbc_textField_1);
 		textField_1.setColumns(10);
 		
-		JButton btnLupaNL = new JButton("");
-		btnLupaNL.addMouseListener(new MouseAdapter() {
+		JButton btnNewButton_11 = new JButton("");
+		btnNewButton_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				mostrarLista();
 			}
 		});
-		btnLupaNL.setIcon(new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")));
+		btnNewButton_11.setIcon(new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")));
+		GridBagConstraints gbc_btnNewButton_11 = new GridBagConstraints();
+		gbc_btnNewButton_11.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_11.gridx = 2;
+		gbc_btnNewButton_11.gridy = 0;
+		panel_8.add(btnNewButton_11, gbc_btnNewButton_11);
 
 		
 		scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.insets = new Insets(0, 0, 0, 5);
 		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
 		gbc_scrollPane_1.gridwidth = 4;
 		gbc_scrollPane_1.gridx = 0;
 		gbc_scrollPane_1.gridy = 1;
 		panel_8.add(scrollPane_1, gbc_scrollPane_1);
 		
-		listaListas = new JList();
+		listaListas = new ListaVideos(new LinkedList<>());
 		scrollPane_1.setViewportView(listaListas);
 		
 		JPanel panel_recientes = new JPanel();
@@ -695,13 +722,13 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_10.gridy = 1;
 		panelVideosRecientes.add(btnNewButton_10, gbc_btnNewButton_10);
 		
-		panelReproductorRecientes = new Reproductor(videoWeb);
-		panelReproductorRecientes.setVisible(false);
+		//panelReproductorRecientes = new Reproductor(videoWeb);
+		/*panelReproductorRecientes.setVisible(false);
 		GridBagConstraints gbc_panelReproductorRecientes = new GridBagConstraints();
 		gbc_panelReproductorRecientes.fill = GridBagConstraints.BOTH;
 		gbc_panelReproductorRecientes.gridx = 3;
 		gbc_panelReproductorRecientes.gridy = 1;
-		panel_recientes.add(panelReproductorRecientes, gbc_panelReproductorRecientes);
+		panel_recientes.add(panelReproductorRecientes, gbc_panelReproductorRecientes);*/
 		
 		
 		JPanel panel = new JPanel();
@@ -892,5 +919,9 @@ public class VentanaPrueba2 {
 	}
 	private void mostrarRecientes() {
 		scrollVideosRecientes.setViewportView(listaRecientes);
+	}
+	
+	private void mostrarMisListas() {
+		scrollPaneMisListas.setViewportView(MiListaAct);
 	}
 }
