@@ -71,6 +71,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import pulsador.Luz;
 import pulsador.IEncendidoListener;
+
+import java.util.ArrayList;
 import java.util.EventObject;
 import java.util.LinkedList;
 import java.util.List;
@@ -78,6 +80,8 @@ import java.util.Vector;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 
@@ -89,23 +93,23 @@ public class VentanaPrueba2 {
 	public static VideoWeb videoWeb;
 	private JTextField textField;
 	private JScrollPane scrollVideosExplorar;
-	private ListaVideos listaVideosExplorar;
+	private JListVideos listaVideosExplorar;
 	private JList<Etiqueta> listaEtiqUsed ;
 	private JTextField textField_1;
-	private ListaVideos listaListas;
+	private JListVideos listaListas;
 	private JScrollPane scrollPane_1;
 	private ListaVideo listaAModificar;
 	private JComboBox<ListaVideo> comboBox;
 	private JScrollPane scrollPane_3;
 	private JList<Video> listaNuevaLista;
 	private JLabel contadorVideos;
-	private ListaVideos listaRecientes;
+	private JListVideos listaRecientes;
 	private JScrollPane scrollVideosRecientes;
-	private ListaVideos MiListaAct;
 	private JScrollPane scrollPaneMisListas;
 	
 	static boolean emergente=false;
 	private JPanel panelReproductorRecientes;
+	private JListVideos listaMisListas;
 	
 
 
@@ -409,10 +413,12 @@ public class VentanaPrueba2 {
 		gbc_lblNewLabel_2.gridy = 0;
 		panel_5.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
-		comboBox = new JComboBox(new Vector(ControladorAPP.getInstancia().getAllListaVideo()));
+		comboBox = new JComboBox<ListaVideo>(new Vector<ListaVideo>(ControladorAPP.getInstancia().getAllListaVideo()));
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				MiListaAct = (ListaVideos) comboBox.getSelectedItem();
+				ListaVideo sel = ((ListaVideo) comboBox.getSelectedItem());
+				mostrarMisListas(sel.getVideos());
+				
 			}
 		});
 		GridBagConstraints gbc_comboBox = new GridBagConstraints();
@@ -430,8 +436,10 @@ public class VentanaPrueba2 {
 		gbc_scrollPaneMisListas.gridy = 2;
 		panel_5.add(scrollPaneMisListas, gbc_scrollPaneMisListas);
 		
-		JList list = new JList();
-		scrollPaneMisListas.setViewportView(list);
+		ListaVideo sel = ((ListaVideo) comboBox.getSelectedItem());
+		mostrarMisListas(sel.getVideos());
+		listaMisListas.setLayoutOrientation(JList.VERTICAL);
+		scrollPaneMisListas.setViewportView(listaMisListas);
 		
 		JPanel panel_6 = new JPanel();
 		panel_misListas.add(panel_6, BorderLayout.CENTER);
@@ -507,9 +515,6 @@ public class VentanaPrueba2 {
 					 
 					 
 				 }
-				 
-				 frame.repaint();
-				 frame.revalidate();
 			}
 				
 		});
@@ -645,7 +650,7 @@ public class VentanaPrueba2 {
 		gbc_scrollPane_1.gridy = 1;
 		panel_8.add(scrollPane_1, gbc_scrollPane_1);
 		
-		listaListas = new ListaVideos(new LinkedList<>());
+		listaListas = new JListVideos(new LinkedList<>());
 		scrollPane_1.setViewportView(listaListas);
 		
 		JPanel panel_recientes = new JPanel();
@@ -707,7 +712,7 @@ public class VentanaPrueba2 {
 		gbc_scrollVideosRecientes.gridy = 0;
 		panelVideosRecientes.add(scrollVideosRecientes, gbc_scrollVideosRecientes);
 		
-		listaRecientes = new ListaVideos(ControladorAPP.getInstancia().getRecientes());
+		listaRecientes = new JListVideos(ControladorAPP.getInstancia().getRecientes());
 		scrollVideosRecientes.setViewportView(listaRecientes);
 		
 		JButton btnNewButton_10 = new JButton("Reproducir");
@@ -899,12 +904,12 @@ public class VentanaPrueba2 {
 	}
 	
 	private void mostrarListaExplorar(String titulo) {
-		listaVideosExplorar = new ListaVideos(ControladorAPP.getInstancia().buscar(titulo)); 
+		listaVideosExplorar = new JListVideos(ControladorAPP.getInstancia().buscar(titulo)); 
 		scrollVideosExplorar.setViewportView(listaVideosExplorar);
 	}
 	
 	private void mostrarLista() {
-		listaListas = new ListaVideos(ControladorAPP.getInstancia().getVideos());
+		listaListas = new JListVideos(ControladorAPP.getInstancia().getVideos());
 		scrollPane_1.setViewportView(listaListas);
 	}
 	
@@ -913,7 +918,7 @@ public class VentanaPrueba2 {
 			scrollPane_3.setViewportView(null);
 			return;
 		}
-		listaNuevaLista = new ListaVideos(lista.getVideos());
+		listaNuevaLista = new JListVideos(lista.getVideos());
 		listaNuevaLista.setLayoutOrientation(JList.VERTICAL);
 		scrollPane_3.setViewportView(listaNuevaLista);
 	}
@@ -921,7 +926,9 @@ public class VentanaPrueba2 {
 		scrollVideosRecientes.setViewportView(listaRecientes);
 	}
 	
-	private void mostrarMisListas() {
-		scrollPaneMisListas.setViewportView(MiListaAct);
+	private void mostrarMisListas(List<Video> lv) {
+		listaMisListas=new JListVideos(lv);
+		scrollPaneMisListas.setViewportView(listaMisListas);
 	}
+	
 }

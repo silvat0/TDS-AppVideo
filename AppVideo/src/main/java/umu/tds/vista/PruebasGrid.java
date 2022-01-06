@@ -37,7 +37,7 @@ import javax.swing.event.PopupMenuEvent;
 public class PruebasGrid {
 
 	private JFrame frame;
-	private ListaVideos list;
+	private JListVideos list;
 
 	/**
 	 * Launch the application.
@@ -85,7 +85,7 @@ public class PruebasGrid {
 		gbc_scrollPane.gridy = 0;
 		
 		List<Video> lv = new ArrayList<Video>(ControladorAPP.getInstancia().getVideos());
-		list = new ListaVideos(lv);
+		list = new JListVideos(lv);
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		gbc_list.fill = GridBagConstraints.BOTH;

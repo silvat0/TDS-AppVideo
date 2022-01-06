@@ -19,7 +19,7 @@ import umu.tds.modelo.Video;
 
 
 @SuppressWarnings("serial")
-public class ListaVideos extends JList<Video> {
+public class JListVideos extends JList<Video> {
 	
 	public class VideoListModel extends AbstractListModel<Video>{
 		
@@ -75,7 +75,7 @@ public class ListaVideos extends JList<Video> {
 		
 	}
 	private List<Video> lista;
-	public ListaVideos(List<Video> lista) {
+	public JListVideos(List<Video> lista) {
 		
 		super();
 		this.setModel(new VideoListModel(lista));
