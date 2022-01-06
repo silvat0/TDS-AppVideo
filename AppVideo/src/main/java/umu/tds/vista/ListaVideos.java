@@ -53,7 +53,11 @@ public class ListaVideos extends JList<Video> {
 	        JLabel label = (JLabel) super.getListCellRendererComponent(
 	                list, value, index, isSelected, cellHasFocus);
 	        Video v = (Video) value;
-	        ImageIcon im = VentanaPrueba2.videoWeb.getThumb(v.getUrl());
+	        ImageIcon im;
+	        if (VentanaPrueba2.videoWeb!=null)
+	        	im = VentanaPrueba2.videoWeb.getThumb(v.getUrl());
+	        else im = new ImageIcon();
+	        
 	        label.setIcon(im);
 	        label.setHorizontalTextPosition(JLabel.CENTER);
 	        label.setVerticalTextPosition(JLabel.BOTTOM);
