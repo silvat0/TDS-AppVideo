@@ -86,9 +86,8 @@ public class VentanaPrueba2 {
 	private JTable table;
 	public static VideoWeb videoWeb;
 	private JTextField textField;
-	private JTable table_3;
 	private JScrollPane scrollVideosExplorar;
-	private JList listaVideosExplorar;
+	private ListaVideos listaVideosExplorar;
 	private JList<Etiqueta> listaEtiqUsed ;
 	private JTextField textField_1;
 	private JList<Video> listaListas;
@@ -97,6 +96,13 @@ public class VentanaPrueba2 {
 	private JComboBox comboBox;
 	private JScrollPane scrollPane_3;
 	private JList<Video> listaNuevaLista;
+	private JLabel contadorVideos;
+	private ListaVideos listaRecientes;
+	private JScrollPane scrollVideosRecientes;
+	
+	static boolean emergente=false;
+	private JPanel panelReproductorRecientes;
+	
 
 
 
@@ -161,9 +167,9 @@ public class VentanaPrueba2 {
 		gbc_panel_4.gridy = 1;
 		panel_1.add(panel_4, gbc_panel_4);
 		GridBagLayout gbl_panel_4 = new GridBagLayout();
-		gbl_panel_4.columnWidths = new int[]{60, 0, 0, 60, 0};
+		gbl_panel_4.columnWidths = new int[]{60, 0, 0, 0, 0, 60, 0};
 		gbl_panel_4.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_4.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_4.columnWeights = new double[]{1.0, 0.0, 0.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
 		gbl_panel_4.rowWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
@@ -175,8 +181,9 @@ public class VentanaPrueba2 {
 		buscador = new JTextField();
 
 		GridBagConstraints gbc_buscador = new GridBagConstraints();
-		gbc_buscador.insets = new Insets(0, 0, 5, 5);
 		gbc_buscador.fill = GridBagConstraints.HORIZONTAL;
+		gbc_buscador.gridwidth = 3;
+		gbc_buscador.insets = new Insets(0, 0, 1, 5);
 		gbc_buscador.gridx = 1;
 		gbc_buscador.gridy = 0;
 		panel_4.add(buscador, gbc_buscador);
@@ -185,10 +192,26 @@ public class VentanaPrueba2 {
 	
 		GridBagConstraints gbc_btnLupa = new GridBagConstraints();
 		gbc_btnLupa.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnLupa.insets = new Insets(0, 0, 5, 5);
-		gbc_btnLupa.gridx = 2;
+		gbc_btnLupa.insets = new Insets(0, 0, 0, 5);
+		gbc_btnLupa.gridx = 4;
 		gbc_btnLupa.gridy = 0;
 		panel_4.add(btnLupa, gbc_btnLupa);
+		
+		JLabel lblNewLabel_8 = new JLabel("Videos a explorar:");
+		GridBagConstraints gbc_lblNewLabel_8 = new GridBagConstraints();
+		gbc_lblNewLabel_8.anchor = GridBagConstraints.WEST;
+		gbc_lblNewLabel_8.insets = new Insets(0, 0, 0, 5);
+		gbc_lblNewLabel_8.gridx = 1;
+		gbc_lblNewLabel_8.gridy = 1;
+		panel_4.add(lblNewLabel_8, gbc_lblNewLabel_8);
+		
+		JLabel contadorVideos = new JLabel(String.valueOf(ControladorAPP.getInstancia().getNVideosSistema()));
+		GridBagConstraints gbc_contadorVideos = new GridBagConstraints();
+		gbc_contadorVideos.anchor = GridBagConstraints.WEST;
+		gbc_contadorVideos.insets = new Insets(0, 0, 0, 5);
+		gbc_contadorVideos.gridx = 2;
+		gbc_contadorVideos.gridy = 1;
+		panel_4.add(contadorVideos, gbc_contadorVideos);
 		
 		JPanel panel_3 = new JPanel();
 		GridBagConstraints gbc_panel_3 = new GridBagConstraints();
@@ -236,7 +259,7 @@ public class VentanaPrueba2 {
 		gbc_panel_Card.gridy = 5;
 		panel_1.add(panel_Card, gbc_panel_Card);
 		panel_Card.setLayout(new CardLayout(0, 0));
-		((CardLayout) panel_Card.getLayout()).show(panel_Card, "panel_misListas");
+		((CardLayout) panel_Card.getLayout()).show(panel_Card, "panel_recientes");
 		
 		
 		JPanel panel_explorar = new JPanel();
@@ -267,7 +290,7 @@ public class VentanaPrueba2 {
 		gbc_scrollVideosExplorar.gridx = 0;
 		gbc_scrollVideosExplorar.gridy = 0;
 		panel_9.add(scrollVideosExplorar, gbc_scrollVideosExplorar);
-		listaVideosExplorar = new JList<>();
+	
 		
 		
 		
@@ -276,9 +299,9 @@ public class VentanaPrueba2 {
 		panel_explorar.add(panel_10, BorderLayout.EAST);
 		GridBagLayout gbl_panel_10 = new GridBagLayout();
 		gbl_panel_10.columnWidths = new int[]{5, 101, 5, 0};
-		gbl_panel_10.rowHeights = new int[]{0, 130, 5, 0, 0, 0, 0};
+		gbl_panel_10.rowHeights = new int[]{0, 130, 5, 0, 0, 0, 5, 0};
 		gbl_panel_10.columnWeights = new double[]{0.0, 0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_10.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_10.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 1.0, 0.0, 0.0, Double.MIN_VALUE};
 		panel_10.setLayout(gbl_panel_10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Etiquetas disponibles:");
@@ -335,6 +358,23 @@ public class VentanaPrueba2 {
 		
 		listaEtiqUsed = new JList<>();
 		scrollPane_2.setViewportView(listaEtiqUsed);
+		
+		JButton btnNewButton_7 = new JButton("Reproducir");
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Video v = listaVideosExplorar.getSelectedValue();
+				ControladorAPP.getInstancia().reproducir(v);
+				if (!emergente)
+					RepEmergente.main(null);
+				videoWeb.playVideo(v.getUrl());
+
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
+		gbc_btnNewButton_7.insets = new Insets(0, 0, 5, 5);
+		gbc_btnNewButton_7.gridx = 1;
+		gbc_btnNewButton_7.gridy = 5;
+		panel_10.add(btnNewButton_7, gbc_btnNewButton_7);
 		
 		JPanel panel_misListas = new JPanel();
 		panel_Card.add(panel_misListas, "panelMyLists");
@@ -567,11 +607,7 @@ public class VentanaPrueba2 {
 			}
 		});
 		btnLupaNL.setIcon(new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")));
-		GridBagConstraints gbc_btnNewButton_7 = new GridBagConstraints();
-		gbc_btnNewButton_7.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_7.gridx = 2;
-		gbc_btnNewButton_7.gridy = 0;
-		panel_8.add(btnLupaNL, gbc_btnNewButton_7);
+
 		
 		scrollPane_1 = new JScrollPane();
 		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
@@ -588,16 +624,17 @@ public class VentanaPrueba2 {
 		JPanel panel_recientes = new JPanel();
 		panel_Card.add(panel_recientes, "panelRecents");
 		GridBagLayout gbl_panel_recientes = new GridBagLayout();
-		gbl_panel_recientes.columnWidths = new int[]{0, 0, 0};
-		gbl_panel_recientes.rowHeights = new int[]{0, 0, 0, 0};
-		gbl_panel_recientes.columnWeights = new double[]{0.0, 0.0, Double.MIN_VALUE};
-		gbl_panel_recientes.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_recientes.columnWidths = new int[]{0, 0, 0, 0, 0};
+		gbl_panel_recientes.rowHeights = new int[]{0, 0, 0};
+		gbl_panel_recientes.columnWeights = new double[]{0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_recientes.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_recientes.setLayout(gbl_panel_recientes);
 		btnNewButton_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				CardLayout c4 = (CardLayout) (panel_Card.getLayout());
 				c4.show(panel_Card, "panelRecents");
+				mostrarRecientes();
 			}
 		});
 		
@@ -613,20 +650,58 @@ public class VentanaPrueba2 {
 		JLabel nombreLBL = new JLabel("");
 		nombreLBL.setFont(new Font("Tahoma", Font.BOLD, 15));
 		GridBagConstraints gbc_nombreLBL = new GridBagConstraints();
-		gbc_nombreLBL.insets = new Insets(0, 0, 5, 0);
+		gbc_nombreLBL.anchor = GridBagConstraints.WEST;
+		gbc_nombreLBL.insets = new Insets(0, 0, 5, 5);
 		gbc_nombreLBL.gridx = 1;
 		gbc_nombreLBL.gridy = 0;
 		panel_recientes.add(nombreLBL, gbc_nombreLBL);
 		nombreLBL.setText(ControladorAPP.getInstancia().getUsuario().getUsername());
 		
-		table_3 = new JTable();
-		GridBagConstraints gbc_table_3 = new GridBagConstraints();
-		gbc_table_3.gridwidth = 2;
-		gbc_table_3.insets = new Insets(0, 0, 0, 5);
-		gbc_table_3.fill = GridBagConstraints.BOTH;
-		gbc_table_3.gridx = 0;
-		gbc_table_3.gridy = 2;
-		panel_recientes.add(table_3, gbc_table_3);
+		JPanel panelVideosRecientes = new JPanel();
+		GridBagConstraints gbc_panelVideosRecientes = new GridBagConstraints();
+		gbc_panelVideosRecientes.gridwidth = 2;
+		gbc_panelVideosRecientes.insets = new Insets(0, 0, 0, 5);
+		gbc_panelVideosRecientes.fill = GridBagConstraints.BOTH;
+		gbc_panelVideosRecientes.gridx = 0;
+		gbc_panelVideosRecientes.gridy = 1;
+		panel_recientes.add(panelVideosRecientes, gbc_panelVideosRecientes);
+		GridBagLayout gbl_panelVideosRecientes = new GridBagLayout();
+		gbl_panelVideosRecientes.columnWidths = new int[]{0, 0};
+		gbl_panelVideosRecientes.rowHeights = new int[]{0, 0, 0};
+		gbl_panelVideosRecientes.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panelVideosRecientes.rowWeights = new double[]{1.0, 0.0, Double.MIN_VALUE};
+		panelVideosRecientes.setLayout(gbl_panelVideosRecientes);
+		
+		scrollVideosRecientes = new JScrollPane();
+		GridBagConstraints gbc_scrollVideosRecientes = new GridBagConstraints();
+		gbc_scrollVideosRecientes.fill = GridBagConstraints.BOTH;
+		gbc_scrollVideosRecientes.insets = new Insets(0, 0, 5, 0);
+		gbc_scrollVideosRecientes.gridx = 0;
+		gbc_scrollVideosRecientes.gridy = 0;
+		panelVideosRecientes.add(scrollVideosRecientes, gbc_scrollVideosRecientes);
+		
+		listaRecientes = new ListaVideos(ControladorAPP.getInstancia().getRecientes());
+		scrollVideosRecientes.setViewportView(listaRecientes);
+		
+		JButton btnNewButton_10 = new JButton("Reproducir");
+		btnNewButton_10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panelReproductorRecientes.setVisible(true);
+				videoWeb.playVideo(listaRecientes.getSelectedValue().getUrl());
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_10 = new GridBagConstraints();
+		gbc_btnNewButton_10.gridx = 0;
+		gbc_btnNewButton_10.gridy = 1;
+		panelVideosRecientes.add(btnNewButton_10, gbc_btnNewButton_10);
+		
+		panelReproductorRecientes = new Reproductor(videoWeb);
+		panelReproductorRecientes.setVisible(false);
+		GridBagConstraints gbc_panelReproductorRecientes = new GridBagConstraints();
+		gbc_panelReproductorRecientes.fill = GridBagConstraints.BOTH;
+		gbc_panelReproductorRecientes.gridx = 3;
+		gbc_panelReproductorRecientes.gridy = 1;
+		panel_recientes.add(panelReproductorRecientes, gbc_panelReproductorRecientes);
 		
 		
 		JPanel panel = new JPanel();
@@ -766,6 +841,7 @@ public class VentanaPrueba2 {
 				fc.setFileFilter(new FileNameExtensionFilter("XML FILES", "xml"));
 				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
 					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
+					contadorVideos.setText(String.valueOf(ControladorAPP.getInstancia().getNVideosSistema()));
 					PruebasGrid.main(null);
 
 				};
@@ -796,7 +872,7 @@ public class VentanaPrueba2 {
 	}
 	
 	private void mostrarListaExplorar(String titulo) {
-		listaVideosExplorar = new ListaVideos(ControladorAPP.getInstancia().buscar(titulo, null)); 
+		listaVideosExplorar = new ListaVideos(ControladorAPP.getInstancia().buscar(titulo)); 
 		scrollVideosExplorar.setViewportView(listaVideosExplorar);
 	}
 	
@@ -813,5 +889,8 @@ public class VentanaPrueba2 {
 		listaNuevaLista = new ListaVideos(lista.getVideos());
 		listaNuevaLista.setLayoutOrientation(JList.VERTICAL);
 		scrollPane_3.setViewportView(listaNuevaLista);
+	}
+	private void mostrarRecientes() {
+		scrollVideosRecientes.setViewportView(listaRecientes);
 	}
 }

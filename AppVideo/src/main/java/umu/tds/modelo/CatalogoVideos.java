@@ -66,15 +66,24 @@ public class CatalogoVideos {
 		return false;
 	}
 	
+	private String normalizar(String s) {
+		String res = s.strip();
+		res = res.toLowerCase();
+		return res;
+	}
+	
 	public List<Video> buscar(IFiltro filtro, String titulo, Etiqueta...etiquetas){
 		
 		return videos.values().stream()
 			.filter(v -> 
-				v.getTitulo().startsWith(titulo)
+				normalizar(v.getTitulo()).startsWith(normalizar(titulo))
 				&& filtro.isVideoOk(v)
-				&& estaAlgunaEtiqueta(v, etiquetas)
+				&& (etiquetas.length==0 || estaAlgunaEtiqueta(v, etiquetas))
 			)
 			.collect(Collectors.toList());
-		
+	}
+	
+	public int size() {
+		return videos.size();
 	}
 }

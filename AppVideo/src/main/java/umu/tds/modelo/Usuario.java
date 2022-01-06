@@ -112,7 +112,7 @@ public class Usuario {
 		this.filtroActivo = filtroActivo;
 	}
 
-	public void reproduccion(Video v) {
+	public void addReciente(Video v) {
 		recientes.add(0,v);
 		int tam = recientes.size(); 
 		if (tam==MAX_RECIENTES) {

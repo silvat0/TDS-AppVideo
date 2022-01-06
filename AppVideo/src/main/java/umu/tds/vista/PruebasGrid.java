@@ -10,20 +10,34 @@ import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
 import umu.tds.controlador.ControladorAPP;
+import umu.tds.modelo.ListaVideo;
+import umu.tds.modelo.Video;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import javax.swing.JScrollPane;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JList;
 import java.awt.Dimension;
+import javax.swing.JComboBox;
+import javax.swing.event.PopupMenuListener;
+
+import javafx.scene.control.ComboBox;
+
+import javax.swing.event.PopupMenuEvent;
 
 public class PruebasGrid {
 
 	private JFrame frame;
+	private ListaVideos list;
 
 	/**
 	 * Launch the application.
@@ -70,7 +84,8 @@ public class PruebasGrid {
 		gbc_scrollPane.gridx = 0;
 		gbc_scrollPane.gridy = 0;
 		
-		JList list = new ListaVideos(ControladorAPP.getInstancia().getVideos());
+		List<Video> lv = new ArrayList<Video>(ControladorAPP.getInstancia().getVideos());
+		list = new ListaVideos(lv);
 		GridBagConstraints gbc_list = new GridBagConstraints();
 		gbc_list.insets = new Insets(0, 0, 5, 5);
 		gbc_list.fill = GridBagConstraints.BOTH;
@@ -84,6 +99,33 @@ public class PruebasGrid {
 		gbc_lblNewLabel.gridx = 1;
 		gbc_lblNewLabel.gridy = 0;
 		frame.getContentPane().add(lblNewLabel, gbc_lblNewLabel);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.addPopupMenuListener(new PopupMenuListener() {
+			public void popupMenuCanceled(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
+			}
+			public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
+				lv.remove(0);
+//				list.recargar();
+			}
+		});
+		GridBagConstraints gbc_comboBox = new GridBagConstraints();
+		comboBox.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		gbc_comboBox.insets = new Insets(0, 0, 0, 5);
+		gbc_comboBox.fill = GridBagConstraints.HORIZONTAL;
+		gbc_comboBox.gridx = 0;
+		gbc_comboBox.gridy = 1;
+		frame.getContentPane().add(comboBox, gbc_comboBox);
 
 	}
 

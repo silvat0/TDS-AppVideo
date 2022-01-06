@@ -208,4 +208,19 @@ public class ControladorAPP implements VideosListener {
 		return cv.buscar(user.getFiltroActivo(), titulo);
 	}
 	
+	public int getNVideosSistema() {
+		return cv.size();
+	}
+	
+	public void reproducir(Video v) {
+		user.addReciente(v);
+		factoria.getUsuarioDAO().update(user);
+		v.reproducir();
+		factoria.getVideoDAO().update(v);
+	}
+	
+	public List<Video> getRecientes() {
+		return user.getRecientes();
+	}
+	
 }
