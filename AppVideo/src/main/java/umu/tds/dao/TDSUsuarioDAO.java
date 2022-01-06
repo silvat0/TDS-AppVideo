@@ -47,7 +47,7 @@ public final class TDSUsuarioDAO implements UsuarioDAO {
 	private static final String SEP_LISTAS_VID = " ";
 	private static final String FILTRO = "filtro";
 	private static final String RECIENTES = "recientes";
-	private static final String SEP_RECIENTES = "";
+	private static final String SEP_RECIENTES = " ";
 	
 	
 	private ServicioPersistencia servPersistencia;
