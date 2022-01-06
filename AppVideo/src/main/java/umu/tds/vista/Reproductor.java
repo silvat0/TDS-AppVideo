@@ -21,8 +21,8 @@ public class Reproductor extends JPanel {
 	public Reproductor(VideoWeb vw) {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
-		gridBagLayout.columnWidths = new int[] {0, 30, 0};
-		gridBagLayout.rowHeights = new int[] {0, 30, 0, 0};
+		gridBagLayout.columnWidths = new int[] {10, 30, 10};
+		gridBagLayout.rowHeights = new int[] {10, 30, 0, 10};
 		gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0};
 		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0};
 		setLayout(gridBagLayout);
@@ -94,7 +94,7 @@ public class Reproductor extends JPanel {
 		gbc_lblNewLabel.gridy = 0;
 		panel_4.add(lblNewLabel, gbc_lblNewLabel);
 		
-		JButton btnNewButton = new JButton("New button");
+		JButton btnNewButton = new JButton("Nueva etiqueta");
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.gridx = 2;
 		gbc_btnNewButton.gridy = 0;
