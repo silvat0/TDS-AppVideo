@@ -34,7 +34,7 @@ public class Reproductor extends JPanel {
 		gbc_panelReproductor.gridx = 1;
 		gbc_panelReproductor.gridy = 1;
 		add(panelReproductor, gbc_panelReproductor);
-		panelReproductor.add(vw);
+		//panelReproductor.add(vw);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -52,7 +52,8 @@ public class Reproductor extends JPanel {
 		
 		JPanel panel_2 = new JPanel();
 		GridBagConstraints gbc_panel_2 = new GridBagConstraints();
-		gbc_panel_2.fill = GridBagConstraints.BOTH;
+		gbc_panel_2.anchor = GridBagConstraints.NORTH;
+		gbc_panel_2.fill = GridBagConstraints.HORIZONTAL;
 		gbc_panel_2.gridx = 0;
 		gbc_panel_2.gridy = 0;
 		panel_1.add(panel_2, gbc_panel_2);
@@ -70,6 +71,8 @@ public class Reproductor extends JPanel {
 		gbc_panelEtiquetas.gridx = 0;
 		gbc_panelEtiquetas.gridy = 0;
 		panel_2.add(panelEtiquetas, gbc_panelEtiquetas);
+		ControladorAPP.getInstancia().getUltimoVideo().getEtiquetas().stream().forEach(e -> panelEtiquetas.add(new JLabel(e.getNombre())));
+
 		
 		JPanel panel_4 = new JPanel();
 		GridBagConstraints gbc_panel_4 = new GridBagConstraints();

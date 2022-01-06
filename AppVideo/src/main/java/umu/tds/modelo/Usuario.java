@@ -123,4 +123,8 @@ public class Usuario {
 	public List<Video> getRecientes(){
 		return Collections.unmodifiableList(recientes);
 	}
+	
+	public Video getUltimoVideo() {
+		return recientes.get(0);
+	}
 }

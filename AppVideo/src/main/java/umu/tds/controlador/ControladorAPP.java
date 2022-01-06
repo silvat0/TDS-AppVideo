@@ -223,4 +223,8 @@ public class ControladorAPP implements VideosListener {
 		return user.getRecientes();
 	}
 	
+	public Video getUltimoVideo() {
+		return user.getUltimoVideo();
+	}
+	
 }
