@@ -2,7 +2,9 @@ package umu.tds.dao;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.StringJoiner;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
@@ -39,8 +41,8 @@ public class TDSVideoDAO implements VideoDAO {
 		}
 	}
 	
-	private List<Etiqueta> propToEtiquetas(String prop){
-		 List<Etiqueta> etiquetas = new ArrayList<>();
+	private Set<Etiqueta> propToEtiquetas(String prop){
+		 Set<Etiqueta> etiquetas = new HashSet<>();
 		 StringTokenizer strTok = new StringTokenizer(prop, SEP_ETIQ);
 		 while (strTok.hasMoreTokens()) {
 			etiquetas.add(
@@ -51,7 +53,7 @@ public class TDSVideoDAO implements VideoDAO {
 		 return etiquetas;	
 	}
 	
-	private String etiquetasToProp(List<Etiqueta> etiquetas) {
+	private String etiquetasToProp(Set<Etiqueta> etiquetas) {
 		StringJoiner sj = new StringJoiner(SEP_ETIQ);
 		etiquetas.stream().forEach(e -> {
 			sj.add(String.valueOf(e.getId()));	

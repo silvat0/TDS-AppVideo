@@ -1,18 +1,15 @@
 package umu.tds.controlador;
 
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
-import java.util.EventObject;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Stream;
-import  java.util.stream.Collector;
-import java.util.stream.Collectors;
+
 
 import componente.ComponenteBuscadorVideos;
 import componente.VideosEvent;
@@ -113,7 +110,7 @@ public class ControladorAPP implements VideosListener {
 
 	private Video parsedVideoToModel(componente.Video compVid) {
 		
-		List<Etiqueta> le = new ArrayList<>();
+		Set<Etiqueta> le = new HashSet<>();
 		compVid.getEtiqueta().stream()
 		.forEach(e -> {
 			Etiqueta etq = new Etiqueta(e);
@@ -139,7 +136,7 @@ public class ControladorAPP implements VideosListener {
 		return new ArrayList<Video>(cv.getVideos());
 	}
 	
-	public List<Etiqueta> getEtiquetas() {
+	public Set<Etiqueta> getEtiquetas() {
 		return cv.getEtiquetas();
 	}
 	
@@ -205,8 +202,9 @@ public class ControladorAPP implements VideosListener {
 	}
 	
 	public List<Video> buscar(String titulo, Etiqueta...etiquetas){
-		return cv.buscar(user.getFiltroActivo(), titulo);
+		return cv.buscar(user.getFiltroActivo(), titulo, etiquetas);
 	}
+	
 	
 	public int getNVideosSistema() {
 		return cv.size();

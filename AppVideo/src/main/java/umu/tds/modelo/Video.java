@@ -11,14 +11,14 @@ public class Video {
 	private int id;
 	private String url;  
 	private String titulo;
-	private List<Etiqueta> etiqs;
+	private Set<Etiqueta> etiqs;
 	private int visitas;
 	
 
-	public Video(String titulo2, String url2, List<Etiqueta> etiquetas) {
+	public Video(String titulo2, String url2, Set<Etiqueta> etiquetas) {
 		this(titulo2, url2, etiquetas, 0);
 	}
-	public Video(String titulo, String url, List<Etiqueta> etiquetas, int visitas) {
+	public Video(String titulo, String url, Set<Etiqueta> etiquetas, int visitas) {
 		setId(0);
 		this.titulo = titulo;
 		this.url = url;
@@ -35,14 +35,14 @@ public class Video {
 		return titulo;
 	}
 	
-	public List<Etiqueta> getEtiquetas() {
-		return etiqs;
+	public Set<Etiqueta> getEtiquetas() {
+		return Collections.unmodifiableSet(etiqs);
 	}
 		
 	//Metodos
 	//1º metodo --> añadir etiquetas al video
-	public boolean addEtiqueta(Etiqueta...eti){
-		return etiqs.addAll(etiqs);
+	public boolean addEtiqueta(Etiqueta eti){
+		return etiqs.add(eti);
 	}
 
 	public int getId() {

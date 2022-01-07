@@ -12,13 +12,37 @@ import javax.swing.JTextField;
 
 import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
+import umu.tds.modelo.Video;
 
 public class Reproductor extends JPanel {
+	
+	private static Reproductor instancia;
+	private JPanel panelEtiquetas;
+	private Video vAct;
+	
+	private void rellenarEtiq() {
+		ControladorAPP.getInstancia().getUltimoVideo().getEtiquetas().stream().forEach(e -> panelEtiquetas.add(new JLabel(e.getNombre())));
+	}
+	
+	public static Reproductor getInstancia() {
+		if (instancia==null) {
+			instancia = new Reproductor();
+		}
+		return instancia;
+	}
+	
+	public void play(Video v) {
+		VentanaPrueba2.videoWeb.playVideo(v.getUrl());
+		vAct=v;
+		panelEtiquetas.removeAll();
+		rellenarEtiq();
+		panelEtiquetas.setVisible(true);
+	}
 
 	/**
 	 * Create the panel.
 	 */
-	public Reproductor(VideoWeb vw) {
+	public Reproductor() {
 		
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[] {10, 30, 10};
@@ -34,7 +58,7 @@ public class Reproductor extends JPanel {
 		gbc_panelReproductor.gridx = 1;
 		gbc_panelReproductor.gridy = 1;
 		add(panelReproductor, gbc_panelReproductor);
-		//panelReproductor.add(vw);
+		panelReproductor.add(VentanaPrueba2.videoWeb);
 		
 		JPanel panel_1 = new JPanel();
 		GridBagConstraints gbc_panel_1 = new GridBagConstraints();
@@ -64,7 +88,7 @@ public class Reproductor extends JPanel {
 		gbl_panel_2.rowWeights = new double[]{0.0, 0.0, 0.0};
 		panel_2.setLayout(gbl_panel_2);
 		
-		JPanel panelEtiquetas = new JPanel();
+		panelEtiquetas = new JPanel();
 		GridBagConstraints gbc_panelEtiquetas = new GridBagConstraints();
 		gbc_panelEtiquetas.insets = new Insets(0, 0, 5, 0);
 		gbc_panelEtiquetas.fill = GridBagConstraints.BOTH;
@@ -104,5 +128,7 @@ public class Reproductor extends JPanel {
 		panel_4.add(btnNewButton, gbc_btnNewButton);
 
 	}
+	
+	
 
 }

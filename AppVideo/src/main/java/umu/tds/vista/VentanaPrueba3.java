@@ -85,8 +85,9 @@ import javax.swing.DefaultListModel;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.ListSelectionModel;
 
-public class VentanaPrueba2 {
+public class VentanaPrueba3 {
 
 	private JFrame frame;
 	private JTextField buscador;
@@ -96,9 +97,6 @@ public class VentanaPrueba2 {
 	private JScrollPane scrollVideosExplorar;
 	private JListVideos listaVideosExplorar;
 	private JList<Etiqueta> listaEtiqUsed ;
-	private JTextField textField_1;
-	private JListVideos listaListas;
-	private JScrollPane scrollPane_1;
 	private ListaVideo listaAModificar;
 	private JComboBox<ListaVideo> comboBox;
 	private JScrollPane scrollPane_3;
@@ -111,9 +109,8 @@ public class VentanaPrueba2 {
 	static boolean emergente=false;
 	private JPanel panelReproductorRecientes;
 	private JListVideos listaMisListas;
-	private JList<Etiqueta> list_etiquetas;
 	private DefaultListModel<Etiqueta> modeloEtiqUsadas;
-	private JPanel panel_Card;
+	private JList<Etiqueta> list_etiquetas;
 	
 
 
@@ -127,7 +124,7 @@ public class VentanaPrueba2 {
 			public void run() {
 				try {
 					videoWeb = new VideoWeb();
-					VentanaPrueba2 window = new VentanaPrueba2();
+					VentanaPrueba3 window = new VentanaPrueba3();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -139,7 +136,7 @@ public class VentanaPrueba2 {
 	/**
 	 * Create the application.
 	 */
-	public VentanaPrueba2() {
+	public VentanaPrueba3() {
 		initialize();
 	}
 
@@ -186,8 +183,12 @@ public class VentanaPrueba2 {
 		panel_4.setLayout(gbl_panel_4);
 		
 		JButton btnLupa = new JButton("");
+		btnLupa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		
-		btnLupa.setIcon(new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")));
+		btnLupa.setIcon(new ImageIcon(VentanaPrueba3.class.getResource("/umu/tds/res/lupa (1).png")));
 
 		
 		buscador = new JTextField();
@@ -263,7 +264,7 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_6.gridy = 0;
 		panel_3.add(btnNewButton_6, gbc_btnNewButton_6);
 		
-		panel_Card = new JPanel();
+		JPanel panel_Card = new JPanel();
 		GridBagConstraints gbc_panel_Card = new GridBagConstraints();
 		gbc_panel_Card.insets = new Insets(0, 0, 5, 5);
 		gbc_panel_Card.fill = GridBagConstraints.BOTH;
@@ -280,7 +281,16 @@ public class VentanaPrueba2 {
 		btnLupa.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				buscar();
+				Etiqueta[] ets = new Etiqueta[modeloEtiqUsadas.size()];
+				Iterator<Etiqueta> it = modeloEtiqUsadas.elements().asIterator();
+				int i=0;
+				while(it.hasNext()) {
+					ets[i] = it.next();
+					i++;
+				}
+				mostrarListaExplorar(buscador.getText(),ets);
+				CardLayout c1 = (CardLayout) (panel_Card.getLayout());
+				c1.show(panel_Card, "panelExplorar");
 			}
 		});
 		panel_explorar.setLayout(new BorderLayout(0, 0));
@@ -338,9 +348,9 @@ public class VentanaPrueba2 {
 		list_etiquetas.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				añadirEtiquetaSeleccionadas();
 			}
 		});
+		list_etiquetas.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);	
 		scrollPane.setViewportView(list_etiquetas);
 		
 		
@@ -363,11 +373,10 @@ public class VentanaPrueba2 {
 		panel_10.add(scrollPane_2, gbc_scrollPane_2);
 		
 		modeloEtiqUsadas = new DefaultListModel<Etiqueta>();
-		listaEtiqUsed = new JList<Etiqueta>(modeloEtiqUsadas);
+		listaEtiqUsed = new JList<Etiqueta>();
 		listaEtiqUsed.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				quitarEtiquetaDeSeleccionadas();
 			}
 		});
 		scrollPane_2.setViewportView(listaEtiqUsed);
@@ -377,8 +386,9 @@ public class VentanaPrueba2 {
 			public void actionPerformed(ActionEvent e) {
 				Video v = listaVideosExplorar.getSelectedValue();
 				ControladorAPP.getInstancia().reproducir(v);
-					generarEmergente(v);
-				//videoWeb.playVideo(v.getUrl());
+				if (!emergente)
+					RepEmergente.main(null);
+				videoWeb.playVideo(v.getUrl());
 
 			}
 		});
@@ -450,7 +460,6 @@ public class VentanaPrueba2 {
 		
 		JPanel panel_nuevaLista = new JPanel();
 		panel_Card.add(panel_nuevaLista, "panelnewList");
-		panel_nuevaLista.setLayout(new BorderLayout(0, 0));
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -466,9 +475,21 @@ public class VentanaPrueba2 {
 				c1.show(panel_Card, "panelExplorar");
 			}
 		});
+		GridBagLayout gbl_panel_nuevaLista = new GridBagLayout();
+		gbl_panel_nuevaLista.columnWidths = new int[]{162, 0, 0};
+		gbl_panel_nuevaLista.rowHeights = new int[]{329, 0};
+		gbl_panel_nuevaLista.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_nuevaLista.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_nuevaLista.setLayout(gbl_panel_nuevaLista);
 		JPanel panel_7 = new JPanel();
 		panel_7.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		panel_nuevaLista.add(panel_7, BorderLayout.WEST);
+		GridBagConstraints gbc_panel_7 = new GridBagConstraints();
+		gbc_panel_7.insets = new Insets(0, 0, 0, 5);
+		gbc_panel_7.anchor = GridBagConstraints.WEST;
+		gbc_panel_7.fill = GridBagConstraints.VERTICAL;
+		gbc_panel_7.gridx = 0;
+		gbc_panel_7.gridy = 0;
+		panel_nuevaLista.add(panel_7, gbc_panel_7);
 		GridBagLayout gbl_panel_7 = new GridBagLayout();
 		gbl_panel_7.columnWidths = new int[]{0, 0, 0};
 		gbl_panel_7.rowHeights = new int[]{0, 0, 0, 0, 6, 0, 0};
@@ -560,7 +581,7 @@ public class VentanaPrueba2 {
 			public void mouseClicked(MouseEvent e) {
 				if (listaAModificar!=null) {
 					List<Video> videosSelect = new LinkedList<>();
-					videosSelect = listaListas.getSelectedValuesList();
+					videosSelect = listaVideosExplorar.getSelectedValuesList();
 					ControladorAPP.getInstancia().añadirVideoLV(listaAModificar, videosSelect);
 					mostrarListaNuevaLista(listaAModificar);
 				}
@@ -614,48 +635,17 @@ public class VentanaPrueba2 {
 		panel_7.add(btnNewButton_9, gbc_btnNewButton_9);
 		
 		JPanel panel_8 = new JPanel();
-		panel_nuevaLista.add(panel_8, BorderLayout.CENTER);
+		GridBagConstraints gbc_panel_8 = new GridBagConstraints();
+		gbc_panel_8.fill = GridBagConstraints.BOTH;
+		gbc_panel_8.gridx = 1;
+		gbc_panel_8.gridy = 0;
+		panel_nuevaLista.add(panel_8, gbc_panel_8);
 		GridBagLayout gbl_panel_8 = new GridBagLayout();
-		gbl_panel_8.columnWidths = new int[]{0, 0, 0, 0, 0};
-		gbl_panel_8.rowHeights = new int[]{0, 0, 0};
-		gbl_panel_8.columnWeights = new double[]{1.0, 1.0, 0.0, 1.0, Double.MIN_VALUE};
-		gbl_panel_8.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_8.columnWidths = new int[]{0};
+		gbl_panel_8.rowHeights = new int[]{0};
+		gbl_panel_8.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_panel_8.rowWeights = new double[]{Double.MIN_VALUE};
 		panel_8.setLayout(gbl_panel_8);
-		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 0;
-		panel_8.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
-		
-		JButton btnNewButton_11 = new JButton("");
-		btnNewButton_11.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				mostrarLista();
-			}
-		});
-		btnNewButton_11.setIcon(new ImageIcon(VentanaPrueba2.class.getResource("/umu/tds/res/lupa (1).png")));
-		GridBagConstraints gbc_btnNewButton_11 = new GridBagConstraints();
-		gbc_btnNewButton_11.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_11.gridx = 2;
-		gbc_btnNewButton_11.gridy = 0;
-		panel_8.add(btnNewButton_11, gbc_btnNewButton_11);
-
-		
-		scrollPane_1 = new JScrollPane();
-		GridBagConstraints gbc_scrollPane_1 = new GridBagConstraints();
-		gbc_scrollPane_1.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_1.gridwidth = 4;
-		gbc_scrollPane_1.gridx = 0;
-		gbc_scrollPane_1.gridy = 1;
-		panel_8.add(scrollPane_1, gbc_scrollPane_1);
-		
-		listaListas = new JListVideos(new LinkedList<>());
-		scrollPane_1.setViewportView(listaListas);
 		
 		JPanel panel_recientes = new JPanel();
 		panel_Card.add(panel_recientes, "panelRecents");
@@ -731,13 +721,13 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_10.gridy = 1;
 		panelVideosRecientes.add(btnNewButton_10, gbc_btnNewButton_10);
 		
-		panelReproductorRecientes = new JPanel();
-		panelReproductorRecientes.setVisible(false);
+		//panelReproductorRecientes = new Reproductor(videoWeb);
+		/*panelReproductorRecientes.setVisible(false);
 		GridBagConstraints gbc_panelReproductorRecientes = new GridBagConstraints();
 		gbc_panelReproductorRecientes.fill = GridBagConstraints.BOTH;
 		gbc_panelReproductorRecientes.gridx = 3;
 		gbc_panelReproductorRecientes.gridy = 1;
-		panel_recientes.add(panelReproductorRecientes, gbc_panelReproductorRecientes);
+		panel_recientes.add(panelReproductorRecientes, gbc_panelReproductorRecientes);*/
 		
 		
 		JPanel panel = new JPanel();
@@ -912,11 +902,6 @@ public class VentanaPrueba2 {
 		scrollVideosExplorar.setViewportView(listaVideosExplorar);
 	}
 	
-	private void mostrarLista() {
-		listaListas = new JListVideos(ControladorAPP.getInstancia().getVideos());
-		scrollPane_1.setViewportView(listaListas);
-	}
-	
 	private void mostrarListaNuevaLista(ListaVideo lista) { 
 		if(lista==null) {
 			scrollPane_3.setViewportView(null);
@@ -934,35 +919,7 @@ public class VentanaPrueba2 {
 		listaMisListas=new JListVideos(lv);
 		scrollPaneMisListas.setViewportView(listaMisListas);
 	}
-	
-	private void quitarEtiquetaDeSeleccionadas() {
-		int idx = listaEtiqUsed.getSelectedIndex();
-		modeloEtiqUsadas.remove(idx);
-	}
 
-	private void añadirEtiquetaSeleccionadas() {
-		Etiqueta sel =  (Etiqueta) list_etiquetas.getSelectedValue();
-		if (modeloEtiqUsadas.contains(sel))
-			return;
-		modeloEtiqUsadas.addElement(sel);
-		listaEtiqUsed.setModel(modeloEtiqUsadas);
-	}
 
-	private void buscar() {
-		Etiqueta[] ets = new Etiqueta[modeloEtiqUsadas.size()];
-		Iterator<Etiqueta> it = modeloEtiqUsadas.elements().asIterator();
-		int i=0;
-		while(it.hasNext()) {
-			ets[i] = it.next();
-			i++;
-		}
-		mostrarListaExplorar(buscador.getText(),ets);
-		CardLayout c1 = (CardLayout) (panel_Card.getLayout());
-		c1.show(panel_Card, "panelExplorar");
-	}
-	
-	private void generarEmergente(Video v) {
-		RepEmergente.getInstancia().play(v);
-	}
 	
 }
