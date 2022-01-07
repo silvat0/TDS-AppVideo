@@ -52,22 +52,13 @@ public class RepEmergente {
 	
 	public void mostrar() {
 		frame.setVisible(true);
+		((Reproductor) panelRep).reproducir();
+
 	}
 	
 	public JFrame getFrame() {
 		return frame;
 	}
-	
-	public void play(Video v) {
-		//VentanaPrueba2.videoWeb.playVideo(v.getUrl());
-		panelRep = Reproductor.getInstancia();
-		((Reproductor) panelRep).play(v);
-		frame.setVisible(true);
-		frame.getContentPane().add(panelRep, BorderLayout.CENTER);
-
-		
-	}
-	
 
 
 	/**
@@ -76,22 +67,24 @@ public class RepEmergente {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setType(Type.UTILITY);
 		frame.setBounds(100, 100, 400, 500);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
-		panelRep = new JPanel();
+		panelRep = new Reproductor();
+		//((Reproductor) panelRep).mostrar();
 		frame.getContentPane().add(panelRep, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("Cerrar reproductor emergente");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cerrar();
 			}
 		});
 		frame.getContentPane().add(btnNewButton, BorderLayout.SOUTH);
 	}
 	
 	public void cerrar() {
+		frame.remove(panelRep);
 		VentanaPrueba2.videoWeb.cancel();
 		frame.dispose();
 	}

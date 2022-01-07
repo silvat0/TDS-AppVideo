@@ -376,7 +376,7 @@ public class VentanaPrueba2 {
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Video v = listaVideosExplorar.getSelectedValue();
-				ControladorAPP.getInstancia().reproducir(v);
+				reproducir(v);
 					generarEmergente(v);
 				//videoWeb.playVideo(v.getUrl());
 
@@ -445,8 +445,14 @@ public class VentanaPrueba2 {
 		listaMisListas.setLayoutOrientation(JList.VERTICAL);
 		scrollPaneMisListas.setViewportView(listaMisListas);
 		
-		JPanel panel_6 = new JPanel();
-		panel_misListas.add(panel_6, BorderLayout.CENTER);
+		JPanel panelReproductorMisListas = new Reproductor();
+		panel_misListas.add(panelReproductorMisListas, BorderLayout.CENTER);
+		GridBagLayout gbl_panelReproductorMisListas = new GridBagLayout();
+		gbl_panelReproductorMisListas.columnWidths = new int[]{0};
+		gbl_panelReproductorMisListas.rowHeights = new int[]{0};
+		gbl_panelReproductorMisListas.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_panelReproductorMisListas.rowWeights = new double[]{Double.MIN_VALUE};
+		panelReproductorMisListas.setLayout(gbl_panelReproductorMisListas);
 		
 		JPanel panel_nuevaLista = new JPanel();
 		panel_Card.add(panel_nuevaLista, "panelnewList");
@@ -723,7 +729,11 @@ public class VentanaPrueba2 {
 		btnNewButton_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panelReproductorRecientes.setVisible(true);
-				videoWeb.playVideo(listaRecientes.getSelectedValue().getUrl());
+				Video v = listaRecientes.getSelectedValue();
+				videoWeb.playVideo(v.getUrl());
+				reproducir(v);
+				((Reproductor) panelReproductorRecientes).reproducir();
+				
 			}
 		});
 		GridBagConstraints gbc_btnNewButton_10 = new GridBagConstraints();
@@ -731,7 +741,7 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_10.gridy = 1;
 		panelVideosRecientes.add(btnNewButton_10, gbc_btnNewButton_10);
 		
-		panelReproductorRecientes = new JPanel();
+		panelReproductorRecientes = new Reproductor();
 		panelReproductorRecientes.setVisible(false);
 		GridBagConstraints gbc_panelReproductorRecientes = new GridBagConstraints();
 		gbc_panelReproductorRecientes.fill = GridBagConstraints.BOTH;
@@ -962,7 +972,13 @@ public class VentanaPrueba2 {
 	}
 	
 	private void generarEmergente(Video v) {
-		RepEmergente.getInstancia().play(v);
+		videoWeb.playVideo(v.getUrl());
+		RepEmergente.getInstancia().mostrar();
+		
+	}
+	
+	private void reproducir(Video v) {
+		ControladorAPP.getInstancia().reproducir(v);
 	}
 	
 }
