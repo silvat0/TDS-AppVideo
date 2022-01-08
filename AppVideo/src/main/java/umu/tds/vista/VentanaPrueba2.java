@@ -114,6 +114,7 @@ public class VentanaPrueba2 {
 	private JList<Etiqueta> list_etiquetas;
 	private DefaultListModel<Etiqueta> modeloEtiqUsadas;
 	private JPanel panel_Card;
+	private JPanel panelReproductorMisListas;
 	
 
 
@@ -404,9 +405,9 @@ public class VentanaPrueba2 {
 		panel_misListas.add(panel_5, BorderLayout.WEST);
 		GridBagLayout gbl_panel_5 = new GridBagLayout();
 		gbl_panel_5.columnWidths = new int[]{46, 0};
-		gbl_panel_5.rowHeights = new int[]{14, 0, 0, 0};
+		gbl_panel_5.rowHeights = new int[]{14, 0, 0, 0, 0};
 		gbl_panel_5.columnWeights = new double[]{0.0, Double.MIN_VALUE};
-		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 1.0, Double.MIN_VALUE};
+		gbl_panel_5.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
 		panel_5.setLayout(gbl_panel_5);
 		
 		JLabel lblNewLabel_2 = new JLabel("Seleccione una lista: "); 
@@ -433,8 +434,10 @@ public class VentanaPrueba2 {
 		panel_5.add(comboBox, gbc_comboBox);
 		
 		scrollPaneMisListas = new JScrollPane();
-		scrollPaneMisListas.setPreferredSize(new Dimension(110, 150));
+		scrollPaneMisListas.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPaneMisListas.setPreferredSize(new Dimension(150, 150));
 		GridBagConstraints gbc_scrollPaneMisListas = new GridBagConstraints();
+		gbc_scrollPaneMisListas.insets = new Insets(0, 0, 5, 0);
 		gbc_scrollPaneMisListas.fill = GridBagConstraints.BOTH;
 		gbc_scrollPaneMisListas.gridx = 0;
 		gbc_scrollPaneMisListas.gridy = 2;
@@ -445,14 +448,23 @@ public class VentanaPrueba2 {
 		listaMisListas.setLayoutOrientation(JList.VERTICAL);
 		scrollPaneMisListas.setViewportView(listaMisListas);
 		
-		JPanel panelReproductorMisListas = new Reproductor();
+		JButton btnNewButton_12 = new JButton("Reproducir");
+		btnNewButton_12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Video vid = listaMisListas.getSelectedValue();
+				ControladorAPP.getInstancia().reproducir(vid);
+				videoWeb.playVideo(vid.getUrl());
+				((Reproductor) panelReproductorMisListas).reproducir();
+
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_12 = new GridBagConstraints();
+		gbc_btnNewButton_12.gridx = 0;
+		gbc_btnNewButton_12.gridy = 3;
+		panel_5.add(btnNewButton_12, gbc_btnNewButton_12);
+		
+		panelReproductorMisListas = new Reproductor();
 		panel_misListas.add(panelReproductorMisListas, BorderLayout.CENTER);
-		GridBagLayout gbl_panelReproductorMisListas = new GridBagLayout();
-		gbl_panelReproductorMisListas.columnWidths = new int[]{0};
-		gbl_panelReproductorMisListas.rowHeights = new int[]{0};
-		gbl_panelReproductorMisListas.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panelReproductorMisListas.rowWeights = new double[]{Double.MIN_VALUE};
-		panelReproductorMisListas.setLayout(gbl_panelReproductorMisListas);
 		
 		JPanel panel_nuevaLista = new JPanel();
 		panel_Card.add(panel_nuevaLista, "panelnewList");
