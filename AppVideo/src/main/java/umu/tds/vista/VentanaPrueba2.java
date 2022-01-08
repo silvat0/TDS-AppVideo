@@ -85,6 +85,7 @@ import javax.swing.DefaultListModel;
 
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.border.TitledBorder;
 
 public class VentanaPrueba2 {
 
@@ -192,6 +193,7 @@ public class VentanaPrueba2 {
 
 		
 		buscador = new JTextField();
+		buscador.setBorder(new TitledBorder(null, "Explorar", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 
 		GridBagConstraints gbc_buscador = new GridBagConstraints();
 		gbc_buscador.fill = GridBagConstraints.HORIZONTAL;
@@ -277,7 +279,6 @@ public class VentanaPrueba2 {
 		gbc_panel_Card.gridy = 5;
 		panel_1.add(panel_Card, gbc_panel_Card);
 		panel_Card.setLayout(new CardLayout(0, 0));
-		((CardLayout) panel_Card.getLayout()).show(panel_Card, "panel_recientes");
 		
 		
 		JPanel panel_explorar = new JPanel();
@@ -906,6 +907,9 @@ public class VentanaPrueba2 {
 		gbc_luz.gridx = 12;
 		gbc_luz.gridy = 0;
 		panel_2.add(luz, gbc_luz);
+		
+		CardLayout c4 = (CardLayout) (panel_Card.getLayout());
+		c4.show(panel_Card, "panelRecents");
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -941,7 +945,6 @@ public class VentanaPrueba2 {
 			return;
 		}
 		listaNuevaLista = new JListVideos(lista.getVideos());
-		listaNuevaLista.setLayoutOrientation(JList.VERTICAL);
 		scrollPane_3.setViewportView(listaNuevaLista);
 	}
 	private void mostrarRecientes() {
