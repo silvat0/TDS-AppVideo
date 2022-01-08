@@ -6,18 +6,31 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import umu.tds.controlador.ControladorAPP;
+import umu.tds.modelo.ListaVideo;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
+import java.util.StringJoiner;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import java.awt.Color;
 
 import javax.imageio.ImageIO;
@@ -26,6 +39,8 @@ import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class VentanaPremium {
 
@@ -158,6 +173,26 @@ public class VentanaPremium {
 		panel_2.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
 		JButton btnNewButton = new JButton("Generar pdf con \"Mis Listas\"");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			      try {
+					genPDF();
+				} catch (FileNotFoundException | DocumentException e1) {
+					JOptionPane.showMessageDialog(frame, 
+							"Error en la generacion de PDF", 
+							"Error", 
+							JOptionPane.ERROR_MESSAGE, 
+							null);	
+					e1.printStackTrace();
+				}
+			      
+					JOptionPane.showMessageDialog(frame, 
+							"PDF Generado correctamente", 
+							"Generacion de PDF", 
+							JOptionPane.INFORMATION_MESSAGE, 
+							null);	
+			}
+		});
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.fill = GridBagConstraints.HORIZONTAL;
 		gbc_btnNewButton.insets = new Insets(0, 0, 5, 5);
@@ -185,6 +220,40 @@ public class VentanaPremium {
 		
 		
 		
+	}
+
+	private void genPDF() throws FileNotFoundException, DocumentException {
+		FileOutputStream archivo = new FileOutputStream("C:\\Users\\felipe\\Desktop\\new\\file.pdf");
+		  Document documento = new Document();
+		  PdfWriter.getInstance(documento, archivo);
+		  
+		  documento.open();
+		  rellenarPDF(documento);
+		  documento.close();
+	}
+	private void rellenarPDF(Document d) {
+		
+		List<ListaVideo> llv = ControladorAPP.getInstancia().getAllListaVideo();
+		llv.stream().forEach(lv -> {
+			try {
+				d.add(new Paragraph("Lista: "+lv.getNombre()));
+				d.add(generarParrafoVideos(lv));
+				d.add(new Paragraph("\n"));
+
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	private Paragraph generarParrafoVideos(ListaVideo lv) {
+		
+		StringJoiner sj = new StringJoiner(";\n");
+		lv.getVideos().stream().forEach(v ->{
+			sj.add(v.getTitulo());
+		});
+		return new Paragraph(sj.toString());
 	}
 
 }
