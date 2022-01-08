@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 
 public class Reproductor extends JPanel {
 	
+	private static final VideoWeb VIDEO_WEB = VentanaPrueba2.videoWeb;
 	private static Reproductor instancia;
 	private JPanel panelEtiquetas;
 	private JPanel panel_2;
@@ -32,32 +33,38 @@ public class Reproductor extends JPanel {
 	private JLabel visitasLabel;
 	private JLabel tituloLabel;
 	private JTextField textFieldNombreEtq;
+	private Video vActual;
 	
 	private JLabel randColorLabel(String s) {
 		JLabel lbl = new JLabel(s);
 		lbl.setOpaque(true);
 		Random r = new Random();
 		lbl.setBackground(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 75));
-		lbl.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
+		lbl.setBorder(BorderFactory.createLineBorder(Color.DARK_GRAY, 1));
 		return lbl;
 	}
 	
-	private void rellenarEtiq() {
-		ControladorAPP.getInstancia().getUltimoVideo().getEtiquetas().stream().forEach(e -> panelEtiquetas.add(randColorLabel(e.getNombre())));
+	private void rellenarEtiq(Video v) {
+		v.getEtiquetas().stream().forEach(e -> panelEtiquetas.add(randColorLabel(e.getNombre())));
 		panelEtiquetas.revalidate();
         panelEtiquetas.repaint();
 	}
 	
-	public void reproducir(Video v) {
+	private void añadirEtiqueta() {
 		
-		VentanaPrueba2.videoWeb.playVideo(v.getUrl());
+	}
+	
+	public void reproducir(Video v) {
+	
+		vActual = v;
+		VIDEO_WEB.playVideo(v.getUrl());
 		ControladorAPP.getInstancia().reproducir(v);
 		this.setVisible(true);
 		panelEtiquetas.removeAll();
 		Video ultimoVideo = ControladorAPP.getInstancia().getUltimoVideo();
 		visitasLabel.setText(String.valueOf(ultimoVideo.getVisitas()));
 		tituloLabel.setText(ultimoVideo.getTitulo());
-		rellenarEtiq();
+		rellenarEtiq(v);
 		crearPanelRep();
 		panelReproductor.revalidate();
 		panelReproductor.repaint();
@@ -170,7 +177,7 @@ public class Reproductor extends JPanel {
 		gbc_panelReproductor.gridx = 1;
 		gbc_panelReproductor.gridy = 1;
 		add(panelReproductor, gbc_panelReproductor);
-		panelReproductor.add(VentanaPrueba2.videoWeb);
+		panelReproductor.add(VIDEO_WEB);
 	}
 
 	private void ponerEtiquetas() {
@@ -237,7 +244,7 @@ public class Reproductor extends JPanel {
 		gbc_panelEtiquetas.gridx = 0;
 		gbc_panelEtiquetas.gridy = 3;
 		panel_2.add(panelEtiquetas, gbc_panelEtiquetas);
-		rellenarEtiq();
+		//rellenarEtiq();
 		//panelEtiquetas.setVisible(true);
 	}
 	
