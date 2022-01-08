@@ -241,6 +241,11 @@ public class VentanaPrueba2 {
 		panel_3.setLayout(gbl_panel_3);
 		
 		JButton btnNewButton = new JButton("Mis Listas");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				mostrarMisListas(((ListaVideo) comboBox.getSelectedItem()).getVideos());
+			}
+		});
 		
 		GridBagConstraints gbc_btnNewButton = new GridBagConstraints();
 		gbc_btnNewButton.insets = new Insets(0, 0, 0, 5);
@@ -441,8 +446,7 @@ public class VentanaPrueba2 {
 		gbc_scrollPaneMisListas.gridy = 2;
 		panel_5.add(scrollPaneMisListas, gbc_scrollPaneMisListas);
 		
-		ListaVideo sel = ((ListaVideo) comboBox.getSelectedItem());
-		mostrarMisListas(sel.getVideos());
+		listaMisListas = new JListVideos(new ArrayList<Video>());
 		listaMisListas.setLayoutOrientation(JList.VERTICAL);
 		scrollPaneMisListas.setViewportView(listaMisListas);
 		

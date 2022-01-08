@@ -10,6 +10,7 @@ import java.awt.Insets;
 import java.util.Random;
 
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
@@ -44,13 +45,35 @@ public class Reproductor extends JPanel {
 		return lbl;
 	}
 	
-	private void rellenarEtiq(Video v) {
+	private void reestablecerEtiquetas(Video v) {
+		panelEtiquetas.removeAll();
 		v.getEtiquetas().stream().forEach(e -> panelEtiquetas.add(randColorLabel(e.getNombre())));
 		panelEtiquetas.revalidate();
         panelEtiquetas.repaint();
 	}
 	
-	private void añadirEtiqueta() {
+	private void añadirEtiqueta(String nombre) {
+		
+		boolean b = ControladorAPP.getInstancia().añadirEtiqueta(nombre, vActual);
+		if (b) {
+			panelEtiquetas.add(randColorLabel(nombre));
+			JOptionPane.showMessageDialog(this, 
+					"La etiqueta "+nombre+" se añadio correctamente.", 
+					"Etiqueta", 
+					JOptionPane.INFORMATION_MESSAGE, 
+					null);
+			panelEtiquetas.revalidate();
+	        panelEtiquetas.repaint();
+		}
+		else {
+		
+			JOptionPane.showMessageDialog(this, 
+					"No puede añadir esta etiqueta.", 
+					"Etiqueta", 
+					JOptionPane.WARNING_MESSAGE, 
+					null);	
+		}
+
 		
 	}
 	
@@ -60,11 +83,10 @@ public class Reproductor extends JPanel {
 		VIDEO_WEB.playVideo(v.getUrl());
 		ControladorAPP.getInstancia().reproducir(v);
 		this.setVisible(true);
-		panelEtiquetas.removeAll();
 		Video ultimoVideo = ControladorAPP.getInstancia().getUltimoVideo();
 		visitasLabel.setText(String.valueOf(ultimoVideo.getVisitas()));
 		tituloLabel.setText(ultimoVideo.getTitulo());
-		rellenarEtiq(v);
+		reestablecerEtiquetas(v);
 		crearPanelRep();
 		panelReproductor.revalidate();
 		panelReproductor.repaint();
@@ -154,10 +176,8 @@ public class Reproductor extends JPanel {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				String nom = textFieldNombreEtq.getText();
-				if (nom.strip().isBlank()) {
-					return;
-				}
+				añadirEtiqueta(textFieldNombreEtq.getText());
+				textFieldNombreEtq.setText("");
 				
 			}
 		});

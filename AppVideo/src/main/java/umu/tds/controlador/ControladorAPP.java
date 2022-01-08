@@ -225,4 +225,19 @@ public class ControladorAPP implements VideosListener {
 		return user.getUltimoVideo();
 	}
 	
+	public boolean añadirEtiqueta(String nombreEt, Video v) {
+		
+		if (nombreEt.isBlank() ) {
+			return false;
+		}
+		Etiqueta e = new Etiqueta(nombreEt);
+		if (!v.addEtiqueta(e)) {
+			return false;
+		}
+		factoria.getEtiquetaDAO().create(e);
+		factoria.getUsuarioDAO().update(user);
+		return true;
+	
+	}
+	
 }
