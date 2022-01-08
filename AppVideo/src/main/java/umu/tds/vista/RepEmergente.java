@@ -50,9 +50,9 @@ public class RepEmergente {
 		initialize();
 	}
 	
-	public void mostrar() {
+	public void reproducir(Video v) {
 		frame.setVisible(true);
-		((Reproductor) panelRep).reproducir();
+		((Reproductor) panelRep).reproducir(v);
 
 	}
 	

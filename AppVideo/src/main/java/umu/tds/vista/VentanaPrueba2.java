@@ -377,9 +377,7 @@ public class VentanaPrueba2 {
 		btnNewButton_7.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Video v = listaVideosExplorar.getSelectedValue();
-				reproducir(v);
-					generarEmergente(v);
-				//videoWeb.playVideo(v.getUrl());
+				reproducirEmergente(v);
 
 			}
 		});
@@ -452,9 +450,7 @@ public class VentanaPrueba2 {
 		btnNewButton_12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Video vid = listaMisListas.getSelectedValue();
-				ControladorAPP.getInstancia().reproducir(vid);
-				videoWeb.playVideo(vid.getUrl());
-				((Reproductor) panelReproductorMisListas).reproducir();
+				reproducirEmbeed((Reproductor) panelReproductorMisListas, vid);
 
 			}
 		});
@@ -740,11 +736,7 @@ public class VentanaPrueba2 {
 		JButton btnNewButton_10 = new JButton("Reproducir");
 		btnNewButton_10.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelReproductorRecientes.setVisible(true);
-				Video v = listaRecientes.getSelectedValue();
-				videoWeb.playVideo(v.getUrl());
-				reproducir(v);
-				((Reproductor) panelReproductorRecientes).reproducir();
+				reproducirEmbeed((Reproductor) panelReproductorRecientes,listaRecientes.getSelectedValue());
 				
 			}
 		});
@@ -983,14 +975,15 @@ public class VentanaPrueba2 {
 		c1.show(panel_Card, "panelExplorar");
 	}
 	
-	private void generarEmergente(Video v) {
-		videoWeb.playVideo(v.getUrl());
-		RepEmergente.getInstancia().mostrar();
+	private void reproducirEmergente(Video v) {
+		RepEmergente.getInstancia().reproducir(v);
 		
 	}
-	
-	private void reproducir(Video v) {
-		ControladorAPP.getInstancia().reproducir(v);
+
+
+	private void reproducirEmbeed(Reproductor r, Video v) {
+		r.setVisible(true);
+		r.reproducir(v);
 	}
 	
 }

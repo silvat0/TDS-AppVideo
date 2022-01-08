@@ -2,6 +2,8 @@ package umu.tds.vista;
 
 import javax.swing.JPanel;
 import java.awt.GridBagLayout;
+
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -29,12 +31,14 @@ public class Reproductor extends JPanel {
 	private JPanel panelReproductor;
 	private JLabel visitasLabel;
 	private JLabel tituloLabel;
+	private JTextField textFieldNombreEtq;
 	
 	private JLabel randColorLabel(String s) {
 		JLabel lbl = new JLabel(s);
 		lbl.setOpaque(true);
 		Random r = new Random();
 		lbl.setBackground(new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255), 75));
+		lbl.setBorder(BorderFactory.createLineBorder(Color.BLACK, 3));
 		return lbl;
 	}
 	
@@ -44,7 +48,10 @@ public class Reproductor extends JPanel {
         panelEtiquetas.repaint();
 	}
 	
-	public void reproducir() {
+	public void reproducir(Video v) {
+		
+		VentanaPrueba2.videoWeb.playVideo(v.getUrl());
+		ControladorAPP.getInstancia().reproducir(v);
 		this.setVisible(true);
 		panelEtiquetas.removeAll();
 		Video ultimoVideo = ControladorAPP.getInstancia().getUltimoVideo();
@@ -54,6 +61,7 @@ public class Reproductor extends JPanel {
 		crearPanelRep();
 		panelReproductor.revalidate();
 		panelReproductor.repaint();
+		this.setVisible(true);
 
 
 	}
@@ -126,7 +134,7 @@ public class Reproductor extends JPanel {
 		gbl_panel_4.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		panel_4.setLayout(gbl_panel_4);
 		
-		JTextField textFieldNombreEtq = new JTextField("");
+		textFieldNombreEtq = new JTextField("");
 		textFieldNombreEtq.setColumns(15);
 		GridBagConstraints gbc_textFieldNombreEtq = new GridBagConstraints();
 		gbc_textFieldNombreEtq.fill = GridBagConstraints.HORIZONTAL;
@@ -138,6 +146,11 @@ public class Reproductor extends JPanel {
 		JButton btnNewButton = new JButton("Nueva etiqueta");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				String nom = textFieldNombreEtq.getText();
+				if (nom.strip().isBlank()) {
+					return;
+				}
 				
 			}
 		});
