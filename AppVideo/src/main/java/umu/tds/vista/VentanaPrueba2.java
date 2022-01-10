@@ -117,6 +117,8 @@ public class VentanaPrueba2 {
 	private JPanel panel_Card;
 	private JPanel panelReproductorMisListas;
 	private JComboBox<Filtro> comboFiltros;
+	private JButton botonTop10;
+	private VentanaPrueba2 instancia;
 	
 
 
@@ -144,6 +146,7 @@ public class VentanaPrueba2 {
 	 */
 	public VentanaPrueba2() {
 		initialize();
+		instancia=this;
 	}
 
 	/**
@@ -246,7 +249,10 @@ public class VentanaPrueba2 {
 		JButton btnNewButton = new JButton("Mis Listas");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				mostrarMisListas(((ListaVideo) comboBox.getSelectedItem()).getVideos());
+
+				ListaVideo selectedItem = (ListaVideo) comboBox.getSelectedItem();
+				if (selectedItem==null) return;
+				mostrarMisListas(selectedItem.getVideos());
 			}
 		});
 		
@@ -271,6 +277,17 @@ public class VentanaPrueba2 {
 		gbc_btnNewButton_6.gridx = 4;
 		gbc_btnNewButton_6.gridy = 0;
 		panel_3.add(btnNewButton_6, gbc_btnNewButton_6);
+		
+		botonTop10 = new JButton("Top 10");
+		
+		
+		
+		
+		GridBagConstraints gbc_btnNewButton_13 = new GridBagConstraints();
+		gbc_btnNewButton_13.insets = new Insets(0, 0, 0, 5);
+		gbc_btnNewButton_13.gridx = 6;
+		gbc_btnNewButton_13.gridy = 0;
+		panel_3.add(botonTop10, gbc_btnNewButton_13);
 		
 		panel_Card = new JPanel();
 		GridBagConstraints gbc_panel_Card = new GridBagConstraints();
@@ -529,7 +546,7 @@ public class VentanaPrueba2 {
 						 listaAModificar = ControladorAPP.getInstancia().crearListaVideo(textField.getText());
 						 //comboBox = new JComboBox(new Vector(ControladorAPP.getInstancia().getAllListaVideo()));
 						 
-						 comboBox.setModel(new DefaultComboBoxModel<ListaVideo>(new Vector<ListaVideo>(ControladorAPP.getInstancia().getAllListaVideo())));
+						 añadirListaCombo();
 						 
 					 }
 				 }
@@ -876,7 +893,7 @@ public class VentanaPrueba2 {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				VentanaPremium pr = new VentanaPremium();
-				pr.mostrarVentanta();
+				pr.mostrarVentanta(instancia);
 			}
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -911,6 +928,46 @@ public class VentanaPrueba2 {
 		
 		CardLayout c4 = (CardLayout) (panel_Card.getLayout());
 		c4.show(panel_Card, "panelRecents");
+		
+		JPanel panel_Top10 = new JPanel();
+		panel_Card.add(panel_Top10, "panelTop10");
+		panel_Top10.setLayout(new BorderLayout(0, 0));
+		botonTop10.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout c5 = (CardLayout) (panel_Card.getLayout());
+				c5.show(panel_Card, "panelTop10");
+			}
+		});
+	
+		
+		JPanel panel_6 = new JPanel();
+		panel_Top10.add(panel_6, BorderLayout.NORTH);
+		GridBagLayout gbl_panel_6 = new GridBagLayout();
+		gbl_panel_6.columnWidths = new int[]{0, 0};
+		gbl_panel_6.rowHeights = new int[]{0, 0};
+		gbl_panel_6.columnWeights = new double[]{1.0, Double.MIN_VALUE};
+		gbl_panel_6.rowWeights = new double[]{1.0, Double.MIN_VALUE};
+		panel_6.setLayout(gbl_panel_6);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setPreferredSize(new Dimension(300, 100));
+		GridBagConstraints gbc_scrollPane_4 = new GridBagConstraints();
+		gbc_scrollPane_4.fill = GridBagConstraints.BOTH;
+		gbc_scrollPane_4.gridx = 0;
+		gbc_scrollPane_4.gridy = 0;
+		panel_6.add(scrollPane_4, gbc_scrollPane_4);
+		
+		JList list = new JList();
+		scrollPane_4.setViewportView(list);
+		
+		JPanel panel_11 = new JPanel();
+		panel_Top10.add(panel_11, BorderLayout.CENTER);
+		GridBagLayout gbl_panel_11 = new GridBagLayout();
+		gbl_panel_11.columnWidths = new int[]{0};
+		gbl_panel_11.rowHeights = new int[]{0};
+		gbl_panel_11.columnWeights = new double[]{Double.MIN_VALUE};
+		gbl_panel_11.rowWeights = new double[]{Double.MIN_VALUE};
+		panel_11.setLayout(gbl_panel_11);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -994,12 +1051,22 @@ public class VentanaPrueba2 {
 		r.reproducir(v);
 	}
 	
-	private void cargarCosasPremuim() {
+	public void cargarCosasPremuim() {
 		boolean p = ControladorAPP.getInstancia().getUsuario().isPremium();
-		comboFiltros.setEnabled(p);
-		
+		comboFiltros.setEnabled(p);	
+		if(ControladorAPP.getInstancia().getUsuario().isPremium()) {
+			botonTop10.setEnabled(true);
+			
+		}
+		else {
+			botonTop10.setEnabled(false);
+		}
 		
 	
+	}
+	
+	private void añadirListaCombo() {
+		comboBox.setModel(new DefaultComboBoxModel<ListaVideo>(new Vector<ListaVideo>(ControladorAPP.getInstancia().getAllListaVideo())));
 	}
 	
 }

@@ -2,6 +2,7 @@ package umu.tds.modelo;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -86,5 +87,12 @@ public class CatalogoVideos {
 	
 	public int size() {
 		return videos.size();
+	}
+	
+	public List<Video> topX(int nTop){
+		return videos.values().stream()
+				.sorted((v1,v2) -> ((Integer) v1.getVisitas()).compareTo(v2.getVisitas()))
+				.limit(nTop)
+				.collect(Collectors.toList());
 	}
 }

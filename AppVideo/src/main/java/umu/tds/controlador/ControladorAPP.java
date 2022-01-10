@@ -240,4 +240,9 @@ public class ControladorAPP implements VideosListener {
 	
 	}
 	
+	public List<Video> getTopTen(){
+		crearListaVideo("Top_10");
+		return cv.topX(10);
+	}
+	
 }

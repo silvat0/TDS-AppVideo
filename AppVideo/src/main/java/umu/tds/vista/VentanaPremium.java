@@ -45,6 +45,7 @@ import java.awt.event.ActionEvent;
 public class VentanaPremium {
 
 	private JFrame frame;
+	private VentanaPrueba2 vp;
 
 	/**
 	 * Launch the application.
@@ -69,7 +70,8 @@ public class VentanaPremium {
 		initialize();
 	}
 	
-	public void mostrarVentanta() {
+	public void mostrarVentanta(VentanaPrueba2 vp) {
+		this.vp=vp;
 		frame.setVisible(true);
 	}
 
@@ -151,10 +153,12 @@ public class VentanaPremium {
 		if(isPremium) {
 			chckbxNewCheckBox.setSelected(true);
 			premiumLBL.setText(", actualmente dispones de Premium");
+			
 		}
 		else {
 			chckbxNewCheckBox.setSelected(false);
 			premiumLBL.setText(", actualmente no dispones de Premium");
+			
 		}
 		
 		chckbxNewCheckBox.addMouseListener(new MouseAdapter() {
@@ -168,6 +172,8 @@ public class VentanaPremium {
 					ControladorAPP.getInstancia().getUsuario().setPremium(true);
 					premiumLBL.setText(", actualmente dispones de Premium");
 				}
+				vp.cargarCosasPremuim();
+
 			}
 		});
 		GridBagConstraints gbc_chckbxNewCheckBox = new GridBagConstraints();
@@ -204,13 +210,7 @@ public class VentanaPremium {
 		gbc_btnNewButton.gridy = 4;
 		panel_2.add(btnNewButton, gbc_btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Generar lista Top 10");
-		GridBagConstraints gbc_btnNewButton_1 = new GridBagConstraints();
-		gbc_btnNewButton_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_btnNewButton_1.insets = new Insets(0, 0, 5, 5);
-		gbc_btnNewButton_1.gridx = 3;
-		gbc_btnNewButton_1.gridy = 5;
-		panel_2.add(btnNewButton_1, gbc_btnNewButton_1);
+		
 		BufferedImage image = null;
 		try {
 			image = ImageIO.read(VentanaLogin.class.getResource("/umu/tds/res/logonegro.jpg"));
