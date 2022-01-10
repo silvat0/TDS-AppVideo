@@ -4,7 +4,7 @@ public enum Filtro {
 	
 	VACIO("NoFiltro"), 
 	ADULTOS("FiltroAdultos"), 
-	MIS_LISTAS("FlitroMisListas");
+	MIS_LISTAS("FiltroMisListas");
 	
 	public final String nombre;
 	

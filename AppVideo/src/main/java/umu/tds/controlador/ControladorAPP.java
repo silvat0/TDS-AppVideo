@@ -1,6 +1,8 @@
 package umu.tds.controlador;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -8,8 +10,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.StringJoiner;
 import java.util.stream.Stream;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import componente.ComponenteBuscadorVideos;
 import componente.VideosEvent;
@@ -192,8 +199,11 @@ public class ControladorAPP implements VideosListener {
 	}
 	
 	public void setFiltro(Filtro filtro) {
+		if (!user.isPremium()) {
+			return;
+		}
 		try {
-			IFiltro filtroBusq = (IFiltro) Class.forName(NOMBRE_PAQUETE+filtro.name()).getDeclaredConstructor().newInstance();
+			IFiltro filtroBusq = (IFiltro) Class.forName(NOMBRE_PAQUETE+"."+filtro.nombre).getDeclaredConstructor().newInstance();
 			user.setFiltroActivo(filtroBusq);
 			factoria.getUsuarioDAO().update(user);
 		} catch (Exception e) {
@@ -241,8 +251,51 @@ public class ControladorAPP implements VideosListener {
 	}
 	
 	public List<Video> getTopTen(){
-		crearListaVideo("Top_10");
+		//crearListaVideo("Top_10");
 		return cv.topX(10);
+	}
+	
+	public void setPremium(boolean b) {
+		user.setPremium(b);
+		factoria.getUsuarioDAO().update(user);
+	}
+	public void genPDF() throws FileNotFoundException, DocumentException {
+		if(!user.isPremium()) {
+			return;
+		}
+	    String basePath = new File("").getAbsolutePath();
+	    System.out.println(basePath);
+		FileOutputStream archivo = new FileOutputStream(basePath+"\\file.pdf");
+		  Document documento = new Document();
+		  PdfWriter.getInstance(documento, archivo);
+		  
+		  documento.open();
+		  rellenarPDF(documento);
+		  documento.close();
+	}
+	private void rellenarPDF(Document d) {
+		
+		List<ListaVideo> llv = ControladorAPP.getInstancia().getAllListaVideo();
+		llv.stream().forEach(lv -> {
+			try {
+				d.add(new Paragraph("Lista: "+lv.getNombre()));
+				d.add(generarParrafoVideos(lv));
+				d.add(new Paragraph("\n"));
+
+			} catch (DocumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	private Paragraph generarParrafoVideos(ListaVideo lv) {
+		
+		StringJoiner sj = new StringJoiner(";\n");
+		lv.getVideos().stream().forEach(v ->{
+			sj.add(v.getTitulo());
+		});
+		return new Paragraph(sj.toString());
 	}
 	
 }

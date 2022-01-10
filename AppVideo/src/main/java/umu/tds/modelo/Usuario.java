@@ -92,6 +92,9 @@ public class Usuario {
 	public ListaVideo crearLista(String nombre) {
 		
 		ListaVideo lv = new ListaVideo(nombre);
+		if (listasVideos.contains(lv)) {
+			return null;
+		}
 		listasVideos.add(lv);
 		return lv;
 	}

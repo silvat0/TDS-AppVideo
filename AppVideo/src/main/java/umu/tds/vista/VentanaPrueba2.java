@@ -86,6 +86,8 @@ import javax.swing.DefaultListModel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
 import javax.swing.border.TitledBorder;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class VentanaPrueba2 {
 
@@ -119,6 +121,12 @@ public class VentanaPrueba2 {
 	private JComboBox<Filtro> comboFiltros;
 	private JButton botonTop10;
 	private VentanaPrueba2 instancia;
+	private JPanel panel_Top10;
+	private JListVideos listaTop10;
+	private JScrollPane scrollPaneTop10;
+	private Reproductor panelReproductorTop;
+	private GridBagConstraints gbc_btnNewButton_14;
+	private JButton btnNewButton_14;
 	
 
 
@@ -873,6 +881,13 @@ public class VentanaPrueba2 {
 		panel_2.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
 		comboFiltros = new JComboBox<Filtro>(new Vector<>(ControladorAPP.getInstancia().getFiltros()));
+		comboFiltros.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ControladorAPP.getInstancia().setFiltro((Filtro) comboFiltros.getSelectedItem());
+
+			}
+		});
+
 		comboFiltros.setEnabled(ControladorAPP.getInstancia().getUsuario().isPremium());
 		comboFiltros.setEditable(false);
 		comboFiltros.setPreferredSize(new Dimension(50, 22));
@@ -915,7 +930,6 @@ public class VentanaPrueba2 {
 				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
 					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
 					contadorVideos.setText(String.valueOf(ControladorAPP.getInstancia().getNVideosSistema()));
-					PruebasGrid.main(null);
 
 				};
 			}
@@ -929,7 +943,7 @@ public class VentanaPrueba2 {
 		CardLayout c4 = (CardLayout) (panel_Card.getLayout());
 		c4.show(panel_Card, "panelRecents");
 		
-		JPanel panel_Top10 = new JPanel();
+		panel_Top10 = new JPanel();
 		panel_Card.add(panel_Top10, "panelTop10");
 		panel_Top10.setLayout(new BorderLayout(0, 0));
 		botonTop10.addActionListener(new ActionListener() {
@@ -949,25 +963,48 @@ public class VentanaPrueba2 {
 		gbl_panel_6.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		panel_6.setLayout(gbl_panel_6);
 		
-		JScrollPane scrollPane_4 = new JScrollPane();
-		scrollPane_4.setPreferredSize(new Dimension(300, 100));
-		GridBagConstraints gbc_scrollPane_4 = new GridBagConstraints();
-		gbc_scrollPane_4.fill = GridBagConstraints.BOTH;
-		gbc_scrollPane_4.gridx = 0;
-		gbc_scrollPane_4.gridy = 0;
-		panel_6.add(scrollPane_4, gbc_scrollPane_4);
+		scrollPaneTop10 = new JScrollPane();
+		scrollPaneTop10.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+		scrollPaneTop10.setPreferredSize(new Dimension(300, 130));
+		GridBagConstraints gbc_scrollPaneTop10 = new GridBagConstraints();
+		gbc_scrollPaneTop10.fill = GridBagConstraints.BOTH;
+		gbc_scrollPaneTop10.gridx = 0;
+		gbc_scrollPaneTop10.gridy = 0;
+		panel_6.add(scrollPaneTop10, gbc_scrollPaneTop10);
 		
-		JList list = new JList();
-		scrollPane_4.setViewportView(list);
+		mostrarTop10();
 		
 		JPanel panel_11 = new JPanel();
 		panel_Top10.add(panel_11, BorderLayout.CENTER);
 		GridBagLayout gbl_panel_11 = new GridBagLayout();
-		gbl_panel_11.columnWidths = new int[]{0};
-		gbl_panel_11.rowHeights = new int[]{0};
-		gbl_panel_11.columnWeights = new double[]{Double.MIN_VALUE};
-		gbl_panel_11.rowWeights = new double[]{Double.MIN_VALUE};
+		gbl_panel_11.columnWidths = new int[] {};
+		gbl_panel_11.rowHeights = new int[] {0, 0, 0};
+		gbl_panel_11.columnWeights = new double[]{1.0};
+		gbl_panel_11.rowWeights = new double[]{0.0, 0.0, 1.0};
 		panel_11.setLayout(gbl_panel_11);
+		
+		btnNewButton_14 = new JButton("Reproducir");
+		btnNewButton_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				reproducirEmbeed(panelReproductorTop, listaTop10.getSelectedValue());
+			}
+		});
+		GridBagConstraints gbc_btnNewButton_14;
+		gbc_btnNewButton_14 = new GridBagConstraints();
+		gbc_btnNewButton_14.insets = new Insets(0, 0, 5, 0);
+		gbc_btnNewButton_14.anchor = GridBagConstraints.NORTH;
+		gbc_btnNewButton_14.gridx = 0;
+		gbc_btnNewButton_14.gridy = 0;
+		panel_11.add(btnNewButton_14, gbc_btnNewButton_14);
+		
+		panelReproductorTop = new Reproductor();
+		panelReproductorTop.setVisible(false);
+		
+		GridBagConstraints gbc_panelReproductorTop = new GridBagConstraints();
+		gbc_panelReproductorTop.fill = GridBagConstraints.BOTH;
+		gbc_panelReproductorTop.gridx = 0;
+		gbc_panelReproductorTop.gridy = 2;
+		panel_11.add(panelReproductorTop, gbc_panelReproductorTop);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -1054,15 +1091,23 @@ public class VentanaPrueba2 {
 	public void cargarCosasPremuim() {
 		boolean p = ControladorAPP.getInstancia().getUsuario().isPremium();
 		comboFiltros.setEnabled(p);	
-		if(ControladorAPP.getInstancia().getUsuario().isPremium()) {
-			botonTop10.setEnabled(true);
-			
-		}
-		else {
-			botonTop10.setEnabled(false);
-		}
+		botonTop10.setEnabled(p);
 		
+		if(p) {
+			//ListaVideo sel = ((ListaVideo) ControladorAPP.getInstancia().getTopTen());
+			mostrarTop10();
+		}
+		btnNewButton_14.setEnabled(p);
+		listaTop10.setVisible(p);
 	
+	}
+	
+	private void mostrarTop10() {
+		List<Video> topTen = ControladorAPP.getInstancia().getTopTen();
+		listaTop10 = new JListVideos(topTen);
+		listaTop10.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		listaTop10.setVisibleRowCount(1);
+		scrollPaneTop10.setViewportView(listaTop10);
 	}
 	
 	private void añadirListaCombo() {

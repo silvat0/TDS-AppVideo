@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class VentanaPremium {
 
 	private JFrame frame;
 	private VentanaPrueba2 vp;
+	private JButton btnNewButton;
 
 	/**
 	 * Launch the application.
@@ -146,18 +148,20 @@ public class VentanaPremium {
 		gbl_panel_2.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		panel_2.setLayout(gbl_panel_2);
 		
-		
-		 Boolean isPremium = ControladorAPP.getInstancia().getUsuario().isPremium();
+		btnNewButton = new JButton("Generar pdf con \"Mis Listas\"");
+		boolean isPremium = ControladorAPP.getInstancia().getUsuario().isPremium();
 		
 		JCheckBox chckbxNewCheckBox = new JCheckBox("Premium");
 		if(isPremium) {
 			chckbxNewCheckBox.setSelected(true);
 			premiumLBL.setText(", actualmente dispones de Premium");
+			btnNewButton.setEnabled(true);
 			
 		}
 		else {
 			chckbxNewCheckBox.setSelected(false);
 			premiumLBL.setText(", actualmente no dispones de Premium");
+			btnNewButton.setEnabled(false);
 			
 		}
 		
@@ -166,11 +170,14 @@ public class VentanaPremium {
 			public void mouseClicked(MouseEvent e) {
 				if(ControladorAPP.getInstancia().getUsuario().isPremium()) {
 					 premiumLBL.setText(", actualmente no dispones de Premium");
-					ControladorAPP.getInstancia().getUsuario().setPremium(false);
+					ControladorAPP.getInstancia().setPremium(false);
+					btnNewButton.setEnabled(false);
+					
 				}
 				else {
-					ControladorAPP.getInstancia().getUsuario().setPremium(true);
+					ControladorAPP.getInstancia().setPremium(true);
 					premiumLBL.setText(", actualmente dispones de Premium");
+					btnNewButton.setEnabled(true);
 				}
 				vp.cargarCosasPremuim();
 
@@ -182,11 +189,11 @@ public class VentanaPremium {
 		gbc_chckbxNewCheckBox.gridy = 2;
 		panel_2.add(chckbxNewCheckBox, gbc_chckbxNewCheckBox);
 		
-		JButton btnNewButton = new JButton("Generar pdf con \"Mis Listas\"");
+		
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			      try {
-					genPDF();
+			public void actionPerformed(ActionEvent e) { 
+				try {
+					ControladorAPP.getInstancia().genPDF();
 				} catch (FileNotFoundException | DocumentException e1) {
 					JOptionPane.showMessageDialog(frame, 
 							"Error en la generacion de PDF", 
@@ -220,44 +227,10 @@ public class VentanaPremium {
 		}
         Image dimg = image.getScaledInstance(100, 50, Image.SCALE_SMOOTH);
         ImageIcon imageIcon = new ImageIcon(dimg);
-       
-		
-		
+
 		
 	}
 
-	private void genPDF() throws FileNotFoundException, DocumentException {
-		FileOutputStream archivo = new FileOutputStream("C:\\Users\\felipe\\Desktop\\new\\file.pdf");
-		  Document documento = new Document();
-		  PdfWriter.getInstance(documento, archivo);
-		  
-		  documento.open();
-		  rellenarPDF(documento);
-		  documento.close();
-	}
-	private void rellenarPDF(Document d) {
-		
-		List<ListaVideo> llv = ControladorAPP.getInstancia().getAllListaVideo();
-		llv.stream().forEach(lv -> {
-			try {
-				d.add(new Paragraph("Lista: "+lv.getNombre()));
-				d.add(generarParrafoVideos(lv));
-				d.add(new Paragraph("\n"));
-
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		});
-	}
 	
-	private Paragraph generarParrafoVideos(ListaVideo lv) {
-		
-		StringJoiner sj = new StringJoiner(";\n");
-		lv.getVideos().stream().forEach(v ->{
-			sj.add(v.getTitulo());
-		});
-		return new Paragraph(sj.toString());
-	}
 
 }

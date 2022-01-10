@@ -112,7 +112,7 @@ public class Reproductor extends JPanel {
 		gridBagLayout.columnWidths = new int[] {10, 30, 10};
 		gridBagLayout.rowHeights = new int[] {10, 30, 0, 10};
 		gridBagLayout.columnWeights = new double[]{0.0, 0.0, 0.0};
-		gridBagLayout.rowWeights = new double[]{0.0, 1.0, 0.0, 0.0};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 1.0};
 		setLayout(gridBagLayout);
 		
 		crearPanelRep();

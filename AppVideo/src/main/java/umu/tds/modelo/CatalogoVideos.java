@@ -91,7 +91,7 @@ public class CatalogoVideos {
 	
 	public List<Video> topX(int nTop){
 		return videos.values().stream()
-				.sorted((v1,v2) -> ((Integer) v1.getVisitas()).compareTo(v2.getVisitas()))
+				.sorted((v1,v2) -> ((Integer) v2.getVisitas()).compareTo(v1.getVisitas()))
 				.limit(nTop)
 				.collect(Collectors.toList());
 	}

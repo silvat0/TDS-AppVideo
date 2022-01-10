@@ -32,5 +32,42 @@
 		<etiqueta>Music</etiqueta>
 		<etiqueta>Artic Monkeys</etiqueta>
 	</video>
+	
+	<video titulo="OKAY LET'S GO">
+		<URL><![CDATA[https://www.youtube.com/watch?v=AWM5ZNdWlqw]]></URL>
+		<etiqueta>Comedia</etiqueta>
+	</video>
+	
+	<video titulo="CALENTAMIENTO // Tráiler cinemático del episodio 4">
+		<URL><![CDATA[https://www.youtube.com/watch?v=oZpULmDBvos]]></URL>
+		<etiqueta>Game</etiqueta>
+		<etiqueta>Riot</etiqueta>
+		<etiqueta>Valorant</etiqueta>
+	</video>
+	
+	<video titulo="EL LEGADO DE FIBONACCI">
+		<URL><![CDATA[https://www.youtube.com/watch?v=PYk5lZEIlEk]]></URL>
+		<etiqueta>Comedia</etiqueta>
+		<etiqueta>Míster Jägger</etiqueta>
+	</video>
+	
+	<video titulo="Animales lindos para cuando estás estresado">
+		<URL><![CDATA[https://www.youtube.com/watch?v=ZuRLOlB4N8U]]></URL>
+		<etiqueta>Animales</etiqueta>
+		<etiqueta>Cute</etiqueta>
+	</video>
+	
+	<video titulo="Zeri.exe">
+		<URL><![CDATA[https://www.youtube.com/watch?v=t1PJ5kRXlxA]]></URL>
+		<etiqueta>Game</etiqueta>
+		<etiqueta>Riot</etiqueta>
+		<etiqueta>LoL</etiqueta>
+	</video>
+	
+	<video titulo="¿Qué pasaría si detonásemos a la vez todas las bombas nucleares?">
+		<URL><![CDATA[https://www.youtube.com/watch?v=0NWLuj4j9mI]]></URL>
+		<etiqueta>Curiosidades</etiqueta>
+		<etiqueta>Mundo</etiqueta>
+	</video>
 
 </videos>
