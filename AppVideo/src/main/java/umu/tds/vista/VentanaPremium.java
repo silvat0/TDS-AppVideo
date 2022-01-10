@@ -68,6 +68,10 @@ public class VentanaPremium {
 	public VentanaPremium() {
 		initialize();
 	}
+	
+	public void mostrarVentanta() {
+		frame.setVisible(true);
+	}
 
 	/**
 	 * Initialize the contents of the frame.

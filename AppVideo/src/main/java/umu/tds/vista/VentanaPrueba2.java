@@ -116,6 +116,7 @@ public class VentanaPrueba2 {
 	private DefaultListModel<Etiqueta> modeloEtiqUsadas;
 	private JPanel panel_Card;
 	private JPanel panelReproductorMisListas;
+	private JComboBox<Filtro> comboFiltros;
 	
 
 
@@ -854,7 +855,7 @@ public class VentanaPrueba2 {
 		gbc_lblNewLabel_7.gridy = 0;
 		panel_2.add(lblNewLabel_7, gbc_lblNewLabel_7);
 		
-		JComboBox<Filtro> comboFiltros = new JComboBox<Filtro>(new Vector<>(ControladorAPP.getInstancia().getFiltros()));
+		comboFiltros = new JComboBox<Filtro>(new Vector<>(ControladorAPP.getInstancia().getFiltros()));
 		comboFiltros.setEnabled(ControladorAPP.getInstancia().getUsuario().isPremium());
 		comboFiltros.setEditable(false);
 		comboFiltros.setPreferredSize(new Dimension(50, 22));
@@ -874,8 +875,8 @@ public class VentanaPrueba2 {
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				VentanaPremium.main(null);
-				
+				VentanaPremium pr = new VentanaPremium();
+				pr.mostrarVentanta();
 			}
 		});
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -991,6 +992,14 @@ public class VentanaPrueba2 {
 	private void reproducirEmbeed(Reproductor r, Video v) {
 		r.setVisible(true);
 		r.reproducir(v);
+	}
+	
+	private void cargarCosasPremuim() {
+		boolean p = ControladorAPP.getInstancia().getUsuario().isPremium();
+		comboFiltros.setEnabled(p);
+		
+		
+	
 	}
 	
 }
