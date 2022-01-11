@@ -6,35 +6,21 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import umu.tds.controlador.ControladorAPP;
-import umu.tds.modelo.ListaVideo;
 
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.List;
-import java.util.StringJoiner;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
-
-import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfWriter;
 
 import java.awt.Color;
-
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import java.awt.event.MouseAdapter;
@@ -46,7 +32,7 @@ import java.awt.event.ActionEvent;
 public class VentanaPremium {
 
 	private JFrame frame;
-	private VentanaPrueba2 vp;
+	private VentanaPrincipal vp;
 	private JButton btnNewButton;
 
 	/**
@@ -72,7 +58,7 @@ public class VentanaPremium {
 		initialize();
 	}
 	
-	public void mostrarVentanta(VentanaPrueba2 vp) {
+	public void mostrarVentanta(VentanaPrincipal vp) {
 		this.vp=vp;
 		frame.setVisible(true);
 	}
@@ -220,15 +206,7 @@ public class VentanaPremium {
 		panel_2.add(btnNewButton, gbc_btnNewButton);
 		
 		
-		BufferedImage image = null;
-		try {
-			image = ImageIO.read(VentanaLogin.class.getResource("/umu/tds/res/logonegro.jpg"));
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        Image dimg = image.getScaledInstance(100, 50, Image.SCALE_SMOOTH);
-        ImageIcon imageIcon = new ImageIcon(dimg);
+		
 
 		
 	}

@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import tds.video.VideoWeb;
 import umu.tds.controlador.Lanzadera;
 import umu.tds.modelo.Video;
 
@@ -15,7 +14,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Window.Type;
 
 public class RepEmergente {
 

@@ -11,24 +11,14 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import java.awt.GridBagConstraints;
 import javax.swing.JPasswordField;
 import java.awt.Insets;
-import java.awt.Window;
-
 import javax.swing.border.TitledBorder;
-
-import org.apache.commons.io.IOUtils;
-
-import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
 
 import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
-
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.border.CompoundBorder;
@@ -37,22 +27,19 @@ import javax.swing.border.LineBorder;
 
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.awt.event.ActionEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Font;
-import java.awt.SystemColor;
 
 public class VentanaLogin {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	
 	private JFrame frame;
 	private JTextField textField;
 	private JPasswordField passwordField;
@@ -242,7 +229,7 @@ public class VentanaLogin {
 	}
 	
 	private void crearPrincipal() {
-		VentanaPrueba2 vp = new VentanaPrueba2();
+		VentanaPrincipal vp = new VentanaPrincipal();
 		vp.mostrarVentana();
 	}
 

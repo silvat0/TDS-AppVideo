@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridBagLayout;
 import javax.swing.JTextField;
-//import javax.swing.WindowConstants;
 import javax.swing.UIManager;
 
 import java.awt.GridBagConstraints;
@@ -25,16 +24,12 @@ import umu.tds.modelo.Usuario;
 import javax.swing.JPasswordField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.Window.Type;

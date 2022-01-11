@@ -9,10 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.util.Random;
 
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JLabel;
-import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
 import tds.video.VideoWeb;

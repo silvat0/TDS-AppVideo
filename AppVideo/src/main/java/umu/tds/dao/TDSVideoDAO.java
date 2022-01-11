@@ -14,7 +14,6 @@ import beans.Propiedad;
 import tds.driver.FactoriaServicioPersistencia;
 import tds.driver.ServicioPersistencia;
 import umu.tds.modelo.Etiqueta;
-import umu.tds.modelo.Usuario;
 import umu.tds.modelo.Video;
 
 public class TDSVideoDAO implements VideoDAO {

@@ -1,12 +1,10 @@
 package umu.tds.modelo;
 
-import java.time.LocalDate;
+
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-
-import javafx.collections.transformation.SortedList;
 
 public class Usuario {
 	//Atributos

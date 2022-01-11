@@ -2,18 +2,13 @@ package umu.tds.vista;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.ListModel;
-import javax.swing.event.ListDataListener;
 
 import umu.tds.controlador.Lanzadera;
 import umu.tds.modelo.Video;
@@ -48,7 +43,7 @@ public class JListVideos extends JList<Video> {
 		
 	    @Override
 	    public Component getListCellRendererComponent(
-	            JList list, Object value, int index,
+	            JList<?> list, Object value, int index,
 	            boolean isSelected, boolean cellHasFocus) {
 	
 	        JLabel label = (JLabel) super.getListCellRendererComponent(
@@ -75,7 +70,7 @@ public class JListVideos extends JList<Video> {
 	  
 		
 	}
-	private List<Video> lista;
+
 	public JListVideos(List<Video> lista) {
 		
 		super();

@@ -2,7 +2,6 @@ package umu.tds.dao;
 
 import java.util.List;
 
-import umu.tds.modelo.Usuario;
 import umu.tds.modelo.Video;
 
 public interface VideoDAO {

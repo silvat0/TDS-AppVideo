@@ -3,7 +3,6 @@ package umu.tds.dao;
 import java.util.List;
 
 import umu.tds.modelo.Etiqueta;
-import umu.tds.modelo.Usuario;
 
 public interface EtiquetaDAO {
 	

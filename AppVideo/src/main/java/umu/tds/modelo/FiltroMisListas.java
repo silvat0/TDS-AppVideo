@@ -1,6 +1,6 @@
 package umu.tds.modelo;
 
-import umu.tds.controlador.ControladorAPP;
+
 
 public class FiltroMisListas implements IFiltro {
 
