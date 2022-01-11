@@ -140,7 +140,7 @@ public class VentanaLogin {
 		panelCentro.add(lblNewLabel_1, gbc_lblNewLabel_1);
 		
 		textField = new JTextField();
-		textField.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0)), "Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		textField.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, new Color(250, 128, 114), new Color(250, 128, 114), new Color(250, 128, 114), new Color(250, 128, 114)), new LineBorder(new Color(250, 128, 114), 0)), "Usuario", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(250, 128, 114)));
 		GridBagConstraints gbc_textField = new GridBagConstraints();
 		gbc_textField.gridwidth = 2;
 		gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -152,7 +152,7 @@ public class VentanaLogin {
 		
 		passwordField = new JPasswordField();
 		passwordField.setColumns(20);
-		passwordField.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0), new Color(0, 0, 0)), new LineBorder(new Color(0, 0, 0), 0, true)), "Contrase\u00F1a", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		passwordField.setBorder(new TitledBorder(new CompoundBorder(new BevelBorder(BevelBorder.RAISED, new Color(250, 128, 114), new Color(250, 128, 114), new Color(250, 128, 114), new Color(250, 128, 114)), new LineBorder(new Color(250, 128, 114), 0, true)), "Contrase\u00F1a", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(250, 128, 114)));
 		GridBagConstraints gbc_passwordField = new GridBagConstraints();
 		gbc_passwordField.gridwidth = 2;
 		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
@@ -177,6 +177,8 @@ public class VentanaLogin {
 		panelCentro.add(botonIniciarSesion, gbc_botonIniciarSesion);
 		
 		lblNewLabel = new JLabel("¿Aun no te has registrado?");
+		lblNewLabel.setForeground(new Color(250, 128, 114));
+		lblNewLabel.setBackground(new Color(250, 128, 114));
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 11));
 		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
 		gbc_lblNewLabel.insets = new Insets(0, 0, 0, 5);

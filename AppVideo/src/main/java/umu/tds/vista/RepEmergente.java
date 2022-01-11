@@ -89,7 +89,7 @@ public class RepEmergente {
 	}
 	
 	public void cerrar() {
-		frame.remove(panelRep);
+		//frame.remove(panelRep);
 		Lanzadera.videoWeb.cancel();
 		frame.dispose();
 	}
