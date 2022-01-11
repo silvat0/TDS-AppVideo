@@ -15,6 +15,7 @@ import javax.swing.JList;
 import javax.swing.ListModel;
 import javax.swing.event.ListDataListener;
 
+import umu.tds.controlador.Lanzadera;
 import umu.tds.modelo.Video;
 
 
@@ -54,8 +55,8 @@ public class JListVideos extends JList<Video> {
 	                list, value, index, isSelected, cellHasFocus);
 	        Video v = (Video) value;
 	        ImageIcon im;
-	        if (VentanaPrueba2.videoWeb!=null)
-	        	im = VentanaPrueba2.videoWeb.getThumb(v.getUrl());
+	        if (Lanzadera.videoWeb!=null)
+	        	im = Lanzadera.videoWeb.getThumb(v.getUrl());
 	        else im = new ImageIcon();
 	        
 	        label.setIcon(im);

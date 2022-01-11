@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import tds.video.VideoWeb;
 import umu.tds.controlador.ControladorAPP;
+import umu.tds.controlador.Lanzadera;
 import umu.tds.modelo.Video;
 
 import java.awt.Color;
@@ -26,7 +27,7 @@ import java.awt.event.ActionEvent;
 
 public class Reproductor extends JPanel {
 	
-	private static final VideoWeb VIDEO_WEB = VentanaPrueba2.videoWeb;
+	private static final VideoWeb VIDEO_WEB = Lanzadera.videoWeb;
 	private static Reproductor instancia;
 	private JPanel panelEtiquetas;
 	private JPanel panel_2;

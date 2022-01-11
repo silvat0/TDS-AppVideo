@@ -23,6 +23,7 @@ import umu.tds.controlador.ControladorAPP;
 import umu.tds.modelo.Usuario;
 
 import javax.swing.JPasswordField;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -36,6 +37,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import java.awt.Window.Type;
 
 public class VentanaRegistrar {
 
@@ -45,6 +47,7 @@ public class VentanaRegistrar {
 	 */
 	//private static final long serialVersionUID = 1L;
 	JFrame frame;
+	private VentanaLogin vl;
 	private JTextField textNombre;
 	private JTextField textApellidos;
 	private JTextField textEmail;
@@ -80,6 +83,11 @@ public class VentanaRegistrar {
 	public VentanaRegistrar() {
 		initialize();
 	}
+	
+	public void mostrarVentana(VentanaLogin vl) {
+		frame.setVisible(true);
+		this.vl = vl;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -94,9 +102,12 @@ public class VentanaRegistrar {
 		}
 				
 		frame = new JFrame("Registro");
+		frame.setType(Type.POPUP);
 		frame.setBackground(new Color(173, 216, 230));
 		frame.setBounds(100, 100, 811, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		ImageIcon img = new ImageIcon(VentanaLogin.class.getResource("/umu/tds/res/logoicon.png"));
+		frame.setIconImage(img.getImage());
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.CENTER);
@@ -234,6 +245,7 @@ public class VentanaRegistrar {
 	
 	private void minimizar() {
 		this.frame.dispose();
+		vl.mostrarVentana();
 	}
 	
 	private void hacerRegistro() {

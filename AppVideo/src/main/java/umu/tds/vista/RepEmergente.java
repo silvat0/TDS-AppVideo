@@ -6,9 +6,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import tds.video.VideoWeb;
+import umu.tds.controlador.Lanzadera;
 import umu.tds.modelo.Video;
 
 import java.awt.BorderLayout;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -65,10 +68,12 @@ public class RepEmergente {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Reproductor emergente");
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 500, 500);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		ImageIcon img = new ImageIcon(VentanaLogin.class.getResource("/umu/tds/res/logoicon.png"));
+		frame.setIconImage(img.getImage());
 		
 		panelRep = new Reproductor();
 		//((Reproductor) panelRep).mostrar();
@@ -85,7 +90,7 @@ public class RepEmergente {
 	
 	public void cerrar() {
 		frame.remove(panelRep);
-		VentanaPrueba2.videoWeb.cancel();
+		Lanzadera.videoWeb.cancel();
 		frame.dispose();
 	}
 

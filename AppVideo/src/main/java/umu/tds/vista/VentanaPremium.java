@@ -81,10 +81,12 @@ public class VentanaPremium {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
+		frame = new JFrame("Premium");
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 522, 333);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		ImageIcon img = new ImageIcon(VentanaLogin.class.getResource("/umu/tds/res/logoicon.png"));
+		frame.setIconImage(img.getImage());
 		
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);

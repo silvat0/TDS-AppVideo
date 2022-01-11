@@ -69,5 +69,11 @@
 		<etiqueta>Curiosidades</etiqueta>
 		<etiqueta>Mundo</etiqueta>
 	</video>
+	
+	<video titulo="Perdió su vida en el LoL">
+        <URL>![CDATA[https://www.youtube.com/watch?v=kvhUNv59XdY]]</URL>
+        <etiqueta>Música</etiqueta>
+        <etiqueta>Mr Jagger</etiqueta>
+    </video>
 
 </videos>

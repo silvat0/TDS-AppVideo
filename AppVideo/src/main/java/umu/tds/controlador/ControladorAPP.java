@@ -29,6 +29,7 @@ import umu.tds.modelo.Etiqueta;
 import umu.tds.modelo.Filtro;
 import umu.tds.modelo.IFiltro;
 import umu.tds.modelo.ListaVideo;
+import umu.tds.modelo.NoFiltro;
 import umu.tds.modelo.Usuario;
 import umu.tds.modelo.Video;
 
@@ -212,7 +213,14 @@ public class ControladorAPP implements VideosListener {
 	}
 	
 	public List<Video> buscar(String titulo, Etiqueta...etiquetas){
-		return cv.buscar(user.getFiltroActivo(), titulo, etiquetas);
+		IFiltro filtroActivo;
+		if (user.isPremium()) {
+			filtroActivo = user.getFiltroActivo();
+		} else {
+			filtroActivo = new NoFiltro();
+		}
+		return cv.buscar(user, filtroActivo, titulo, etiquetas);
+
 	}
 	
 	

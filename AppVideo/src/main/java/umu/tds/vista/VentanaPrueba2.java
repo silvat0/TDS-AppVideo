@@ -94,12 +94,11 @@ public class VentanaPrueba2 {
 	private JFrame frame;
 	private JTextField buscador;
 	private JTable table;
-	public static VideoWeb videoWeb;
 	private JTextField textField;
 	private JScrollPane scrollVideosExplorar;
 	private JListVideos listaVideosExplorar;
 	private JList<Etiqueta> listaEtiqUsed ;
-	private JTextField textField_1;
+	private JTextField textFieldExplorarNuevaLista;
 	private JListVideos listaListas;
 	private JScrollPane scrollPane_1;
 	private ListaVideo listaAModificar;
@@ -139,7 +138,6 @@ public class VentanaPrueba2 {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					videoWeb = new VideoWeb();
 					VentanaPrueba2 window = new VentanaPrueba2();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
@@ -149,9 +147,11 @@ public class VentanaPrueba2 {
 		});
 	}
 
-	/**
-	 * Create the application.
-	 */
+
+	public void mostrarVentana() {
+		frame.setVisible(true);
+	}
+	
 	public VentanaPrueba2() {
 		initialize();
 		instancia=this;
@@ -667,14 +667,14 @@ public class VentanaPrueba2 {
 		gbl_panel_8.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		panel_8.setLayout(gbl_panel_8);
 		
-		textField_1 = new JTextField();
-		GridBagConstraints gbc_textField_1 = new GridBagConstraints();
-		gbc_textField_1.fill = GridBagConstraints.HORIZONTAL;
-		gbc_textField_1.insets = new Insets(0, 0, 5, 5);
-		gbc_textField_1.gridx = 1;
-		gbc_textField_1.gridy = 0;
-		panel_8.add(textField_1, gbc_textField_1);
-		textField_1.setColumns(10);
+		textFieldExplorarNuevaLista = new JTextField();
+		GridBagConstraints gbc_textFieldExplorarNuevaLista = new GridBagConstraints();
+		gbc_textFieldExplorarNuevaLista.fill = GridBagConstraints.HORIZONTAL;
+		gbc_textFieldExplorarNuevaLista.insets = new Insets(0, 0, 5, 5);
+		gbc_textFieldExplorarNuevaLista.gridx = 1;
+		gbc_textFieldExplorarNuevaLista.gridy = 0;
+		panel_8.add(textFieldExplorarNuevaLista, gbc_textFieldExplorarNuevaLista);
+		textFieldExplorarNuevaLista.setColumns(10);
 		
 		JButton btnNewButton_11 = new JButton("");
 		btnNewButton_11.addMouseListener(new MouseAdapter() {
@@ -862,7 +862,8 @@ public class VentanaPrueba2 {
 														"Logout",
 														JOptionPane.YES_NO_OPTION); 
 				if(res == JOptionPane.YES_OPTION) {
-					VentanaLogin.main(null);
+					VentanaLogin vl = new VentanaLogin();
+					vl.mostrarVentana();
 					frame.dispose();
 					
 				}
@@ -1030,7 +1031,7 @@ public class VentanaPrueba2 {
 	}
 	
 	private void mostrarLista() {
-		listaListas = new JListVideos(ControladorAPP.getInstancia().getVideos());
+		listaListas = new JListVideos(ControladorAPP.getInstancia().buscar(textFieldExplorarNuevaLista.getText()));
 		scrollPane_1.setViewportView(listaListas);
 	}
 	
@@ -1099,6 +1100,8 @@ public class VentanaPrueba2 {
 		}
 		btnNewButton_14.setEnabled(p);
 		listaTop10.setVisible(p);
+		comboFiltros.setSelectedIndex(0);
+		ControladorAPP.getInstancia().setFiltro(Filtro.VACIO);
 	
 	}
 	

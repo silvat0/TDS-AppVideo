@@ -74,12 +74,12 @@ public class CatalogoVideos {
 		return res;
 	}
 	
-	public List<Video> buscar(IFiltro filtro, String titulo, Etiqueta...etiquetas){
+	public List<Video> buscar(Usuario user, IFiltro filtro, String titulo, Etiqueta...etiquetas){
 		
 		return videos.values().stream()
 			.filter(v -> 
 				normalizar(v.getTitulo()).startsWith(normalizar(titulo))
-				&& filtro.isVideoOk(v)
+				&& filtro.isVideoOk(v,user)
 				&& (etiquetas.length==0 || estaAlgunaEtiqueta(v, etiquetas))
 			)
 			.collect(Collectors.toList());

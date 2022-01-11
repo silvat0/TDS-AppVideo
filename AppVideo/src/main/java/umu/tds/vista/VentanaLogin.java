@@ -78,6 +78,10 @@ public class VentanaLogin {
 			}
 		});
 	}
+	
+	public void mostrarVentana() {
+		frame.setVisible(true);
+	}
 
 	/**
 	 * Create the application.
@@ -197,7 +201,9 @@ public class VentanaLogin {
 	
 	private void crearRegistro() {
 		
-		VentanaRegistrar.main(null);
+		VentanaRegistrar vr = new VentanaRegistrar();
+		vr.mostrarVentana(this);
+		frame.setVisible(false);
 	}
 	
 	private void hacerLogin() {
@@ -234,7 +240,8 @@ public class VentanaLogin {
 	}
 	
 	private void crearPrincipal() {
-		VentanaPrueba2.main(null);
+		VentanaPrueba2 vp = new VentanaPrueba2();
+		vp.mostrarVentana();
 	}
 
 }
