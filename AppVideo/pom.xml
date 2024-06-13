@@ -20,8 +20,18 @@
 		<maven.compiler.target>11</maven.compiler.target>
 	</properties>
 
-	<dependencies>
+	<repositories>
+		<repository>
+		    <id>repo</id>
+    <releases><enabled>true</enabled></releases>
+    <snapshots><enabled>false</enabled></snapshots>
+		    <url>${project.baseUri}repo</url>
+		</repository>
+	</repositories>
 
+
+
+	<dependencies>
 		<!-- Estas corresponden a las dependencias del Reproductor Web (asi no
 		hay que poner las referencias desde Eclipse) -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
@@ -49,6 +59,26 @@
 			<version>11</version>
 		</dependency>
 
+        <dependency>
+            <groupId>umu.tds</groupId>
+            <artifactId>CargadorVideos</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>umu.tds</groupId>
+            <artifactId>DriverPersistencia</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>umu.tds</groupId>
+            <artifactId>Luz</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>umu.tds</groupId>
+            <artifactId>VideoWeb</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 		<!-- Para el exportador de PDF -->
 		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
 		<dependency>
@@ -141,7 +171,38 @@
 				<plugin>
 					<artifactId>maven-jar-plugin</artifactId>
 					<version>3.0.2</version>
+	                <configuration>
+	                    <archive>
+	                        <manifest>
+	                            <addClasspath>true</addClasspath>
+	                            <classpathPrefix>lib/</classpathPrefix>
+	                            <mainClass>umu.tds.controlador.Lanzadera</mainClass> <!-- Cambia esto a tu clase principal -->
+	                        </manifest>
+	                    </archive>
+	                </configuration>
 				</plugin>
+            <!-- Plugin para copiar las dependencias del directorio /lib al classpath -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <overWriteReleases>false</overWriteReleases>
+                            <overWriteSnapshots>false</overWriteSnapshots>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
 				<plugin>
 					<artifactId>maven-install-plugin</artifactId>
 					<version>2.5.2</version>
@@ -160,14 +221,12 @@
 					<artifactId>maven-project-info-reports-plugin</artifactId>
 					<version>3.0.0</version>
 				</plugin>
+				<plugin>
+					<groupId>org.openjfx</groupId>
+					<artifactId>javafx-maven-plugin</artifactId>
+					<version>0.0.8</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.openjfx</groupId>
-				<artifactId>javafx-maven-plugin</artifactId>
-				<version>0.0.8</version>
-			</plugin>
-		</plugins>
 	</build>
 </project>
