@@ -23,6 +23,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JList;
@@ -902,6 +903,7 @@ public class VentanaPrincipal {
 			public void enteradoCambioEncendido(EventObject arg0) {
 				JFileChooser fc = new JFileChooser();
 				fc.setFileFilter(new FileNameExtensionFilter("XML FILES", "xml"));
+				fc.setCurrentDirectory(new File("."));
 				if (fc.showOpenDialog(frame)==JFileChooser.APPROVE_OPTION) {
 					ControladorAPP.getInstancia().cargar(fc.getSelectedFile());
 					contadorVideos.setText(String.valueOf(ControladorAPP.getInstancia().getNVideosSistema()));
